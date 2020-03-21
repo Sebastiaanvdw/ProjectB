@@ -14,6 +14,7 @@ namespace ProjectB
             string EscapeRoom4 = "Deze Escape Room bestaat uit een Detective thema waarbij veel oude moordzaken moeten worden opgelost.\nTijdsduur: 30 minuten\nPrijs: 19,95\nGrootte: 5 mensen\n";
             string EscapeRoom5 = "Deze Escape Room bestaat uit een Aquatic thema waarbij je veel kennis nodig hebt over de ocean en dergelijke.\nTijdsduur: 1.5 uur\nPrijs: 35,95\nGrootte: 8-12 mensen\n";
 
+
             Console.WriteLine("Maak een keuze voor een Escape Room:");
             Console.WriteLine("====================================");
             Console.WriteLine("1) Horror 18+\n");
