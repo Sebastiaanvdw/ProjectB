@@ -1,18 +1,28 @@
 ﻿using System;
 
 namespace ProjectB
-{
+{   
+
+    public class Crud
+    {
+        """Hier komt addEscapeRoom()"""
+       
+        """Hier komt editEscapeRoom()"""
+
+        """Hier komt removeEscapeRoom()"""
+
+    }
     class Program
     {
         static void Main()
         {
             Console.Clear();
 
-            string EscapeRoom1 = "Deze Escape Room bestaat uit een Horror thema met enge puzzels en evenementen.\nTijdsduur: 1 uur\nPrijs: 23,95\nGrootte: 5-10 mensen\n";
-            string EscapeRoom2 = "Deze Escape Room bestaat uit een Sci-fi thema waarbij veel aandacht wordt besteed aan sterren puzzels.\nTijdsduur: 1 uur\nPrijs: 23,95\nGrootte: 5-10 mensen\n";
-            string EscapeRoom3 = "Deze Escape Room bestaat uit een Fantasy thema waarbij veel aandacht wordt besteed aan oude klassieke puzzels.\nTijdsduur: 1.5 uur\nPrijs: 35,95\nGrootte: 8-12 mensen\n";
+            string EscapeRoom1 = "Deze Escape Room bestaat uit een Horror thema met enge puzzels en evenementen.\nTijdsduur: 1 uur\nPrijs: 23,95\nGrootte: 3-5 mensen\n";
+            string EscapeRoom2 = "Deze Escape Room bestaat uit een Sci-fi thema waarbij veel aandacht wordt besteed aan sterren puzzels.\nTijdsduur: 1 uur\nPrijs: 23,95\nGrootte: 3-5 mensen\n";
+            string EscapeRoom3 = "Deze Escape Room bestaat uit een Fantasy thema waarbij veel aandacht wordt besteed aan oude klassieke puzzels.\nTijdsduur: 1.5 uur\nPrijs: 35,95\nGrootte: 4-6 mensen\n";
             string EscapeRoom4 = "Deze Escape Room bestaat uit een Detective thema waarbij veel oude moordzaken moeten worden opgelost.\nTijdsduur: 30 minuten\nPrijs: 19,95\nGrootte: 5 mensen\n";
-            string EscapeRoom5 = "Deze Escape Room bestaat uit een Aquatic thema waarbij je veel kennis nodig hebt over de ocean en dergelijke.\nTijdsduur: 1.5 uur\nPrijs: 35,95\nGrootte: 8-12 mensen\n";
+            string EscapeRoom5 = "Deze Escape Room bestaat uit een Aquatic thema waarbij je veel kennis nodig hebt over de ocean en dergelijke.\nTijdsduur: 1.5 uur\nPrijs: 35,95\nGrootte: 4-6 mensen\n";
 
 
             Console.WriteLine("Maak een keuze voor een Escape Room:");
