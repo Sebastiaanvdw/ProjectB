@@ -2,16 +2,6 @@
 
 namespace ProjectB
 {   
-
-    public class Crud
-    {
-        """Hier komt addEscapeRoom()"""
-       
-        """Hier komt editEscapeRoom()"""
-
-        """Hier komt removeEscapeRoom()"""
-
-    }
     class Program
     {
         static void Main()
