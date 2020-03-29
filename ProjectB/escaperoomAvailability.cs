@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
-namespace Playground
+namespace ProjectB
 {
-    class Program
+    class escaperoomAvailability
     {
         static void Main()
         {
