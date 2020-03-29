@@ -26,22 +26,27 @@ namespace Playground
             {
                 case "1":
                     Console.Clear();
+                    Console.WriteLine("Kamer 1 is: ");
                     Console.WriteLine(EscapeRoom1Availability);
                     break;
                 case "2":
                     Console.Clear();
+                    Console.WriteLine("Kamer 2 is: ");
                     Console.WriteLine(EscapeRoom2Availability);
                     break;
                 case "3":
                     Console.Clear();
+                    Console.WriteLine("Kamer 3 is: ");
                     Console.WriteLine(EscapeRoom3Availability);
                     break;
                 case "4":
                     Console.Clear();
+                    Console.WriteLine("Kamer 4 is: ");
                     Console.WriteLine(EscapeRoom4Availability);
                     break;
                 case "5":
                     Console.Clear();
+                    Console.WriteLine("Kamer 5 is: ");
                     Console.WriteLine(EscapeRoom5Availability);
                     break;
             }
@@ -50,13 +55,47 @@ namespace Playground
             Console.WriteLine("Wil je de beschikbaarheid van de kamer aanpassen?\n");
 
             switch (Console.ReadLine())
+
             {
                 case "ja":
-                    if (EscapeRoom1Availability) == "Available":
+                    Console.WriteLine("Kamer is nu niet langer beschikbaar.");
                     break;
                 case "nee":
+                    Console.WriteLine("Is goed.");
                     break;
             }
         }
     }
 }
+
+
+
+/*
+ * Test voor later
+
+bool A = false;
+bool B = false;
+
+Console.WriteLine("Enter input:");
+
+			string jouwinput = Console.ReadLine();
+
+
+			if (jouwinput == "A")
+			{
+				A = true;
+				Console.WriteLine("A is True");
+				Console.WriteLine("B is False");
+			}
+			else if (jouwinput == "B")
+			{
+				B = true;
+				Console.WriteLine("A is False");
+				Console.WriteLine("B is True");
+			}
+			else
+			{
+				Console.WriteLine("Start opnieuw");
+			}
+
+/
