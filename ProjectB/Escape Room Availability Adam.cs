@@ -52,7 +52,7 @@ namespace Playground
             switch (Console.ReadLine())
             {
                 case "ja":
-                    if (EscapeRoom1Availability) == "Available":
+                  
                     break;
                 case "nee":
                     break;
