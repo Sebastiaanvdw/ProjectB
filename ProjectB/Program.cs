@@ -11,41 +11,20 @@ class MainProgramma
 	public static List<string> CustomerList = new List<string>();
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
+	public static int CustomerSuccess = 0;
 	public static string AdminLogin = "";
+	public static string UserNameLogin = "";
+	public static string UserPassWordLogin = "";
 
 	public static void Main()
 	{
 		Console.Clear();
-		Console.WriteLine("1: Example Receipt\n2: Informatie Pagina\n3: Contact & F.A.Q. Pagina\n4: Overzicht escape rooms\n===================\n5: Customer login\n6: Employee login\n7: Admin Login\n");
+		Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1: Customer login\n2: Employee login\n3: Admin login\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
-		if (InterFaceInput == 1) { ReceiptFunction(); }
-		if (InterFaceInput == 2) { InfoFunction(); }
-		if (InterFaceInput == 3) { ContactFunction(); }
-		if (InterFaceInput == 4) { ShowFunction(RoomsList); }
-		if (InterFaceInput == 7) { AdminFunction(); }
-
-		if (AdminSuccess == 1)
-		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				AdminSuccess = AdminSuccess + 1;
-				AdminPage();
-			}
-		}
-		else
-		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				Main();
-			}
-		}
+		if (InterFaceInput == 1) { CustomerLoginFunction(); }
+		if (InterFaceInput == 2) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 3) { AdminFunction(); }
 	}
 
 	static void AddFunction(List<EscapeRoom> RoomsList)
@@ -95,6 +74,7 @@ class MainProgramma
 		{
 			Console.WriteLine("There are already 5 EscapeRooms existing!");
 		}
+		ReturnMenuFunction();
 	}
 
 	static void EditFunction(List<EscapeRoom> RoomsList)
@@ -164,6 +144,7 @@ class MainProgramma
 					{
 						Continue_RoomEdit = false;
 					}
+					ReturnMenuFunction();
 				}
 			}
 		}
@@ -200,6 +181,7 @@ class MainProgramma
 				RoomsList[i].roomNumber = i + 1;
 			}
 		}
+		ReturnMenuFunction();
 	}
 
 	static void ShowFunction(List<EscapeRoom> RoomsList)
@@ -210,6 +192,7 @@ class MainProgramma
 		{
 			Console.WriteLine(RoomsList[i] + "\n");
 		}
+		ReturnMenuFunction();
 	}
 
 	static void ReceiptFunction()
@@ -234,6 +217,7 @@ class MainProgramma
 		Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 		Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
 
+		ReturnMenuFunction();
 	}
 	static void InfoFunction()
 	{
@@ -249,13 +233,7 @@ class MainProgramma
 		Console.WriteLine("10) De spelleider kijkt via camera's mee naar het spel. Bij het overtreden van de huisregels, kan hij/zij besluiten het spel te beëindigen. Hierover kan niet worden gediscussieerd.");
 		Console.WriteLine("11) Je speelt het spel op eigen risico. Schade of letsel kan niet worden verhaald op de Escaperoom.");
 
-		Console.WriteLine("======================\nGo back to the menu? y or n");
-		string return_to_menu = Console.ReadLine();
-		if (return_to_menu == "y")
-		{
-			Console.Clear();
-			Main();
-		}
+		ReturnMenuFunction();
 	}
 	static void ContactFunction()
 	{
@@ -271,24 +249,14 @@ class MainProgramma
 		{
 			FAQ();
 		}
+
 	}
 	static void Contact()
 	{
 		Console.Clear();
-		Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 Rotterdam 3546WQ\n\nWould you like to return to the main menu(1) or view our F.A.Q. page(2) or exit the program(3)?\n");
+		Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 Rotterdam 3546WQ\n");
 
-		switch (Console.ReadLine())
-		{
-			case "1":
-				Console.Clear();
-				Main();
-				break;
-			case "2":
-				FAQ();
-				break;
-			case "3":
-				break;
-		}
+		ReturnMenuFunction();
 	}
 	static void FAQ()
 	{
@@ -297,20 +265,8 @@ class MainProgramma
 		String FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n\n";
 
 		Console.Clear();
-		Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "Would you like to return to the main menu(1) or view our Contact page(2) or exit the program(3)?\n");
-
-		switch (Console.ReadLine())
-		{
-			case "1":
-				Console.Clear();
-				Main();
-				break;
-			case "2":
-				Contact();
-				break;
-			case "3":
-				break;
-		}
+		Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "\n");
+		ReturnMenuFunction();
 	}
 
 	static void AdminFunction()
@@ -341,10 +297,44 @@ class MainProgramma
 		}
 	}
 
+	static void CustomerLoginFunction()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
+		string UserNameLogin = Console.ReadLine();
+		string UserPassWordLogin = Console.ReadLine();
+		if (UserNameLogin != "user" || UserPassWordLogin != "12345")
+		{
+			Console.WriteLine("Wrong login credentials, press any key and try again.");
+			Console.ReadKey(true);
+			CustomerLoginFunction();
+		}
+		if (UserNameLogin == "user" && UserPassWordLogin == "12345")
+		{
+			CustomerSuccess = CustomerSuccess + 1;
+			CustomerMenu();
+		}
+	}
+
+	static void CustomerMenu() {
+		Console.Clear();
+		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Receipt Example\n5: Logout\n=======================================\n");
+		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+		
+		if (InterFaceInput == 1) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 2) { InfoFunction(); }
+		if (InterFaceInput == 3) { ContactFunction(); }
+		if (InterFaceInput == 4) { ReceiptFunction(); }
+		if (InterFaceInput == 5) {
+			CustomerSuccess = CustomerSuccess - 1;
+			Main();
+		}
+	}
+
 	static void AdminPage()
 	{
 		Console.Clear();
-		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n1: Customer overview\n2: Add an escape room\n3: Edit an escape room\n4: Delete an escape room\n5: Show escape rooms\n===========================\n");
+		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1: Customer overview\n2: Add an escape room\n3: Edit an escape room\n4: Delete an escape room\n5: Show escape rooms\n6: Logout\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
 		if (InterFaceInput == 1) { CustomerOverview(); }
@@ -352,11 +342,56 @@ class MainProgramma
 		if (InterFaceInput == 3) { EditFunction(RoomsList); }
 		if (InterFaceInput == 4) { DeleteFunction(RoomsList); }
 		if (InterFaceInput == 5) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 6) { 
+			LoginTries = 4;
+			AdminSuccess = AdminSuccess - 1;
+			Main();
+		}
 	}
 
 	static void CustomerOverview()
 	{
+		Console.Clear();
+		string userName = "Chris", userPostcode = "3067 PB", userLastName = "Man", userStreet = "teststraat", userWoonplaats = "Rotterdam", userEmail = "testemail@gmail.com";
+		Console.WriteLine(userName + " " + userLastName + "," + userPostcode + "," + userStreet + "," + userWoonplaats + "," + userEmail + "\n");
 
+		ReturnMenuFunction();
+	}
+
+	static void ReturnMenuFunction()
+	{
+		if (AdminSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				AdminPage();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error you didn't press y or n, press any key to return to the main menu.");
+				Main();
+			}
+		}
+		if (CustomerSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				CustomerMenu();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error you didn't press y or n, press any key to return to the main menu.");
+				Main();
+			}
+		}
 	}
 }
 
