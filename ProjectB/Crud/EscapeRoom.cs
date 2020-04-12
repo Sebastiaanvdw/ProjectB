@@ -6,28 +6,15 @@ namespace ProjectB.Crud
 {
     public class EscapeRoom
     {
-
-        public int roomNumber, ageLimit;
+        public int roomNumber, ageMinimum, roomMinSize, roomMaxSize;
         public double roomPrice;
-        public string roomSize, roomTheme, roomDuration, roomReview, roomName;
+        public string roomTheme, roomDuration, roomReview, roomName;
         public bool roomAvailability, isTaken = false;
 
-        public EscapeRoom(int roomNumber) { this.roomNumber = roomNumber; }
-
-        public void setNewValues(
-            int ageLimit,
-            double roomPrice,
-            Boolean roomAvailability,
-            string roomSize, string roomTheme, string roomDuration, string roomName)
+        public override string ToString()
         {
-            this.ageLimit = ageLimit;
-            this.roomPrice = roomPrice;
-            this.roomAvailability = roomAvailability;
-            this.roomSize = roomSize;
-            this.roomTheme = roomTheme;
-            this.roomDuration = roomDuration;
-            this.roomName = roomName;
+            return "Room number = " + roomNumber + "\n Room name = " + roomName + "\n Minimum age = " + ageMinimum + " years" + "\n Room size = " + roomMinSize + "-" + roomMaxSize + " players" + "\n Room theme = " + roomTheme + "\n Room duration = " + roomDuration + "\n Room price = " + "$ " + roomPrice;
         }
-
     }
+
 }
