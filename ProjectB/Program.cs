@@ -12,10 +12,11 @@ class MainProgramma
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
 	public static int CustomerSuccess = 0;
+	public static int EmployeeSuccess = 0;
 	public static string AdminLogin = "";
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
-
+	public static string EmployeeLogin = "";
 	public static void Main()
 	{
 		Console.Clear();
@@ -23,7 +24,7 @@ class MainProgramma
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
 		if (InterFaceInput == 1) { CustomerLoginFunction(); }
-		if (InterFaceInput == 2) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 2) { EmployeeLoginFunction(); }
 		if (InterFaceInput == 3) { AdminFunction(); }
 	}
 
@@ -303,16 +304,67 @@ class MainProgramma
 		Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
 		string UserNameLogin = Console.ReadLine();
 		string UserPassWordLogin = Console.ReadLine();
+		if (UserNameLogin == "" && UserPassWordLogin == "")
+		{
+			Console.WriteLine("Return to the main menu? y or n");
+			string Return = Console.ReadLine();
+			if (Return == "y")
+			{
+				Main();
+			}
+			if (Return != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
 		if (UserNameLogin != "user" || UserPassWordLogin != "12345")
 		{
 			Console.WriteLine("Wrong login credentials, press any key and try again.");
 			Console.ReadKey(true);
 			CustomerLoginFunction();
 		}
+	
 		if (UserNameLogin == "user" && UserPassWordLogin == "12345")
 		{
 			CustomerSuccess = CustomerSuccess + 1;
 			CustomerMenu();
+		}
+	}
+
+	static void EmployeeLoginFunction()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Employee login page, please enter the right password:\n=========================================================================\n");
+		string EmployeeLogin = Console.ReadLine();
+		if (EmployeeLogin == "employee")
+		{
+			EmployeeSuccess = EmployeeSuccess + 1;
+			EmployeeMenu();
+		}
+		if (EmployeeLogin == "")
+		{
+			Console.WriteLine("Return to the main menu? y or n");
+			string Return = Console.ReadLine();
+			if (Return == "y")
+			{
+				Main();
+			}
+			if (Return != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		else
+		{
+			Console.WriteLine("Wrong login credentials, press any key and try again.");
+			Console.ReadKey(true);
+			EmployeeLoginFunction();
 		}
 	}
 
@@ -327,6 +379,28 @@ class MainProgramma
 		if (InterFaceInput == 4) { ReceiptFunction(); }
 		if (InterFaceInput == 5) {
 			CustomerSuccess = CustomerSuccess - 1;
+			Main();
+		}
+	}
+
+	static void EmployeeMenu()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Employee menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Reservations\n5: Logout\n=======================================\n");
+		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+
+		if (InterFaceInput == 1) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 2) { InfoFunction(); }
+		if (InterFaceInput == 3) { ContactFunction(); }
+		if (InterFaceInput == 4) { 
+			Console.Clear();
+			Console.WriteLine("W.I.P, press any key to continue.\n");
+			Console.ReadKey(true);
+			EmployeeMenu();
+		}
+		if (InterFaceInput == 5)
+		{
+			EmployeeSuccess = EmployeeSuccess - 1;
 			Main();
 		}
 	}
@@ -372,7 +446,25 @@ class MainProgramma
 			if (return_to_menu != "n")
 			{
 				Console.Clear();
-				Console.WriteLine("Error you didn't press y or n, press any key to return to the main menu.");
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		if (EmployeeSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				EmployeeMenu();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
 				Main();
 			}
 		}
@@ -388,7 +480,8 @@ class MainProgramma
 			if (return_to_menu != "n")
 			{
 				Console.Clear();
-				Console.WriteLine("Error you didn't press y or n, press any key to return to the main menu.");
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you have been logged out and will be returned to the main menu.\n\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
 				Main();
 			}
 		}
