@@ -1,200 +1,199 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Test_projectB.Classes;
+using ProjectB.Crud;
 
 
 class MainProgramma
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<int> IdList = new List<int>();
-
+	public static List<string> CustomerList = new List<string>();
+	public static int LoginTries = 4;
+	public static int AdminSuccess = 0;
+	public static int CustomerSuccess = 0;
+	public static int EmployeeSuccess = 0;
+	public static string AdminLogin = "";
+	public static string UserNameLogin = "";
+	public static string UserPassWordLogin = "";
+	public static string EmployeeLogin = "";
 	public static void Main()
 	{
-		Console.WriteLine("1: Add room\n2: Edit room\n3: Delete room\n4: Show rooms\n===================\n5: Example Receipt\n6: Informatie Pagina\n7: Contact & F.A.Q. Pagina");
+		Console.Clear();
+		Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1: Customer login\n2: Employee login\n3: Admin login\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
-		if (InterFaceInput == 1) { AddFunction(RoomsList); }
-		if (InterFaceInput == 2) { EditFunction(RoomsList); }
-		if (InterFaceInput == 3) { DeleteFunction(RoomsList); }
-		if (InterFaceInput == 4) { ShowFunction(RoomsList); }
-		if (InterFaceInput == 5) { ReceiptFunction(); }
-		if (InterFaceInput == 6) { InfoFunction(); }
-		if (InterFaceInput == 7) { ContactFunction(); }
+		if (InterFaceInput == 1) { CustomerLoginFunction(); }
+		if (InterFaceInput == 2) { EmployeeLoginFunction(); }
+		if (InterFaceInput == 3) { AdminFunction(); }
+	}
 
-
-		static void AddFunction(List<EscapeRoom> RoomsList)
-		{
-			if (RoomsList.Count >= 0 & RoomsList.Count < 5)
-			{
-				Console.Clear();
-				RoomsList.Add(new EscapeRoom() { });
-				int NewIndex = RoomsList.Count - 1;
-				if (RoomsList.Count == 1) { NewIndex = 0; }
-				RoomsList[NewIndex].roomNumber = NewIndex + 1;
-
-				Console.WriteLine("Enter the minimum age for the escape room:");
-				RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
-
-
-				while (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5)
-				{
-					Console.WriteLine("Enter the minimum amount of players for the escape room:");
-					RoomsList[NewIndex].roomMinSize = Convert.ToInt32(Console.ReadLine());
-					if (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween 2-5\n"); }
-				}
-
-				while (RoomsList[NewIndex].roomMaxSize < RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6)
-				{
-					Console.WriteLine("Enter the maximum amount of players for the escape room:");
-					RoomsList[NewIndex].roomMaxSize = Convert.ToInt32(Console.ReadLine());
-					if (RoomsList[NewIndex].roomMaxSize < RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween " + RoomsList[NewIndex].roomMinSize + "-6\n"); }
-				}
-
-				Console.WriteLine("Enter the price for the escape room:");
-				RoomsList[NewIndex].roomPrice = Convert.ToDouble(Console.ReadLine());
-
-				Console.WriteLine("Enter the theme for the escape room:");
-				RoomsList[NewIndex].roomTheme = Console.ReadLine();
-
-				Console.WriteLine("Enter the duration for the escape room:");
-				RoomsList[NewIndex].roomDuration = Console.ReadLine();
-
-				Console.WriteLine("Enter the name for the escape room:");
-				RoomsList[NewIndex].roomName = Console.ReadLine();
-
-				Console.WriteLine("Room Complete!");
-
-			}
-
-			else
-			{
-				Console.WriteLine("There are already 5 EscapeRooms existing!");
-			}
-		}
-
-		static void EditFunction(List<EscapeRoom> RoomsList)
+	static void AddFunction(List<EscapeRoom> RoomsList)
+	{
+		if (RoomsList.Count >= 0 & RoomsList.Count < 5)
 		{
 			Console.Clear();
-			ShowFunction(RoomsList);
-			Console.WriteLine("Choose the room that you want to edit(use the roomnumber 1-5)");
-			int EditRoomIndex = Convert.ToInt32(Console.ReadLine()) - 1;
-			for (int i = 0; i < RoomsList.Count; i++)
+			RoomsList.Add(new EscapeRoom() { });
+			int NewIndex = RoomsList.Count - 1;
+			if (RoomsList.Count == 1) { NewIndex = 0; }
+			RoomsList[NewIndex].roomNumber = NewIndex + 1;
+
+			Console.WriteLine("Enter the minimum age for the escape room:");
+			RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
+
+			while (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5)
 			{
-				if (i == EditRoomIndex)
+				Console.WriteLine("Enter the minimum amount of players for the escape room:");
+				RoomsList[NewIndex].roomMinSize = Convert.ToInt32(Console.ReadLine());
+				if (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween 2-5\n"); }
+			}
+
+			while (RoomsList[NewIndex].roomMaxSize < RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6)
+			{
+				Console.WriteLine("Enter the maximum amount of players for the escape room:");
+				RoomsList[NewIndex].roomMaxSize = Convert.ToInt32(Console.ReadLine());
+				if (RoomsList[NewIndex].roomMaxSize < RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween " + RoomsList[NewIndex].roomMinSize + "-6\n"); }
+			}
+
+			Console.WriteLine("Enter the price for the escape room:");
+			RoomsList[NewIndex].roomPrice = Convert.ToDouble(Console.ReadLine());
+
+			Console.WriteLine("Enter the theme for the escape room:");
+			RoomsList[NewIndex].roomTheme = Console.ReadLine();
+
+			Console.WriteLine("Enter the duration for the escape room:");
+			RoomsList[NewIndex].roomDuration = Console.ReadLine();
+
+			Console.WriteLine("Enter the name for the escape room:");
+			RoomsList[NewIndex].roomName = Console.ReadLine();
+
+			Console.WriteLine("Room Complete!");
+
+		}
+
+		else
+		{
+			Console.WriteLine("There are already 5 EscapeRooms existing!");
+		}
+		ReturnMenuFunction();
+	}
+
+	static void EditFunction(List<EscapeRoom> RoomsList)
+	{
+		Console.Clear();
+		ShowFunction(RoomsList);
+		Console.WriteLine("Choose the room that you want to edit(use the roomnumber 1-5)");
+		int EditRoomIndex = Convert.ToInt32(Console.ReadLine()) - 1;
+		for (int i = 0; i < RoomsList.Count; i++)
+		{
+			if (i == EditRoomIndex)
+			{
+				bool Continue_RoomEdit = true;
+				while (Continue_RoomEdit)
 				{
-					bool Continue_RoomEdit = true;
-					while (Continue_RoomEdit)
+					Console.Clear();
+					Console.WriteLine(RoomsList[EditRoomIndex] + "\n");
+					Console.WriteLine("Choose what you would like to change about the room: ");
+					Console.WriteLine("1) Change name\n2) Change minimum age\n3) Change amount of players\n4) Change price\n5) Change duration\n6) Change theme\n7) Back to menu");
+					int EditRoomChoice = Convert.ToInt32(Console.ReadLine());
+					if (EditRoomChoice == 1)
 					{
-						Console.Clear();
-						Console.WriteLine(RoomsList[EditRoomIndex] + "\n");
-						Console.WriteLine("Choose what you would like to change about the room: ");
-						Console.WriteLine("1) Change name\n2) Change minimum age\n3) Change amount of players\n4) Change price\n5) Change duration\n6) Change theme\n7) Back to menu");
-						int EditRoomChoice = Convert.ToInt32(Console.ReadLine());
-						if (EditRoomChoice == 1)
-						{
-							Console.WriteLine("Enter the name for the escape room:");
-							RoomsList[EditRoomIndex].roomName = Console.ReadLine();
-						}
-						else if (EditRoomChoice == 2)
-						{
+						Console.WriteLine("Enter the name for the escape room:");
+						RoomsList[EditRoomIndex].roomName = Console.ReadLine();
+					}
+					else if (EditRoomChoice == 2)
+					{
 
-							Console.WriteLine("Enter the minimum age for the escape room:");
-							RoomsList[EditRoomIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
-							if (RoomsList[EditRoomIndex].ageMinimum < 0 || RoomsList[EditRoomIndex].ageMinimum > 120) { Console.WriteLine("Please enter a valid age"); }
+						Console.WriteLine("Enter the minimum age for the escape room:");
+						RoomsList[EditRoomIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
+						if (RoomsList[EditRoomIndex].ageMinimum < 0 || RoomsList[EditRoomIndex].ageMinimum > 120) { Console.WriteLine("Please enter a valid age"); }
 
 
-						}
-						else if (EditRoomChoice == 3)
+					}
+					else if (EditRoomChoice == 3)
+					{
+						while (RoomsList[EditRoomIndex].roomMinSize < 2 || RoomsList[EditRoomIndex].roomMinSize > 5)
 						{
-							while (RoomsList[EditRoomIndex].roomMinSize < 2 || RoomsList[EditRoomIndex].roomMinSize > 5)
-							{
-								Console.WriteLine("Enter the minimum amount of players for the escape room:");
-								RoomsList[EditRoomIndex].roomMinSize = Convert.ToInt32(Console.ReadLine());
-								if (RoomsList[EditRoomIndex].roomMinSize < 2 || RoomsList[EditRoomIndex].roomMinSize > 5) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween 2-5\n"); }
-							}
+							Console.WriteLine("Enter the minimum amount of players for the escape room:");
+							RoomsList[EditRoomIndex].roomMinSize = Convert.ToInt32(Console.ReadLine());
+							if (RoomsList[EditRoomIndex].roomMinSize < 2 || RoomsList[EditRoomIndex].roomMinSize > 5) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween 2-5\n"); }
+						}
 
-							while (RoomsList[EditRoomIndex].roomMaxSize < RoomsList[EditRoomIndex].roomMinSize || RoomsList[EditRoomIndex].roomMaxSize > 6)
-							{
-								Console.WriteLine("Enter the maximum amount of players for the escape room:");
-								RoomsList[EditRoomIndex].roomMaxSize = Convert.ToInt32(Console.ReadLine());
-								if (RoomsList[EditRoomIndex].roomMaxSize < RoomsList[EditRoomIndex].roomMinSize || RoomsList[EditRoomIndex].roomMaxSize > 6) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween " + RoomsList[EditRoomIndex].roomMinSize + " - 6\n"); }
-							}
-						}
-						else if (EditRoomChoice == 4)
+						while (RoomsList[EditRoomIndex].roomMaxSize < RoomsList[EditRoomIndex].roomMinSize || RoomsList[EditRoomIndex].roomMaxSize > 6)
 						{
-							Console.WriteLine("Enter the price for the escape room:");
-							RoomsList[EditRoomIndex].roomPrice = Convert.ToDouble(Console.ReadLine());
-						}
-						else if (EditRoomChoice == 5)
-						{
-							Console.WriteLine("Enter the duration for the escape room:");
-							RoomsList[EditRoomIndex].roomDuration = Console.ReadLine();
-						}
-						else if (EditRoomChoice == 6)
-						{
-							Console.WriteLine("Enter the theme for the escape room:");
-							RoomsList[EditRoomIndex].roomTheme = Console.ReadLine();
-						}
-						else if (EditRoomChoice == 7)
-						{
-							Continue_RoomEdit = false;
+							Console.WriteLine("Enter the maximum amount of players for the escape room:");
+							RoomsList[EditRoomIndex].roomMaxSize = Convert.ToInt32(Console.ReadLine());
+							if (RoomsList[EditRoomIndex].roomMaxSize < RoomsList[EditRoomIndex].roomMinSize || RoomsList[EditRoomIndex].roomMaxSize > 6) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween " + RoomsList[EditRoomIndex].roomMinSize + " - 6\n"); }
 						}
 					}
+					else if (EditRoomChoice == 4)
+					{
+						Console.WriteLine("Enter the price for the escape room:");
+						RoomsList[EditRoomIndex].roomPrice = Convert.ToDouble(Console.ReadLine());
+					}
+					else if (EditRoomChoice == 5)
+					{
+						Console.WriteLine("Enter the duration for the escape room:");
+						RoomsList[EditRoomIndex].roomDuration = Console.ReadLine();
+					}
+					else if (EditRoomChoice == 6)
+					{
+						Console.WriteLine("Enter the theme for the escape room:");
+						RoomsList[EditRoomIndex].roomTheme = Console.ReadLine();
+					}
+					else if (EditRoomChoice == 7)
+					{
+						Continue_RoomEdit = false;
+					}
+					ReturnMenuFunction();
 				}
 			}
 		}
+	}
 
-		static void DeleteFunction(List<EscapeRoom> RoomsList)
+	static void DeleteFunction(List<EscapeRoom> RoomsList)
+	{
+		Console.Clear();
+		ShowFunction(RoomsList);
+		Console.WriteLine("Enter the room number of the room you want to delete");
+		int DeleteIndex = Convert.ToInt32(Console.ReadLine());
+		for (int i = 0; i < RoomsList.Count; i++)
 		{
-			Console.Clear();
-			ShowFunction(RoomsList);
-			Console.WriteLine("Enter the room number of the room you want to delete");
-			int DeleteIndex = Convert.ToInt32(Console.ReadLine());
+			if (i == DeleteIndex - 1)
+			{
+				Console.WriteLine("You are about to delete room : " + DeleteIndex + ", are you sure? enter y or n");
+				string DeleteInput = Console.ReadLine();
+				if (DeleteInput == "y")
+				{
+					RoomsList.RemoveAt(DeleteIndex);
+					Console.WriteLine("The room has succesfully been Deleted");
+				}
+				else
+				{
+					Console.WriteLine("The room has NOT been deleted");
+				}
+			}
+
+		}
+		if (RoomsList.Count > 0)
+		{
 			for (int i = 0; i < RoomsList.Count; i++)
 			{
-				if (i == DeleteIndex - 1)
-				{
-					Console.WriteLine("You are about to delete room : " + DeleteIndex + ", are you sure? enter y or n");
-					string DeleteInput = Console.ReadLine();
-					if (DeleteInput == "y")
-					{
-						RoomsList.RemoveAt(DeleteIndex);
-						Console.WriteLine("The room has succesfully been Deleted");
-					}
-					else
-					{
-						Console.WriteLine("The room has NOT been deleted");
-					}
-				}
-
-			}
-			if (RoomsList.Count > 0)
-			{
-				for (int i = 0; i < RoomsList.Count; i++)
-				{
-					RoomsList[i].roomNumber = i + 1;
-				}
+				RoomsList[i].roomNumber = i + 1;
 			}
 		}
+		ReturnMenuFunction();
+	}
 
-		static void ShowFunction(List<EscapeRoom> RoomsList)
+	static void ShowFunction(List<EscapeRoom> RoomsList)
+	{
+		Console.Clear();
+		Console.WriteLine("Room info:\n");
+		for (int i = 0; i < RoomsList.Count; i++)
 		{
-			Console.Clear();
-			Console.WriteLine("Room info:\n");
-			for (int i = 0; i < RoomsList.Count; i++)
-			{
-				Console.WriteLine(RoomsList[i] + "\n");
-			}
+			Console.WriteLine(RoomsList[i] + "\n");
 		}
-		Console.WriteLine("======================\nGo back to the menu? y or n");
-		string return_to_menu = Console.ReadLine();
-		if (return_to_menu == "y")
-		{
-			Console.Clear();
-			Main();
-		}
-
+		ReturnMenuFunction();
 	}
 
 	static void ReceiptFunction()
@@ -219,8 +218,8 @@ class MainProgramma
 		Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 		Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
 
+		ReturnMenuFunction();
 	}
-
 	static void InfoFunction()
 	{
 		Console.Clear();
@@ -234,9 +233,9 @@ class MainProgramma
 		Console.WriteLine("7) Geen foto's maken in de escape room.\n8) Mocht er iets naars gebeuren, of iemand wil uit de kamer, dan kan je de Escaperoom verlaten, de deur is open.\n9) Wanneer je besluit de Escaperoom te verlaten, heb je daarna geen toegang meer om het spel verder te spelen.");
 		Console.WriteLine("10) De spelleider kijkt via camera's mee naar het spel. Bij het overtreden van de huisregels, kan hij/zij besluiten het spel te beëindigen. Hierover kan niet worden gediscussieerd.");
 		Console.WriteLine("11) Je speelt het spel op eigen risico. Schade of letsel kan niet worden verhaald op de Escaperoom.");
+
+		ReturnMenuFunction();
 	}
-
-
 	static void ContactFunction()
 	{
 		Console.Clear();
@@ -251,27 +250,15 @@ class MainProgramma
 		{
 			FAQ();
 		}
-	}
 
+	}
 	static void Contact()
 	{
 		Console.Clear();
-		Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 Rotterdam 3546WQ\n\nWould you like to return to the main menu(1) or view our F.A.Q. page(2) or exit the program(3)?\n");
+		Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 Rotterdam 3546WQ\n");
 
-		switch (Console.ReadLine())
-		{
-			case "1":
-				Console.Clear();
-				Main();
-				break;
-			case "2":
-				FAQ();
-				break;
-			case "3":
-				break;
-		}
+		ReturnMenuFunction();
 	}
-
 	static void FAQ()
 	{
 		String FAQ1 = "Q: Do you provide food during or after the Escape Room?\nA: We can provide food and drinks after the Escape Room is done via a special arrangement you can order.\n\n";
@@ -279,20 +266,228 @@ class MainProgramma
 		String FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n\n";
 
 		Console.Clear();
-		Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "Would you like to return to the main menu(1) or view our Contact page(2) or exit the program(3)?\n");
+		Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "\n");
+		ReturnMenuFunction();
+	}
 
-		switch (Console.ReadLine())
+	static void AdminFunction()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Admin login page, please enter the right password:\n");
+		if (LoginTries > 0)
 		{
-			case "1":
-				Console.Clear();
-				Main();
-				break;
-			case "2":
-				Contact();
-				break;
-			case "3":
-				break;
+			string AdminLogin = Console.ReadLine();
+			if (AdminLogin == "admin")
+			{
+				AdminSuccess = AdminSuccess + 1;
+				AdminPage();
+			}
+			else
+			{
+				LoginTries = LoginTries - 1;
+				Console.WriteLine("This is not the password! Try again, you have " + LoginTries + " attempts left.\nPress any key to continue...\n");
+				Console.ReadKey(true);
+				AdminFunction();
+			}
+		}
+		else
+		{
+			Console.WriteLine("You have no more login attempts anymore, press any key to return to the main menu.\n");
+			Console.ReadKey(true);
+			Main();
 		}
 	}
 
+	static void CustomerLoginFunction()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
+		string UserNameLogin = Console.ReadLine();
+		string UserPassWordLogin = Console.ReadLine();
+		if (UserNameLogin == "" && UserPassWordLogin == "")
+		{
+			Console.WriteLine("Return to the main menu? y or n");
+			string Return = Console.ReadLine();
+			if (Return == "y")
+			{
+				Main();
+			}
+			if (Return != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		if (UserNameLogin != "user" || UserPassWordLogin != "12345")
+		{
+			Console.WriteLine("Wrong login credentials, press any key and try again.");
+			Console.ReadKey(true);
+			CustomerLoginFunction();
+		}
+	
+		if (UserNameLogin == "user" && UserPassWordLogin == "12345")
+		{
+			CustomerSuccess = CustomerSuccess + 1;
+			CustomerMenu();
+		}
+	}
+
+	static void EmployeeLoginFunction()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Employee login page, please enter the right password:\n=========================================================================\n");
+		string EmployeeLogin = Console.ReadLine();
+		if (EmployeeLogin == "employee")
+		{
+			EmployeeSuccess = EmployeeSuccess + 1;
+			EmployeeMenu();
+		}
+		if (EmployeeLogin == "")
+		{
+			Console.WriteLine("Return to the main menu? y or n");
+			string Return = Console.ReadLine();
+			if (Return == "y")
+			{
+				Main();
+			}
+			if (Return != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		else
+		{
+			Console.WriteLine("Wrong login credentials, press any key and try again.");
+			Console.ReadKey(true);
+			EmployeeLoginFunction();
+		}
+	}
+
+	static void CustomerMenu() {
+		Console.Clear();
+		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Receipt Example\n5: Logout\n=======================================\n");
+		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+		
+		if (InterFaceInput == 1) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 2) { InfoFunction(); }
+		if (InterFaceInput == 3) { ContactFunction(); }
+		if (InterFaceInput == 4) { ReceiptFunction(); }
+		if (InterFaceInput == 5) {
+			CustomerSuccess = CustomerSuccess - 1;
+			Main();
+		}
+	}
+
+	static void EmployeeMenu()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the Employee menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Reservations\n5: Logout\n=======================================\n");
+		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+
+		if (InterFaceInput == 1) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 2) { InfoFunction(); }
+		if (InterFaceInput == 3) { ContactFunction(); }
+		if (InterFaceInput == 4) { 
+			Console.Clear();
+			Console.WriteLine("W.I.P, press any key to continue.\n");
+			Console.ReadKey(true);
+			EmployeeMenu();
+		}
+		if (InterFaceInput == 5)
+		{
+			EmployeeSuccess = EmployeeSuccess - 1;
+			Main();
+		}
+	}
+
+	static void AdminPage()
+	{
+		Console.Clear();
+		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1: Customer overview\n2: Add an escape room\n3: Edit an escape room\n4: Delete an escape room\n5: Show escape rooms\n6: Logout\n=======================================\n");
+		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+
+		if (InterFaceInput == 1) { CustomerOverview(); }
+		if (InterFaceInput == 2) { AddFunction(RoomsList); }
+		if (InterFaceInput == 3) { EditFunction(RoomsList); }
+		if (InterFaceInput == 4) { DeleteFunction(RoomsList); }
+		if (InterFaceInput == 5) { ShowFunction(RoomsList); }
+		if (InterFaceInput == 6) { 
+			LoginTries = 4;
+			AdminSuccess = AdminSuccess - 1;
+			Main();
+		}
+	}
+
+	static void CustomerOverview()
+	{
+		Console.Clear();
+		string userName = "Chris", userPostcode = "3067 PB", userLastName = "Man", userStreet = "teststraat", userWoonplaats = "Rotterdam", userEmail = "testemail@gmail.com";
+		Console.WriteLine(userName + " " + userLastName + "," + userPostcode + "," + userStreet + "," + userWoonplaats + "," + userEmail + "\n");
+
+		ReturnMenuFunction();
+	}
+
+	static void ReturnMenuFunction()
+	{
+		if (AdminSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				AdminPage();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		if (EmployeeSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				EmployeeMenu();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+		if (CustomerSuccess == 1)
+		{
+			Console.WriteLine("======================\nGo back to the menu? y or n");
+			string return_to_menu = Console.ReadLine();
+			if (return_to_menu == "y")
+			{
+				Console.Clear();
+				CustomerMenu();
+			}
+			if (return_to_menu != "n")
+			{
+				Console.Clear();
+				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you have been logged out and will be returned to the main menu.\n\nPress any key to return to the main menu.");
+				Console.ReadKey(true);
+				Main();
+			}
+		}
+	}
 }
+
+
+
+
