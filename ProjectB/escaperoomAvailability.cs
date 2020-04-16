@@ -68,34 +68,3 @@ namespace ProjectB
     }
 }
 
-
-
-/*
- * Test voor later
-
-bool A = false;
-bool B = false;
-
-Console.WriteLine("Enter input:");
-
-			string jouwinput = Console.ReadLine();
-
-
-			if (jouwinput == "A")
-			{
-				A = true;
-				Console.WriteLine("A is True");
-				Console.WriteLine("B is False");
-			}
-			else if (jouwinput == "B")
-			{
-				B = true;
-				Console.WriteLine("A is False");
-				Console.WriteLine("B is True");
-			}
-			else
-			{
-				Console.WriteLine("Start opnieuw");
-			}
-
-/

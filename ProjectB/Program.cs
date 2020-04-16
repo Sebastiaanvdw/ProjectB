@@ -416,7 +416,8 @@ class MainProgramma
 		if (InterFaceInput == 3) { EditFunction(RoomsList); }
 		if (InterFaceInput == 4) { DeleteFunction(RoomsList); }
 		if (InterFaceInput == 5) { ShowFunction(RoomsList); }
-		if (InterFaceInput == 6) { 
+		if (InterFaceInput == 6) 
+		{ 
 			LoginTries = 4;
 			AdminSuccess = AdminSuccess - 1;
 			Main();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Test_projectB.Classes
+namespace ProjectB.Crud
 {
 	public class EscapeRoom
 	{
