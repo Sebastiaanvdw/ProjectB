@@ -4,7 +4,7 @@ namespace Reservering_Pagina
 {
     class Program
     {
-        static void Main(string[] args)
+        static void ReserveringPagina()
         {
 
             Console.Clear();

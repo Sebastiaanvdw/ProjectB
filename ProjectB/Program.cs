@@ -4,6 +4,7 @@ using System.Text;
 using ProjectB.Crud;
 
 
+
 class MainProgramma
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
@@ -17,6 +18,8 @@ class MainProgramma
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
 	public static string EmployeeLogin = "";
+	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, roomKeuze, userParticipants;
+
 	public static void Main()
 	{
 		Console.Clear();
@@ -196,30 +199,7 @@ class MainProgramma
 		ReturnMenuFunction();
 	}
 
-	static void ReceiptFunction()
-	{
-		//er worden hier tijdelijke variables gebruikt
-		// er moet minimaal 1 kamer aangemaakt worden voordat dit werkt
-		string userName = "Chris", userPostcode = "3067 PB", userLastName = "Man", userStreet = "teststraat", userWoonplaats = "Rotterdam", userEmail = "testemail@gmail.com";
-		int userHouseNumber = 123, userPhoneNumber = 0612345678, userParticipants = 4, userRoomChoice = 0;
-		int userUniqueID = 0;
-		double userTotalPrice = 53.95; //Dit wordt in later berekend
 
-		Console.Clear();
-		Console.WriteLine("======================");
-		Console.WriteLine("\nThe following room has been chosen: " + RoomsList[userRoomChoice].roomName);
-		Console.WriteLine("Amount of participants: " + userParticipants);
-		Console.WriteLine("\nClient Name: " + userName + " " + userLastName);
-		Console.WriteLine("\nClient Street: " + userStreet + " " + userHouseNumber);
-		Console.WriteLine("\nClient Postcode: " + userPostcode);
-		Console.WriteLine("\nClient Woonplaats: " + userWoonplaats);
-		Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-		Console.WriteLine("\nTotal Price: " + userTotalPrice);
-		Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
-		Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
-
-		ReturnMenuFunction();
-	}
 	static void InfoFunction()
 	{
 		Console.Clear();
@@ -302,7 +282,9 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
+		Console.WriteLine("Username:");
 		string UserNameLogin = Console.ReadLine();
+		Console.WriteLine("Password");
 		string UserPassWordLogin = Console.ReadLine();
 		if (UserNameLogin == "" && UserPassWordLogin == "")
 		{
@@ -370,17 +352,19 @@ class MainProgramma
 
 	static void CustomerMenu() {
 		Console.Clear();
-		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Receipt Example\n5: Logout\n=======================================\n");
+		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Receipt Example\n5: Reserveren\n6: Logout\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 		
 		if (InterFaceInput == 1) { ShowFunction(RoomsList); }
 		if (InterFaceInput == 2) { InfoFunction(); }
 		if (InterFaceInput == 3) { ContactFunction(); }
 		if (InterFaceInput == 4) { ReceiptFunction(); }
-		if (InterFaceInput == 5) {
+		if (InterFaceInput == 5) { ReserveerFunction(); }
+		if (InterFaceInput == 6) {
 			CustomerSuccess = CustomerSuccess - 1;
 			Main();
 		}
+
 	}
 
 	static void EmployeeMenu()
@@ -486,6 +470,73 @@ class MainProgramma
 				Main();
 			}
 		}
+	}
+
+	static void ReserveerFunction()
+	{
+
+		Console.Clear();
+
+		Console.WriteLine("-----------------------------");
+		Console.WriteLine("Please fill in the following:");
+		Console.WriteLine("-----------------------------");
+
+		Console.WriteLine("Which of the following room do you want? (choose a number between 1-5):"); // Tussen 1-5
+
+		for (int i = 0; i < RoomsList.Count; i++) {Console.WriteLine(RoomsList[i].roomName + "\n");}
+		roomKeuze = Console.ReadLine();
+
+		Console.WriteLine("Fill in your first name(e.g. 'Piet'):"); // Alleen Letters
+		userName = Console.ReadLine();
+
+		Console.WriteLine("Fill in your last name(e.g. 'de Koning'):"); //Alleen Letters
+		userLastName = Console.ReadLine();
+
+		Console.WriteLine("Fill in your postcode(e.g. '2631 JK'):"); //4 Cijfers & 2 Letters
+		userPostcode = Console.ReadLine();
+
+		Console.WriteLine("Fill in your street(e.g. 'Tulpenlaan'):"); // Alleen Letters
+		userStreet = Console.ReadLine();
+
+		Console.WriteLine("Fill in your residence(e.g. 'Pijnacker'):"); // Alleen Letters
+		userWoonplaats = Console.ReadLine();
+
+		Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
+		userHouseNumber = Console.ReadLine();
+
+		Console.WriteLine("Fill in your email(e.g. 'voorbeeld@mail.com'):"); // Moet een @ en . hebben
+		userEmail = Console.ReadLine();
+
+		Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
+		userPhoneNumber = Console.ReadLine();
+
+		Console.WriteLine("Fill in how many participants there will be(2-6):"); // 2-6 deelnemers
+		userParticipants = Console.ReadLine();
+		
+
+		Console.Clear();
+		ReceiptFunction();
+	}
+
+	static void ReceiptFunction()
+	{
+		int userUniqueID = 0;
+		double userTotalPrice = 53.95; //Dit wordt in later berekend
+
+		Console.Clear();
+		Console.WriteLine("======================");
+		Console.WriteLine("\nThe following room has been chosen: " + RoomsList[Convert.ToInt32(roomKeuze)].roomName);
+		Console.WriteLine("Amount of participants: " + userParticipants);
+		Console.WriteLine("\nClient Name: " + userName + " " + userLastName);
+		Console.WriteLine("\nClient Street: " + userStreet + " " + userHouseNumber);
+		Console.WriteLine("\nClient Postcode: " + userPostcode);
+		Console.WriteLine("\nClient Woonplaats: " + userWoonplaats);
+		Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
+		Console.WriteLine("\nTotal Price: " + userTotalPrice);
+		Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
+		Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
+
+		ReturnMenuFunction();
 	}
 }
 

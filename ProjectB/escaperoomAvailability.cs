@@ -4,7 +4,7 @@ namespace ProjectB
 {
     class escaperoomAvailability
     {
-        static void Main()
+        static void EscaoeRoomAvailability()
         {
             Console.Clear();
 
