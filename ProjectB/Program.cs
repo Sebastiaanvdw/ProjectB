@@ -8,8 +8,10 @@ using ProjectB.Crud;
 class MainProgramma
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
-	public static List<int> IdList = new List<int>();
+	public static List<int> IDList = new List<int>();
 	public static List<string> CustomerList = new List<string>();
+	
+	public static int userUniqueID, roomKeuze, userParticipants;
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
 	public static int CustomerSuccess = 0;
@@ -18,7 +20,8 @@ class MainProgramma
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
 	public static string EmployeeLogin = "";
-	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, roomKeuze, userParticipants;
+	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber;
+	
 
 	public static void Main()
 	{
@@ -43,6 +46,13 @@ class MainProgramma
 
 			Console.WriteLine("Enter the minimum age for the escape room:");
 			RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
+			while (RoomsList[NewIndex].ageMinimum < 12 || RoomsList[NewIndex].ageMinimum > 100)
+			{
+				Console.WriteLine("*****ERROR*****\nPlease enter a valid number between 12-100\n");
+				Console.WriteLine("Enter the minimum age for the escape room:");
+				RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
+
+			}
 
 			while (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5)
 			{
@@ -254,6 +264,7 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Admin login page, please enter the right password:\n");
+		Console.WriteLine("Password:");
 		if (LoginTries > 0)
 		{
 			string AdminLogin = Console.ReadLine();
@@ -478,20 +489,26 @@ class MainProgramma
 		Console.Clear();
 
 		Console.WriteLine("-----------------------------");
-		Console.WriteLine("Please fill in the following:");
+		Console.WriteLine("Please Choose your room and fill in the information required:");
 		Console.WriteLine("-----------------------------");
 
-		Console.WriteLine("Which of the following room do you want? (choose a number between 1-5):"); // Tussen 1-5
-
-		for (int i = 0; i < RoomsList.Count; i++) {Console.WriteLine(RoomsList[i].roomName + "\n");}
-		roomKeuze = Console.ReadLine();
+		Console.WriteLine("Which of the following room do you want? (choose a number between 1" + "-" + Convert.ToString(RoomsList.Count) + ")"); // Tussen 1-5
+		
+		for (int i = 0; i < RoomsList.Count; i++) {Console.WriteLine("- " + RoomsList[i].roomName);}
+		Console.WriteLine("\nRoom:");
+		roomKeuze = Convert.ToInt32(Console.ReadLine());
+		while (roomKeuze < 1 || roomKeuze > RoomsList.Count)
+		{
+			Console.WriteLine("*****ERROR*****\nPlease fill in a number between 1-" + Convert.ToString(RoomsList.Count) + ")");
+			roomKeuze = Convert.ToInt32(Console.ReadLine());
+		}
 
 		Console.WriteLine("Fill in your first name(e.g. 'Piet'):"); // Alleen Letters
 		userName = Console.ReadLine();
 
 		Console.WriteLine("Fill in your last name(e.g. 'de Koning'):"); //Alleen Letters
 		userLastName = Console.ReadLine();
-
+		
 		Console.WriteLine("Fill in your postcode(e.g. '2631 JK'):"); //4 Cijfers & 2 Letters
 		userPostcode = Console.ReadLine();
 
@@ -510,9 +527,15 @@ class MainProgramma
 		Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
 		userPhoneNumber = Console.ReadLine();
 
-		Console.WriteLine("Fill in how many participants there will be(2-6):"); // 2-6 deelnemers
-		userParticipants = Console.ReadLine();
-		
+		Console.WriteLine("Fill in how many participants there will be(" + RoomsList[Convert.ToInt32(roomKeuze-1)].roomMinSize + "-" + RoomsList[Convert.ToInt32(roomKeuze-1)].roomMaxSize + ")"); // 2-6 deelnemers
+		userParticipants = Convert.ToInt32(Console.ReadLine());
+		while (userParticipants < RoomsList[Convert.ToInt32(roomKeuze-1)].roomMinSize || userParticipants > RoomsList[Convert.ToInt32(roomKeuze)].roomMaxSize)
+		{
+			Console.WriteLine("*****ERROR*****\nPlease fill in a number between " + RoomsList[Convert.ToInt32(roomKeuze-1)].roomMinSize + " - " + RoomsList[Convert.ToInt32(roomKeuze-1)].roomMaxSize + ")");
+			userParticipants = Convert.ToInt32(Console.ReadLine());
+		}
+
+
 
 		Console.Clear();
 		ReceiptFunction();
@@ -520,7 +543,20 @@ class MainProgramma
 
 	static void ReceiptFunction()
 	{
-		int userUniqueID = 0;
+		bool IDcheck = false;
+		while (IDcheck == false)
+		{
+			for (int i = 0; i < IDList.Count + 1; i++)
+			{
+				if (!IDList.Contains(i))
+				{
+					userUniqueID = i;
+					IDList.Add(i);
+					IDcheck = true;
+				}
+
+			}
+		}
 		double userTotalPrice = 53.95; //Dit wordt in later berekend
 
 		Console.Clear();
