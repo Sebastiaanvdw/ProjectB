@@ -34,16 +34,12 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					ageSuccess = int.TryParse(userInput, out int number);
 					if (number < 12 || number > 100) { ageSuccess = false; }
-					if (ageSuccess)
-					{
-						RoomsList[NewIndex].ageMinimum = number;
-					}
+					if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 						Console.WriteLine("Please enter a number between 12-100");
 					}
-					
 				}
 
 				while (!minSuccess)
@@ -52,18 +48,13 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					minSuccess = int.TryParse(userInput, out int number);
 					if (number < 2 || number > 5) { minSuccess = false; }
-					if (minSuccess)
-					{
-						RoomsList[NewIndex].roomMinSize = number;
-					}
+					if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 						Console.WriteLine("Please enter a number between 2-5");
 					}
-					
 				}
-
 
 				while (!maxSuccess)
 				{
@@ -71,16 +62,12 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					maxSuccess = int.TryParse(userInput, out int number);
 					if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
-					if (maxSuccess)
-					{
-						RoomsList[NewIndex].roomMinSize = number;
-					}
+					if (maxSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6\n");
+						Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
 					}
-					
 				}
 
 
@@ -89,10 +76,7 @@ namespace ProjectB.Crud
 					Console.WriteLine("Enter the price for the escape room:");
 					userInput = Console.ReadLine();
 					priceSuccess = Double.TryParse(userInput, out double number);
-					if (priceSuccess)
-					{
-						RoomsList[NewIndex].roomPrice = number;
-					}
+					if (priceSuccess) { RoomsList[NewIndex].roomPrice = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -106,10 +90,7 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					themeSuccess = userInput.All(c => Char.IsLetter(c));
 					if (string.IsNullOrEmpty(userInput)) { themeSuccess = false; }
-					if (themeSuccess)
-					{
-						RoomsList[NewIndex].roomTheme = userInput;
-					}
+					if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -123,10 +104,7 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					if (string.IsNullOrEmpty(userInput)) { durationSuccess = false; }
 					else { durationSuccess = true; }
-					if (durationSuccess)
-					{
-						RoomsList[NewIndex].roomDuration = userInput;
-					}
+					if (durationSuccess) { RoomsList[NewIndex].roomDuration = userInput; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -139,12 +117,9 @@ namespace ProjectB.Crud
 				{
 					Console.WriteLine("Enter a name for the escape room:");
 					userInput = Console.ReadLine();
-					nameSuccess = userInput.All(c => Char.IsLetter(c));
 					if (string.IsNullOrEmpty(userInput)) { nameSuccess = false; }
-					if (nameSuccess)
-					{
-						RoomsList[NewIndex].roomName = userInput;
-					}
+					else { nameSuccess = true; }
+					if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -152,14 +127,12 @@ namespace ProjectB.Crud
 					}
 				}
 
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Room Complete!");
-				Console.ResetColor();
+				Functions.WriteLine("Room Complete!", ConsoleColor.Green);
 			}
 
 			else
 			{
-				Console.WriteLine("There are already 5 EscapeRooms existing!");
+				Functions.WriteLine("There are already 5 EscapeRooms existing!", ConsoleColor.Red);
 			}
 			MainProgramma.ReturnMenuFunction();
 		}
