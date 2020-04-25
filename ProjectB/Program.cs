@@ -27,7 +27,7 @@ class MainProgramma
 	public static void Main()
 	{
 		Console.Clear();
-		Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1. Customer login\n2. Employee login\n3. Admin login\n=======================================\n");
+		Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
 		switch (Console.ReadLine())
 		{
 			case "1":
@@ -42,6 +42,7 @@ class MainProgramma
 			default:
 				Console.WriteLine("fek");
 				break;
+				
 		}
 	}
 
@@ -160,7 +161,7 @@ class MainProgramma
 
 	static void CustomerMenu() {
 		Console.Clear();
-		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Reserveren\n5: Logout\n=======================================\n");
+		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1. Escape Rooms\n2. Info \n3. Contact and F.A.Q.\n4. Reserveren\n5. Logout\n=======================================\n");
 		switch (Console.ReadLine())
 		{
 			case "1":
@@ -191,7 +192,7 @@ class MainProgramma
 	static void EmployeeMenu()
 	{
 		Console.Clear();
-		Console.WriteLine("Welcome to the Employee menu!\n=======================================\n1: Escape Rooms\n2: Info \n3: Contact and F.A.Q.\n4: Reservations (IN PROGRESS)\n5: Logout\n=======================================\n");
+		Console.WriteLine("Welcome to the Employee menu!\n=======================================\n1. Escape Rooms\n2. Info \n3. Contact and F.A.Q.\n4. Reservations (IN PROGRESS)\n5. Logout\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
 		if (InterFaceInput == 1) { Functions.ShowFunction(RoomsList); }
@@ -213,7 +214,7 @@ class MainProgramma
 	static void AdminPage()
 	{
 		Console.Clear();
-		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1: Customer overview (IN PROGRESS)\n2: Add an escape room\n3: Edit an escape room\n4: Delete an escape room\n5: Show escape rooms\n6: Logout\n=======================================\n");
+		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
 		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
 
 		if (InterFaceInput == 1) { CustomerOverview(); }

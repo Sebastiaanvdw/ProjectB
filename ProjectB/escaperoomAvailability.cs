@@ -4,7 +4,7 @@ namespace ProjectB
 {
     class escaperoomAvailability
     {
-        static void EscaoeRoomAvailability()
+        static void Test()
         {
             Console.Clear();
 
@@ -67,4 +67,3 @@ namespace ProjectB
         }
     }
 }
-

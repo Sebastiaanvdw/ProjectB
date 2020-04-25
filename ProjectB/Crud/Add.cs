@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ProjectB;
 
@@ -9,6 +10,16 @@ namespace ProjectB.Crud
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{
+			string userInput;
+			bool priceSuccess= false;
+			bool themeSuccess = false;
+			bool minSuccess = false;
+			bool maxSuccess = false;
+			bool ageSuccess = false;
+			bool durationSuccess = false;
+			bool nameSuccess = false;
+
+
 			if (RoomsList.Count >= 0 & RoomsList.Count < 5)
 			{
 				Console.Clear();
@@ -17,44 +28,133 @@ namespace ProjectB.Crud
 				if (RoomsList.Count == 1) { NewIndex = 0; }
 				RoomsList[NewIndex].roomNumber = NewIndex + 1;
 
-				Console.WriteLine("Enter the minimum age for the escape room:");
-				RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
-				while (RoomsList[NewIndex].ageMinimum < 12 || RoomsList[NewIndex].ageMinimum > 100)
+				while (!ageSuccess)
 				{
-					Console.WriteLine("*****ERROR*****\nPlease enter a valid number between 12-100\n");
 					Console.WriteLine("Enter the minimum age for the escape room:");
-					RoomsList[NewIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
-
+					userInput = Console.ReadLine();
+					ageSuccess = int.TryParse(userInput, out int number);
+					if (number < 12 || number > 100) { ageSuccess = false; }
+					if (ageSuccess)
+					{
+						RoomsList[NewIndex].ageMinimum = number;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a number between 12-100");
+					}
+					
 				}
 
-				while (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5)
+				while (!minSuccess)
 				{
 					Console.WriteLine("Enter the minimum amount of players for the escape room:");
-					RoomsList[NewIndex].roomMinSize = Convert.ToInt32(Console.ReadLine());
-					if (RoomsList[NewIndex].roomMinSize < 2 || RoomsList[NewIndex].roomMinSize > 5) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween 2-5\n"); }
+					userInput = Console.ReadLine();
+					minSuccess = int.TryParse(userInput, out int number);
+					if (number < 2 || number > 5) { minSuccess = false; }
+					if (minSuccess)
+					{
+						RoomsList[NewIndex].roomMinSize = number;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a number between 2-5");
+					}
+					
 				}
 
-				while (RoomsList[NewIndex].roomMaxSize < RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6)
+
+				while (!maxSuccess)
 				{
 					Console.WriteLine("Enter the maximum amount of players for the escape room:");
-					RoomsList[NewIndex].roomMaxSize = Convert.ToInt32(Console.ReadLine());
-					if (RoomsList[NewIndex].roomMaxSize <= RoomsList[NewIndex].roomMinSize || RoomsList[NewIndex].roomMaxSize > 6) { Console.WriteLine("*****ERROR*****\nPlease enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6\n"); }
+					userInput = Console.ReadLine();
+					maxSuccess = int.TryParse(userInput, out int number);
+					if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
+					if (maxSuccess)
+					{
+						RoomsList[NewIndex].roomMinSize = number;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6\n");
+					}
+					
 				}
 
-				Console.WriteLine("Enter the price for the escape room:");
-				RoomsList[NewIndex].roomPrice = Convert.ToDouble(Console.ReadLine());
 
-				Console.WriteLine("Enter the theme for the escape room:");
-				RoomsList[NewIndex].roomTheme = Console.ReadLine();
+				while (!priceSuccess)
+				{
+					Console.WriteLine("Enter the price for the escape room:");
+					userInput = Console.ReadLine();
+					priceSuccess = Double.TryParse(userInput, out double number);
+					if (priceSuccess)
+					{
+						RoomsList[NewIndex].roomPrice = number;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a number.");
+					}
+				}
 
-				Console.WriteLine("Enter the duration for the escape room:");
-				RoomsList[NewIndex].roomDuration = Console.ReadLine();
+				while (!themeSuccess)
+				{
+					Console.WriteLine("Enter a theme for the escape room:");
+					userInput = Console.ReadLine();
+					themeSuccess = userInput.All(c => Char.IsLetter(c));
+					if (string.IsNullOrEmpty(userInput)) { themeSuccess = false; }
+					if (themeSuccess)
+					{
+						RoomsList[NewIndex].roomTheme = userInput;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please use alphabetic characters only");
+					}
+				}
 
-				Console.WriteLine("Enter the name for the escape room:");
-				RoomsList[NewIndex].roomName = Console.ReadLine();
+				while (!durationSuccess)
+				{
+					Console.WriteLine("Enter the duration for the escape room (e.g. '2 Hours'):");
+					userInput = Console.ReadLine();
+					if (string.IsNullOrEmpty(userInput)) { durationSuccess = false; }
+					else { durationSuccess = true; }
+					if (durationSuccess)
+					{
+						RoomsList[NewIndex].roomDuration = userInput;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please try again");
+					}
+				}
 
+
+				while (!nameSuccess)
+				{
+					Console.WriteLine("Enter a name for the escape room:");
+					userInput = Console.ReadLine();
+					nameSuccess = userInput.All(c => Char.IsLetter(c));
+					if (string.IsNullOrEmpty(userInput)) { nameSuccess = false; }
+					if (nameSuccess)
+					{
+						RoomsList[NewIndex].roomName = userInput;
+					}
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please use alphabetic characters only");
+					}
+				}
+
+				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Room Complete!");
-
+				Console.ResetColor();
 			}
 
 			else

@@ -32,11 +32,15 @@ namespace ProjectB.Crud
 						}
 						else if (EditRoomChoice == 2)
 						{
-
 							Console.WriteLine("Enter the minimum age for the escape room:");
 							RoomsList[EditRoomIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
-							if (RoomsList[EditRoomIndex].ageMinimum < 0 || RoomsList[EditRoomIndex].ageMinimum > 120) { Console.WriteLine("Please enter a valid age"); }
+							while (RoomsList[EditRoomIndex].ageMinimum < 12 || RoomsList[EditRoomIndex].ageMinimum > 100)
+							{
+								Console.WriteLine("*****ERROR*****\nPlease enter a valid number between 12-100\n");
+								Console.WriteLine("Enter the minimum age for the escape room:");
+								RoomsList[EditRoomIndex].ageMinimum = Convert.ToInt32(Console.ReadLine());
 
+							}
 
 						}
 						else if (EditRoomChoice == 3)

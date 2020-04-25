@@ -40,7 +40,7 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + MainProgramma.userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + MainProgramma.userWoonplaats);
 			Console.WriteLine("\nClient Phonenumber: " + MainProgramma.userPhoneNumber);
-			Console.WriteLine("\nTotal Price: " + userTotalPrice);
+			Console.WriteLine("\nTotal Price: " + userTotalPrice + "(Roomprice * Participants)");
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + MainProgramma.userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + MainProgramma.userEmail);
 
@@ -155,5 +155,14 @@ namespace ProjectB
 			}
 			MainProgramma.ReturnMenuFunction();
 		}
+
+		public static void WriteLine(object obj, ConsoleColor? color = null)
+		{
+			if (color != null)
+				Console.ForegroundColor = color.Value;
+			Console.WriteLine(obj);
+			Console.ResetColor();
+		}
+
 	}
 }
