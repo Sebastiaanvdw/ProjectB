@@ -76,11 +76,12 @@ namespace ProjectB.Crud
 					Console.WriteLine("Enter the price for the escape room:");
 					userInput = Console.ReadLine();
 					priceSuccess = Double.TryParse(userInput, out double number);
+					if (number < 0) { priceSuccess = false; }
 					if (priceSuccess) { RoomsList[NewIndex].roomPrice = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number.");
+						Console.WriteLine("Please enter a positive number.");
 					}
 				}
 

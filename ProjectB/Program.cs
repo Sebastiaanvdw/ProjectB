@@ -252,7 +252,7 @@ class MainProgramma
 			if (return_to_menu != "n")
 			{
 				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
+				Functions.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.", ConsoleColor.Red);
 				Console.ReadKey(true);
 				Main();
 			}
