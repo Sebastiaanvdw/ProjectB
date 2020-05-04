@@ -62,7 +62,7 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					maxSuccess = int.TryParse(userInput, out int number);
 					if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
-					if (maxSuccess) { RoomsList[NewIndex].roomMinSize = number; }
+					if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
 					else
 					{
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
