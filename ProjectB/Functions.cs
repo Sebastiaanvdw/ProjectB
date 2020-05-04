@@ -29,7 +29,21 @@ namespace ProjectB
 				}
 			}
 
-			var userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze-1].roomPrice * MainProgramma.userParticipants;//hierbij moet ook nog + arrangementprijs; //Dit wordt in later berekend
+			if (MainProgramma.userArrangement == "Just Drinks"){
+				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 3.50 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userArrangement == "Just Food")
+			{
+				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 5 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userArrangement == "Food and Drinks")
+			{
+				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 7 * MainProgramma.userParticipants;
+			}
+			if(MainProgramma.userArrangement == "None")
+			{
+				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants;
+			}			
 
 			Console.Clear();
 			Console.WriteLine("======================");
@@ -40,7 +54,8 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + MainProgramma.userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + MainProgramma.userWoonplaats);
 			Console.WriteLine("\nClient Phonenumber: " + MainProgramma.userPhoneNumber);
-			Console.WriteLine("\nTotal Price: " + userTotalPrice + "(Roomprice * Participants)");
+			Console.WriteLine("\nClient Arrangement: " + MainProgramma.userArrangement);
+			Console.WriteLine("\nTotal Price: " + MainProgramma.userTotalPrice + "(Roomprice * Participants)");
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + MainProgramma.userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + MainProgramma.userEmail);
 
@@ -89,6 +104,9 @@ namespace ProjectB
 
 			Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
 			MainProgramma.userPhoneNumber = Console.ReadLine();
+
+			Console.WriteLine("Fill in which arrangment you want(None, Just Food, Just Drinks or Food and Drinks):");  // Alleen Letters
+			MainProgramma.userArrangement = Console.ReadLine();
 
 			Console.WriteLine("Fill in how many participants there will be(" + MainProgramma.RoomsList[Convert.ToInt32(MainProgramma.roomKeuze - 1)].roomMinSize + "-" + MainProgramma.RoomsList[Convert.ToInt32(MainProgramma.roomKeuze - 1)].roomMaxSize + ")"); // 2-6 deelnemers
 			MainProgramma.userParticipants = Convert.ToInt32(Console.ReadLine());
