@@ -21,8 +21,9 @@ class MainProgramma
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
 	public static string EmployeeLogin = "";
-	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber;
+	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, userArrangement;
 	public static string userUniqueID;
+	public static double userTotalPrice = 0;
 
 	public static void Main()
 	{
