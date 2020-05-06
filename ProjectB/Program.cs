@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ProjectB;
 using ProjectB.Crud;
-
-
+using Y_or_N;
 
 class MainProgramma
 {
@@ -215,15 +214,16 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
-		int InterFaceInput = Convert.ToInt32(Console.ReadLine());
+		string InterFaceInput = Console.ReadLine();
+		if (!int.TryParse(InterFaceInput, out int number)) { Functions.error(); }
 
-		if (InterFaceInput == 1) { CustomerOverview(); }
-		if (InterFaceInput == 2) { Add.Function(RoomsList); }
-		if (InterFaceInput == 3) { Edit.Function(RoomsList); }
-		if (InterFaceInput == 4) { Delete.Function(RoomsList); }
-		if (InterFaceInput == 5) { Functions.ShowFunction(RoomsList); }
-		if (InterFaceInput == 6) 
-		{ 
+		if (number == 1) { CustomerOverview(); }
+		if (number == 2) { Add.Function(RoomsList); }
+		if (number == 3) { Edit.Function(RoomsList); }
+		if (number == 4) { Delete.Function(RoomsList); }
+		if (number == 5) { Functions.ShowFunction(RoomsList); }
+		if (number == 6)
+		{
 			LoginTries = 4;
 			AdminSuccess -= 1;
 			Main();
@@ -233,67 +233,34 @@ class MainProgramma
 	static void CustomerOverview()
 	{
 		Console.Clear();
-		Console.WriteLine(userName + "," +  userLastName + "," + userPostcode + "," + userStreet + "," + userWoonplaats + "," + userEmail + "\n");
+		Console.WriteLine(userName + "," + userLastName + "," + userPostcode + "," + userStreet + "," + userWoonplaats + "," + userEmail + "\n");
 
 		ReturnMenuFunction();
 	}
 
 	public static void ReturnMenuFunction()
 	{
-		if (AdminSuccess == 1)
+		bool ReturnToMenu = Util.CheckML();
+		
+
+		if (ReturnToMenu == true)
 		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				AdminPage();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Functions.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.", ConsoleColor.Red);
-				Console.ReadKey(true);
-				Main();
-			}
+			if (AdminSuccess == 1) { Console.Clear(); AdminPage(); }
+			if (EmployeeSuccess == 1) { Console.Clear(); EmployeeMenu(); }
+			if (CustomerSuccess == 1) { Console.Clear(); CustomerMenu(); }
 		}
-		if (EmployeeSuccess == 1)
+
+		else if (ReturnToMenu == false)
 		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				EmployeeMenu();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
-			}
-		}
-		if (CustomerSuccess == 1)
-		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				CustomerMenu();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you have been logged out and will be returned to the main menu.\n\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
-			}
+			Console.Clear();
+			AdminSuccess = 0;
+			EmployeeSuccess = 0;
+			CustomerSuccess = 0;
+			Main();
 		}
 	}
 
-	
+
 }
 
 
