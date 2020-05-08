@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Y_or_N;
 
 namespace ProjectB.Crud
 {
-	class Delete
+	class Delete //Als er 0 kamers zijn zit je hierin vast lol haal dit weg zodra dat gefixed is top ty
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{
 			string userInput;
 			int DeleteIndex = 0;
-			string DeleteInput = null;
+			bool DeleteInput = false;
 			bool Roomchoicesucces = false;
 			bool Deleteroomsucces = false;
 			Console.Clear();
@@ -25,7 +26,7 @@ namespace ProjectB.Crud
 				if (Roomchoicesucces) { DeleteIndex = number; }
 				else
 				{
-					Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Functions.error();
 					Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
 				}
 			}
@@ -33,28 +34,31 @@ namespace ProjectB.Crud
 			{
 				if (i == DeleteIndex - 1)
 				{
-					Console.WriteLine("You are about to delete room : " + DeleteIndex + ", are you sure? enter y or n");
+					Console.Write("You are about to delete room : "); 
+					Functions.Write(DeleteIndex, ConsoleColor.Yellow); 
+					Console.Write(", are you sure? press ");
+					Functions.Write("y", ConsoleColor.Yellow);
+					Console.Write(" or ");
+					Functions.Write("n", ConsoleColor.Yellow);
+					
 					while (!Deleteroomsucces)
 					{
-						userInput = Console.ReadLine();
-						userInput.ToLower();
-						if (userInput == "y" || userInput == "n") { Deleteroomsucces = true; }
-						if (Deleteroomsucces) { DeleteInput = userInput; }
-						else
-						{
-							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-							Console.WriteLine("Please enter 'y' or 'n'");
-						}
-						
+						Deleteroomsucces = Util.CheckYN();
+						DeleteInput = Deleteroomsucces;
+						Deleteroomsucces = true;
 					}
-					if (DeleteInput == "y")
+					if (DeleteInput == true)
 					{
 						RoomsList.RemoveAt(DeleteIndex-1);
-						Console.WriteLine("The room has succesfully been Deleted");
+						Console.Write("\nThe room has ");
+						Functions.Write("succesfully ", ConsoleColor.Green);
+						Console.Write("been Deleted\n");
 					}
-					if (DeleteInput == "n")
+					if (DeleteInput == false)
 					{
-						Console.WriteLine("The room has NOT been deleted");
+						Console.Write("\nThe room has "); 
+						Functions.Write("not ", ConsoleColor.Red);
+						Console.Write("been deleted\n");
 					}
 				}
 

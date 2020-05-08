@@ -9,10 +9,10 @@ namespace Y_or_N
     {
         public static void test()
         {
-            bool response = CheckYN();
+            bool response = ReturnMenuYN();
         }
 
-        public static bool CheckYN()
+        public static bool ReturnMenuYN()
         {
             ConsoleKey response; // Creates a variable to hold the user's response.
 
@@ -36,7 +36,7 @@ namespace Y_or_N
             return response == ConsoleKey.Y;
         }
 
-        public static bool CheckML()
+        public static bool CheckML() //Method that only returns at a key input of M or L
         {
             ConsoleKey response; // Creates a variable to hold the user's response.
 
@@ -52,12 +52,6 @@ namespace Y_or_N
                 Console.WriteLine(); // Breaks the line.
             } while (response != ConsoleKey.M && response != ConsoleKey.L); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
 
-            /* 
-             * Return true if the user responded with 'Y', otherwise false.
-             * 
-             * We know the response was either 'Y' or 'N', so we can assume 
-             * the response is 'N' if it is not 'Y'.
-             */
             return response == ConsoleKey.M;
         }
 
@@ -69,5 +63,28 @@ namespace Y_or_N
             Console.ResetColor();
         }
 
+        public static bool CheckYN()
+        {
+            ConsoleKey response; // Creates a variable to hold the user's response.
+
+            do
+            {
+                while (Console.KeyAvailable) // Flushes the input queue.
+                    Console.ReadKey();
+
+                
+                Functions.Write("\nYour input - ", ConsoleColor.Yellow);// Asks the user to answer with 'Y' or 'N'.
+                response = Console.ReadKey().Key; // Gets the user's response.
+                 
+            } while (response != ConsoleKey.Y && response != ConsoleKey.N); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
+
+            /* 
+             * Return true if the user responded with 'Y', otherwise false.
+             * 
+             * We know the response was either 'Y' or 'N', so we can assume 
+             * the response is 'N' if it is not 'Y'.
+             */
+            return response == ConsoleKey.Y;
+        }
     }
 }
