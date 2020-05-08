@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Y_or_N
 {
-    public class Util
+    public class util
     {
         public static void test()
         {
@@ -45,8 +45,8 @@ namespace Y_or_N
                 while (Console.KeyAvailable) // Flushes the input queue.
                     Console.ReadKey();
 
-                Console.Write("======================\nExiting the current page, press "); Util.Write("m", ConsoleColor.Yellow); Console.Write(" to return to the Menu, or press "); Util.Write("l", ConsoleColor.Yellow); Console.Write(" to return to the login screen.\nYour input - ");
-                
+                Console.Write("======================\nExiting the current page, press "); util.Write("m", ConsoleColor.Yellow); Console.Write(" to return to the Menu, or press "); util.Write("l", ConsoleColor.Yellow); Console.Write(" to return to the login screen.\nYour input - ");
+
 
                 response = Console.ReadKey().Key; // Gets the user's response.
                 Console.WriteLine(); // Breaks the line.
@@ -72,10 +72,10 @@ namespace Y_or_N
                 while (Console.KeyAvailable) // Flushes the input queue.
                     Console.ReadKey();
 
-                
+
                 Functions.Write("\nYour input - ", ConsoleColor.Yellow);// Asks the user to answer with 'Y' or 'N'.
                 response = Console.ReadKey().Key; // Gets the user's response.
-                 
+
             } while (response != ConsoleKey.Y && response != ConsoleKey.N); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
 
             /* 
@@ -86,5 +86,14 @@ namespace Y_or_N
              */
             return response == ConsoleKey.Y;
         }
+        public static bool IsNullOrEmpty(string s)
+        {
+            if (String.IsNullOrEmpty(s))
+                return true;
+            else
+                return false;
+        }
+
+
     }
 }

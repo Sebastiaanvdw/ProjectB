@@ -43,7 +43,7 @@ namespace ProjectB.Crud
 					
 					while (!Deleteroomsucces)
 					{
-						Deleteroomsucces = Util.CheckYN();
+						Deleteroomsucces = util.CheckYN();
 						DeleteInput = Deleteroomsucces;
 						Deleteroomsucces = true;
 					}

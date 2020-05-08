@@ -27,21 +27,24 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
-		switch (Console.ReadLine())
+		Console.WriteLine("Please press [1], [2] or [3] on the keyboard");
+		Console.Write("Your input - ");
+		var input = Console.ReadKey();
+
+		switch (input.Key) //Switch on Key enum
 		{
-			case "1":
+			case ConsoleKey.D1:
 				CustomerLoginFunction();
 				break;
-			case "2":
+			case ConsoleKey.D2:
 				EmployeeLoginFunction();
 				break;
-			case "3":
+			case ConsoleKey.D3:
 				AdminFunction();
 				break;
 			default:
-				Console.WriteLine("fek");
+				Console.WriteLine("Unknown Command");
 				break;
-				
 		}
 	}
 
@@ -96,13 +99,16 @@ class MainProgramma
 		string UserPassWordLogin = Console.ReadLine();
 		if (UserNameLogin == "" && UserPassWordLogin == "")
 		{
-			Console.WriteLine("Return to the main menu? y or n");
-			string Return = Console.ReadLine();
-			if (Return == "y")
+			Console.Write("Return to the main menu? press ");
+			Functions.Write("y", ConsoleColor.Yellow);
+			Console.Write(" or ");
+			Functions.Write("n", ConsoleColor.Yellow);
+			bool Return = util.CheckYN();
+			if (Return == true)
 			{
 				Main();
 			}
-			if (Return != "n")
+			if (Return != false)
 			{
 				Console.Clear();
 				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
@@ -112,7 +118,7 @@ class MainProgramma
 		}
 		if (UserNameLogin != "user" || UserPassWordLogin != "12345")
 		{
-			Console.WriteLine("Wrong login credentials, press any key and try again.");
+			Console.WriteLine("\nWrong login credentials, press any key and try again.");
 			Console.ReadKey(true);
 			CustomerLoginFunction();
 		}
@@ -240,7 +246,7 @@ class MainProgramma
 
 	public static void ReturnMenuFunction()
 	{
-		bool ReturnToMenu = Util.CheckML();
+		bool ReturnToMenu = util.CheckML();
 		
 
 		if (ReturnToMenu == true)
