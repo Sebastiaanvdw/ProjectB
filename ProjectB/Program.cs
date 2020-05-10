@@ -240,60 +240,39 @@ class MainProgramma
 
 	public static void ReturnMenuFunction()
 	{
-		if (AdminSuccess == 1)
+		Console.WriteLine("======================\nExiting the current page, press m to return to the Menu, or press l to return to the login screen.");
+		bool ReturnMenuSuccess = false;
+		string return_to_menu = "";
+		string userInput;
+		while (!ReturnMenuSuccess)
 		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
+			userInput = Console.ReadLine();
+			userInput = userInput.ToLower();
+			if (userInput == "m" || userInput == "l") { ReturnMenuSuccess = true; }
+			if (ReturnMenuSuccess) { return_to_menu = userInput; }
+			else
 			{
-				Console.Clear();
-				AdminPage();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Please enter 'm' or 'l'");
 			}
 		}
-		if (EmployeeSuccess == 1)
+
+		if (return_to_menu == "m")
 		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				EmployeeMenu();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
-			}
+			if (AdminSuccess == 1) { Console.Clear(); AdminPage(); }
+			if (EmployeeSuccess == 1) { Console.Clear(); EmployeeMenu(); }
+			if (CustomerSuccess == 1) { Console.Clear(); CustomerMenu(); }
 		}
-		if (CustomerSuccess == 1)
+
+		if (return_to_menu == "l") 
 		{
-			Console.WriteLine("======================\nGo back to the menu? y or n");
-			string return_to_menu = Console.ReadLine();
-			if (return_to_menu == "y")
-			{
-				Console.Clear();
-				CustomerMenu();
-			}
-			if (return_to_menu != "n")
-			{
-				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you have been logged out and will be returned to the main menu.\n\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
-			}
+			Console.Clear();
+			AdminSuccess = 0;
+			EmployeeSuccess = 0;
+			CustomerSuccess = 0;
+			Main();
 		}
 	}
-
-	
 }
 
 
