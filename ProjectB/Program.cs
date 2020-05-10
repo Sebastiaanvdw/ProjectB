@@ -5,6 +5,8 @@ using ProjectB;
 using ProjectB.Crud;
 using Y_or_N;
 
+
+
 class MainProgramma
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
@@ -20,8 +22,11 @@ class MainProgramma
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
 	public static string EmployeeLogin = "";
-	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber;
+	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, userArrangement, userFoodArrangement;
 	public static string userUniqueID;
+	public static double userTotalPrice = 0;
+	public static double userFoodArrangementPrice = 0;
+	public static double userArrangementPrice = 0;
 
 	public static void Main()
 	{
@@ -70,7 +75,7 @@ class MainProgramma
 			string AdminLogin = Console.ReadLine();
 			if (AdminLogin == "admin")
 			{
-				AdminSuccess += 1;
+				AdminSuccess = 1;
 				AdminPage();
 			}
 			else
@@ -125,7 +130,7 @@ class MainProgramma
 	
 		if (UserNameLogin == "user" && UserPassWordLogin == "12345")
 		{
-			CustomerSuccess += 1;
+			CustomerSuccess = 0;
 			CustomerMenu();
 		}
 	}
@@ -138,7 +143,7 @@ class MainProgramma
 		string EmployeeLogin = Console.ReadLine();
 		if (EmployeeLogin == "employee")
 		{
-			EmployeeSuccess += 1;
+			EmployeeSuccess = 1;
 			EmployeeMenu();
 		}
 		if (EmployeeLogin == "")
@@ -184,7 +189,7 @@ class MainProgramma
 				Functions.ReserveerFunction();
 				break;
 			case "5":
-				CustomerSuccess -= 1;
+				CustomerSuccess = 0;
 				Main();
 				break;
 			default:
@@ -213,7 +218,7 @@ class MainProgramma
 		}
 		if (InterFaceInput == 5)
 		{
-			EmployeeSuccess -= 1;
+			EmployeeSuccess = 0;
 			Main();
 		}
 	}
@@ -233,7 +238,7 @@ class MainProgramma
 		if (number == 6)
 		{
 			LoginTries = 4;
-			AdminSuccess -= 1;
+			AdminSuccess = 0;
 			Main();
 		}
 	}

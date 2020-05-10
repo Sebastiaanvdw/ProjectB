@@ -29,7 +29,7 @@ namespace ProjectB
 				}
 			}
 
-			var userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze-1].roomPrice * MainProgramma.userParticipants;//hierbij moet ook nog + arrangementprijs; //Dit wordt in later berekend
+			TotalPriceFunction();	
 
 			Console.Clear();
 			Console.WriteLine("======================");
@@ -40,9 +40,15 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + MainProgramma.userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + MainProgramma.userWoonplaats);
 			Console.WriteLine("\nClient Phonenumber: " + MainProgramma.userPhoneNumber);
-			Console.WriteLine("\nTotal Price: " + userTotalPrice + "(Roomprice * Participants)");
+			Console.WriteLine("\nClient Food Arrangement: " + MainProgramma.userFoodArrangement);
+			Console.WriteLine("\nClient Arrangement: " + MainProgramma.userArrangement);
+			Console.WriteLine("\nTotal Price: $" + MainProgramma.userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + MainProgramma.userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + MainProgramma.userEmail);
+
+			MainProgramma.userFoodArrangementPrice = 0;
+			MainProgramma.userArrangementPrice = 0;
+			MainProgramma.userTotalPrice = 0;
 
 			MainProgramma.ReturnMenuFunction();
 		}
@@ -68,18 +74,48 @@ namespace ProjectB
 
 			Console.WriteLine("Fill in your first name(e.g. 'Piet'):"); // Alleen Letters
 			MainProgramma.userName = Console.ReadLine();
+			while (string.IsNullOrEmpty(MainProgramma.userName))
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Input your first name once more");
+				MainProgramma.userName = Console.ReadLine();
+			}
 
 			Console.WriteLine("Fill in your last name(e.g. 'de Koning'):"); //Alleen Letters
 			MainProgramma.userLastName = Console.ReadLine();
+			while (string.IsNullOrEmpty(MainProgramma.userLastName))
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Input your last name once more");
+				MainProgramma.userLastName = Console.ReadLine();
+			}
 
-			Console.WriteLine("Fill in your postcode(e.g. '2631 JK'):"); //4 Cijfers & 2 Letters
+			Console.WriteLine("Fill in your postal code(e.g. '2631JK'):"); //4 Cijfers & 2 Letters
 			MainProgramma.userPostcode = Console.ReadLine();
+			while (string.IsNullOrEmpty(MainProgramma.userPostcode))
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Input your postal code once more");
+				MainProgramma.userPostcode = Console.ReadLine();
+			}
 
 			Console.WriteLine("Fill in your street(e.g. 'Tulpenlaan'):"); // Alleen Letters
 			MainProgramma.userStreet = Console.ReadLine();
+			while (string.IsNullOrEmpty(MainProgramma.userStreet))
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Input your street name once more");
+				MainProgramma.userStreet = Console.ReadLine();
+			}
 
-			Console.WriteLine("Fill in your residence(e.g. 'Pijnacker'):"); // Alleen Letters
+			Console.WriteLine("Fill in your place of residence(e.g. 'Pijnacker'):"); // Alleen Letters
 			MainProgramma.userWoonplaats = Console.ReadLine();
+			while (string.IsNullOrEmpty(MainProgramma.userWoonplaats))
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Input your place of residence once more");
+				MainProgramma.userWoonplaats = Console.ReadLine();
+			}
 
 			Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
 			MainProgramma.userHouseNumber = Console.ReadLine();
@@ -90,6 +126,24 @@ namespace ProjectB
 			Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
 			MainProgramma.userPhoneNumber = Console.ReadLine();
 
+			Console.WriteLine("Fill in which food arrangment you want(None, Just Food, Just Drinks or Food and Drinks):"); // Alleen 1 van de 4 opties
+			MainProgramma.userFoodArrangement = Console.ReadLine();
+			while (MainProgramma.userFoodArrangement != "None" && MainProgramma.userFoodArrangement != "Just food" && MainProgramma.userFoodArrangement != "Just Drinks" && MainProgramma.userFoodArrangement != "Food and Drinks")
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Please enter one of the following: None, Just Food, Just Drinks or Food and Drinks");
+				MainProgramma.userFoodArrangement = Console.ReadLine();
+			}
+
+			Console.WriteLine("Fill in which arrangment you want(None, Kids Party, Ladies Night or Work Outing):"); // Alleen 1 van de 4 opties
+			MainProgramma.userArrangement = Console.ReadLine();
+			while (MainProgramma.userArrangement != "None" && MainProgramma.userArrangement != "Kids Party" && MainProgramma.userArrangement != "Ladies Night" && MainProgramma.userArrangement != "Work Outing")
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Please enter one of the following: None, Kids Party, Ladies Night or Work Outing");
+				MainProgramma.userArrangement = Console.ReadLine();
+			}
+
 			Console.WriteLine("Fill in how many participants there will be(" + MainProgramma.RoomsList[Convert.ToInt32(MainProgramma.roomKeuze - 1)].roomMinSize + "-" + MainProgramma.RoomsList[Convert.ToInt32(MainProgramma.roomKeuze - 1)].roomMaxSize + ")"); // 2-6 deelnemers
 			MainProgramma.userParticipants = Convert.ToInt32(Console.ReadLine());
 			while (MainProgramma.userParticipants < MainProgramma.RoomsList[MainProgramma.roomKeuze-1].roomMinSize || MainProgramma.userParticipants > MainProgramma.RoomsList[MainProgramma.roomKeuze-1].roomMaxSize)
@@ -98,9 +152,47 @@ namespace ProjectB
 				MainProgramma.userParticipants = Convert.ToInt32(Console.ReadLine());
 			}
 
-
 			Console.Clear();
 			ReceiptFunction();
+		}
+
+		public static void TotalPriceFunction()
+		{
+			if (MainProgramma.userFoodArrangement == "Just Drinks")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 3.50 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "Just Food")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 5 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "Food and Drinks")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 7 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "None")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants;
+			}
+
+			if (MainProgramma.userArrangement == "Kids Party")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.4;
+			}
+			if (MainProgramma.userArrangement == "Ladies Night")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.5;
+			}
+			if (MainProgramma.userArrangement == "None")
+			{
+				MainProgramma.userArrangementPrice = 0;
+			}
+			if (MainProgramma.userArrangement == "Work Outing")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.3;
+			}
+
+			MainProgramma.userTotalPrice = MainProgramma.userFoodArrangementPrice - MainProgramma.userArrangementPrice;
 		}
 		public static void ContactFunction()
 		{
