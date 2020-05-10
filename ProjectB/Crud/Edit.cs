@@ -176,7 +176,7 @@ namespace ProjectB.Crud
 						{
 							Continue_RoomEdit = false;
 						}
-						//MainProgramma.ReturnMenuFunction();
+						MainProgramma.ReturnMenuFunction();
 					}
 				}
 			}

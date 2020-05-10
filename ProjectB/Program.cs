@@ -134,6 +134,7 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Employee login page, please enter the right password:\n=========================================================================\n");
+		Console.Write("Password: ");
 		string EmployeeLogin = Console.ReadLine();
 		if (EmployeeLogin == "employee")
 		{
@@ -142,18 +143,19 @@ class MainProgramma
 		}
 		if (EmployeeLogin == "")
 		{
-			Console.WriteLine("Return to the main menu? y or n");
-			string Return = Console.ReadLine();
-			if (Return == "y")
+			Console.Write("Return to the main menu? press ");
+			Functions.Write("y", ConsoleColor.Yellow);
+			Console.Write(" or ");
+			Functions.Write("n", ConsoleColor.Yellow);
+			bool Return = util.CheckYN();
+			if (Return == true)
 			{
 				Main();
 			}
-			if (Return != "n")
+			if (Return == false)
 			{
 				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
+				EmployeeLoginFunction();
 			}
 		}
 		else
