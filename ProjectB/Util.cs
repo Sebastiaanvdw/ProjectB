@@ -94,6 +94,29 @@ namespace Y_or_N
                 return false;
         }
 
+        public static bool CheckCM()
+        {
+            ConsoleKey response; // Creates a variable to hold the user's response.
+
+            do
+            {
+                while (Console.KeyAvailable) // Flushes the input queue.
+                    Console.ReadKey();
+
+
+                Functions.Write("\nYour input - ", ConsoleColor.Yellow);// Asks the user to answer with 'Y' or 'N'.
+                response = Console.ReadKey().Key; // Gets the user's response.
+
+            } while (response != ConsoleKey.C && response != ConsoleKey.M); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
+
+            /* 
+             * Return true if the user responded with 'Y', otherwise false.
+             * 
+             * We know the response was either 'Y' or 'N', so we can assume 
+             * the response is 'N' if it is not 'Y'.
+             */
+            return response == ConsoleKey.C;
+        }
 
     }
 }

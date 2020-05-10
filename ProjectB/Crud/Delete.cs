@@ -6,7 +6,7 @@ using Y_or_N;
 
 namespace ProjectB.Crud
 {
-	class Delete //Als er 0 kamers zijn zit je hierin vast lol haal dit weg zodra dat gefixed is top ty
+	class Delete
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{

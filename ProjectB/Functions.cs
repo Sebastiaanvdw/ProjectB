@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ProjectB;
 using ProjectB.Crud;
+using Y_or_N;
 
 namespace ProjectB
 {
@@ -94,7 +95,7 @@ namespace ProjectB
 			MainProgramma.userPostcode = Console.ReadLine();
 			while (string.IsNullOrEmpty(MainProgramma.userPostcode))
 			{
-				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Functions.error();
 				Console.WriteLine("Input your postal code once more");
 				MainProgramma.userPostcode = Console.ReadLine();
 			}
@@ -232,10 +233,15 @@ namespace ProjectB
 
 		public static void ShowFunction(List<EscapeRoom> RoomsList)
 		{
+			bool showBool = false;
 			Console.Clear();
 			if (RoomsList.Count <= 0)
 			{
-				Console.WriteLine("ERROR NO ROOM HAS BEEN CREATED YET!");
+				Functions.WriteLine("Oh no, it looks like noone has created a room yet!", ConsoleColor.Red);
+				Console.Write("Press ");Functions.Write("c", ConsoleColor.Yellow);Console.Write(" to create a room or ");Functions.Write("m ", ConsoleColor.Yellow);Console.Write("to return to menu.");
+				showBool = util.CheckCM();
+				if(showBool == true) {Add.Function(MainProgramma.RoomsList); }
+				else { MainProgramma.AdminPage(); }
 			}
 			else
 			{
@@ -244,6 +250,25 @@ namespace ProjectB
 				{
 					Console.WriteLine(RoomsList[i] + "\n");
 				}
+				MainProgramma.ReturnMenuFunction();
+			}
+		}
+
+		public static void CustomerShowFunction(List<EscapeRoom> RoomsList)
+		{
+			Console.Clear();
+			if (RoomsList.Count <= 0)
+			{
+				Functions.WriteLine("Oh no, it looks like noone has created a room yet!", ConsoleColor.Red);
+			}
+			else
+			{
+				Console.WriteLine("Room info:\n");
+				for (int i = 0; i < RoomsList.Count; i++)
+				{
+					Console.WriteLine(RoomsList[i] + "\n");
+				}
+				
 			}
 			MainProgramma.ReturnMenuFunction();
 		}
