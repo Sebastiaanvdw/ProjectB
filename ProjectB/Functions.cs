@@ -164,5 +164,19 @@ namespace ProjectB
 			Console.ResetColor();
 		}
 
+		public static void error()
+		{
+			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+		}
+
+		public static void Write(object obj, ConsoleColor? color = null)
+		{
+			if (color != null)
+				Console.ForegroundColor = color.Value;
+			Console.Write(obj);
+			Console.ResetColor();
+		}
+
 	}
 }
+
