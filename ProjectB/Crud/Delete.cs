@@ -17,6 +17,7 @@ namespace ProjectB.Crud
 			bool Deleteroomsucces = false;
 			Console.Clear();
 			SpecialShow.Function(RoomsList);
+			if (RoomsList.Count == 0) { MainProgramma.ReturnMenuFunction(); }
 			Console.WriteLine("Enter the room number of the room you want to delete");
 			while (!Roomchoicesucces)
 			{
