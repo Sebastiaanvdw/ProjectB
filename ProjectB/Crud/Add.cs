@@ -37,7 +37,7 @@ namespace ProjectB.Crud
 					if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please enter a number between 12-100");
 					}
 				}
@@ -51,7 +51,7 @@ namespace ProjectB.Crud
 					if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please enter a number between 2-5");
 					}
 				}
@@ -65,7 +65,7 @@ namespace ProjectB.Crud
 					if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
 					}
 				}
@@ -76,11 +76,12 @@ namespace ProjectB.Crud
 					Console.WriteLine("Enter the price for the escape room:");
 					userInput = Console.ReadLine();
 					priceSuccess = Double.TryParse(userInput, out double number);
+					if (number < 0) { priceSuccess = false; }
 					if (priceSuccess) { RoomsList[NewIndex].roomPrice = number; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number.");
+						Functions.error();
+						Console.WriteLine("Please enter a positive number.");
 					}
 				}
 
@@ -93,7 +94,7 @@ namespace ProjectB.Crud
 					if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please use alphabetic characters only");
 					}
 				}
@@ -107,7 +108,7 @@ namespace ProjectB.Crud
 					if (durationSuccess) { RoomsList[NewIndex].roomDuration = userInput; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please try again");
 					}
 				}
@@ -122,7 +123,7 @@ namespace ProjectB.Crud
 					if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Functions.error();
 						Console.WriteLine("Please use alphabetic characters only");
 					}
 				}

@@ -29,21 +29,7 @@ namespace ProjectB
 				}
 			}
 
-			if (MainProgramma.userArrangement == "Just Drinks"){
-				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 3.50 * MainProgramma.userParticipants;
-			}
-			if (MainProgramma.userArrangement == "Just Food")
-			{
-				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 5 * MainProgramma.userParticipants;
-			}
-			if (MainProgramma.userArrangement == "Food and Drinks")
-			{
-				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 7 * MainProgramma.userParticipants;
-			}
-			if(MainProgramma.userArrangement == "None")
-			{
-				MainProgramma.userTotalPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants;
-			}			
+			TotalPriceFunction();	
 
 			Console.Clear();
 			Console.WriteLine("======================");
@@ -54,10 +40,15 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + MainProgramma.userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + MainProgramma.userWoonplaats);
 			Console.WriteLine("\nClient Phonenumber: " + MainProgramma.userPhoneNumber);
+			Console.WriteLine("\nClient Food Arrangement: " + MainProgramma.userFoodArrangement);
 			Console.WriteLine("\nClient Arrangement: " + MainProgramma.userArrangement);
 			Console.WriteLine("\nTotal Price: $" + MainProgramma.userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + MainProgramma.userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + MainProgramma.userEmail);
+
+			MainProgramma.userFoodArrangementPrice = 0;
+			MainProgramma.userArrangementPrice = 0;
+			MainProgramma.userTotalPrice = 0;
 
 			MainProgramma.ReturnMenuFunction();
 		}
@@ -135,12 +126,21 @@ namespace ProjectB
 			Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
 			MainProgramma.userPhoneNumber = Console.ReadLine();
 
-			Console.WriteLine("Fill in which arrangment you want(None, Just Food, Just Drinks or Food and Drinks):"); // Alleen 1 van de 4 opties
-			MainProgramma.userArrangement = Console.ReadLine();
-			while (MainProgramma.userArrangement != "None" && MainProgramma.userArrangement != "Just food" && MainProgramma.userArrangement != "Just Drinks" && MainProgramma.userArrangement != "Food and Drinks")
+			Console.WriteLine("Fill in which food arrangment you want(None, Just Food, Just Drinks or Food and Drinks):"); // Alleen 1 van de 4 opties
+			MainProgramma.userFoodArrangement = Console.ReadLine();
+			while (MainProgramma.userFoodArrangement != "None" && MainProgramma.userFoodArrangement != "Just food" && MainProgramma.userFoodArrangement != "Just Drinks" && MainProgramma.userFoodArrangement != "Food and Drinks")
 			{
 				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 				Console.WriteLine("Please enter one of the following: None, Just Food, Just Drinks or Food and Drinks");
+				MainProgramma.userFoodArrangement = Console.ReadLine();
+			}
+
+			Console.WriteLine("Fill in which arrangment you want(None, Kids Party, Ladies Night or Work Outing):"); // Alleen 1 van de 4 opties
+			MainProgramma.userArrangement = Console.ReadLine();
+			while (MainProgramma.userArrangement != "None" && MainProgramma.userArrangement != "Kids Party" && MainProgramma.userArrangement != "Ladies Night" && MainProgramma.userArrangement != "Work Outing")
+			{
+				Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+				Console.WriteLine("Please enter one of the following: None, Kids Party, Ladies Night or Work Outing");
 				MainProgramma.userArrangement = Console.ReadLine();
 			}
 
@@ -154,6 +154,45 @@ namespace ProjectB
 
 			Console.Clear();
 			ReceiptFunction();
+		}
+
+		public static void TotalPriceFunction()
+		{
+			if (MainProgramma.userFoodArrangement == "Just Drinks")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 3.50 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "Just Food")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 5 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "Food and Drinks")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants + 7 * MainProgramma.userParticipants;
+			}
+			if (MainProgramma.userFoodArrangement == "None")
+			{
+				MainProgramma.userFoodArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * MainProgramma.userParticipants;
+			}
+
+			if (MainProgramma.userArrangement == "Kids Party")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.4;
+			}
+			if (MainProgramma.userArrangement == "Ladies Night")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.5;
+			}
+			if (MainProgramma.userArrangement == "None")
+			{
+				MainProgramma.userArrangementPrice = 0;
+			}
+			if (MainProgramma.userArrangement == "Work Outing")
+			{
+				MainProgramma.userArrangementPrice = MainProgramma.RoomsList[MainProgramma.roomKeuze - 1].roomPrice * 1.3;
+			}
+
+			MainProgramma.userTotalPrice = MainProgramma.userFoodArrangementPrice - MainProgramma.userArrangementPrice;
 		}
 		public static void ContactFunction()
 		{
@@ -217,5 +256,19 @@ namespace ProjectB
 			Console.ResetColor();
 		}
 
+		public static void error()
+		{
+			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+		}
+
+		public static void Write(object obj, ConsoleColor? color = null)
+		{
+			if (color != null)
+				Console.ForegroundColor = color.Value;
+			Console.Write(obj);
+			Console.ResetColor();
+		}
+
 	}
 }
+
