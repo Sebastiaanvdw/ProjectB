@@ -252,6 +252,7 @@ class MainProgramma
 			}
 			if (return_to_menu != "n")
 			{
+				AdminSuccess -= 1;
 				Console.Clear();
 				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
 				Console.ReadKey(true);
@@ -269,6 +270,7 @@ class MainProgramma
 			}
 			if (return_to_menu != "n")
 			{
+				EmployeeSuccess -= 1;
 				Console.Clear();
 				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
 				Console.ReadKey(true);
@@ -286,6 +288,7 @@ class MainProgramma
 			}
 			if (return_to_menu != "n")
 			{
+				CustomerSuccess -= 1;
 				Console.Clear();
 				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you have been logged out and will be returned to the main menu.\n\nPress any key to return to the main menu.");
 				Console.ReadKey(true);
