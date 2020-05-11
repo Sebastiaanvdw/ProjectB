@@ -8,7 +8,8 @@ namespace ProjectB
 	class Functions
 	{
 		public static string userinput;
-		public static int RoomChoice, userParticipants;
+		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
+		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber;
 		public static string userUniqueID;
 		public static bool RoomChoiceSucces = false;
@@ -23,6 +24,8 @@ namespace ProjectB
 		public static bool userPhoneNumberSucces = false;
 		public static bool userParticipantsSucces = false;
 		public static bool LoopContactFunction = false;
+		public static bool userFoodArrangementSucces = false;
+		public static bool userArrangementSucces = false;
 		public static void Contact()
 		{
 			Console.Clear();
@@ -55,8 +58,6 @@ namespace ProjectB
 				}
 			}
 
-			var userTotalPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants;//hierbij moet ook nog + arrangementprijs; //Dit wordt in later berekend
-
 			Console.Clear();
 			Console.WriteLine("======================");
 			Console.WriteLine("\nThe following room has been chosen: " + MainProgramma.RoomsList[RoomChoice].roomName);
@@ -68,8 +69,8 @@ namespace ProjectB
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
 			Console.WriteLine("\nTotal Price: $" + userTotalPrice + "(Roomprice * Participants)");
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
-			Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
-			Console.WriteLine("\nPress any key to return to continue.\n");
+			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
+			Console.WriteLine("\n\n\nPress any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 		public static void ReserveerFunction()
@@ -224,12 +225,12 @@ namespace ProjectB
 
 			while (!userPhoneNumberSucces)
 			{
-				Console.WriteLine("Fill in your telephonenumber(e.g. '0676319854', the 06 will automaticly be added):"); // Alleen cijfers max. 10 getallen
+				Console.WriteLine("Fill in your telephonenumber(e.g. '0676319854'):"); // Alleen cijfers max. 10 getallen
 				userinput = Console.ReadLine();
-				userPhoneNumberSucces = int.TryParse(userinput, out int number);
-				if (number.ToString().Length == 10) { userPhoneNumberSucces = true; }
+				if (string.IsNullOrEmpty(userinput)) { userPhoneNumberSucces = false; }
+				else if (userinput.Length == 10 & userinput.All(Char.IsDigit)) { userPhoneNumberSucces = true; }
 				else { userPhoneNumberSucces = false; }
-				if (userPhoneNumberSucces == true) { userPhoneNumber = number.ToString(); }
+				if (userPhoneNumberSucces == true) { userPhoneNumber = userinput.ToString(); }
 				else
 				{
 					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -251,8 +252,77 @@ namespace ProjectB
 					Console.WriteLine("Please enter a valid number of participants");
 				}
 			}
+
+			while (!userFoodArrangementSucces)
+			{
+				Console.WriteLine("Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):"); // Alleen 1 van de 4 opties
+				userinput = Console.ReadLine();
+				userFoodArrangementSucces = int.TryParse(userinput, out int number);
+				if (number < 0 | number > 5) { userFoodArrangementSucces = false; }
+				else { userFoodArrangementSucces = true; }
+				if (userFoodArrangementSucces) { userFoodArrangement = number; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a number between 1 and 4");
+				}
+			}
+
+			while (!userArrangementSucces)
+			{
+				Console.WriteLine("Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):"); // Alleen 1 van de 4 opties
+				userinput = Console.ReadLine();
+				userArrangementSucces = int.TryParse(userinput, out int number);
+				if (number < 0 | number > 5) { userArrangementSucces = false; }
+				else { userArrangementSucces = true; }
+				if (userArrangementSucces) { userArrangement = number; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a number between 1 and 4");
+				}
+			}
 			Console.Clear();
+			TotalPrice();
 			ReceiptFunction();
+		}
+
+		public static void TotalPrice()
+		{
+			if (userFoodArrangement == 1)
+			{
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants;
+			}
+			if (userFoodArrangement == 2)
+			{
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 5 * userParticipants;
+			}
+			if (userFoodArrangement == 3)
+			{
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 3.50 * userParticipants;
+			}
+			if (userFoodArrangement == 4)
+			{
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 7 * userParticipants;
+			}
+
+			if (userArrangement == 1)
+			{
+				userArrangementPrice = 0;
+			}
+			if (userArrangement == 2)
+			{
+				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.4;
+			}
+			if (userArrangement == 3)
+			{
+				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.5;
+			}
+			if (userArrangement == 4)
+			{
+				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.3;
+			}
+			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
 		}
 		public static void CustomerOverview()
 		{
