@@ -148,6 +148,10 @@ namespace ProjectB.Crud
 					if (Return == true) { }
 					if (Return == false) { LoopAddEscaperoom = false; }
 				}
+				else
+				{
+					return;
+				}
 			}
 		}
 	}
