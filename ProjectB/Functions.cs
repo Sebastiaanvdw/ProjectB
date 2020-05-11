@@ -64,7 +64,7 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + userResidency);
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nTotal Price: " + userTotalPrice + "(Roomprice * Participants)");
+			Console.WriteLine("\nTotal Price: $" + userTotalPrice + "(Roomprice * Participants)");
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
 			Console.ReadKey(true);
@@ -174,6 +174,20 @@ namespace ProjectB
 				}
 			}
 
+			while (!userHouseNumberSucces)
+			{
+				Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
+				userinput = Console.ReadLine();
+				userHouseNumberSucces = int.TryParse(userinput, out int number);
+				if (number > 0 && number < 2000) { userHouseNumberSucces = true; }
+				else { userHouseNumberSucces = false; }
+				if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a valid housenumber");
+				}
+			}
 			while (!userResidencySucces)
 			{
 				Console.WriteLine("Fill in your place of residence(e.g. 'Pijnacker'):"); // Alleen Letters
@@ -189,20 +203,6 @@ namespace ProjectB
 				}
 			}
 
-			while (!userHouseNumberSucces)
-			{
-				Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
-				userinput = Console.ReadLine();
-				userHouseNumberSucces = int.TryParse(userinput, out int number);
-				if (number > 0 && number < 2000) { userHouseNumberSucces = true; }
-				else { userHouseNumberSucces = false; }
-				if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
-				else
-				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine("Please enter a valid housenumber");
-				}
-			}
 
 			while (!userEmailSucces)
 			{
@@ -239,7 +239,7 @@ namespace ProjectB
 				Console.WriteLine("Fill in how many participants there will be(" + MainProgramma.RoomsList[RoomChoice].roomMinSize + "-" + MainProgramma.RoomsList[RoomChoice].roomMaxSize + ")"); // 2-6 deelnemers
 				userinput = Console.ReadLine();
 				userParticipantsSucces = int.TryParse(userinput, out int number);
-				if (number > MainProgramma.RoomsList[RoomChoice].roomMinSize && number < MainProgramma.RoomsList[RoomChoice].roomMaxSize) { userParticipantsSucces = true; }
+				if (number >= MainProgramma.RoomsList[RoomChoice].roomMinSize && number <= MainProgramma.RoomsList[RoomChoice].roomMaxSize) { userParticipantsSucces = true; }
 				else { userParticipantsSucces = false; }
 				if (userParticipantsSucces == true) { userParticipants = number; }
 				else
