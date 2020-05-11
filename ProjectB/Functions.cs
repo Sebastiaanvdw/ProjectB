@@ -334,7 +334,7 @@ namespace ProjectB
 			Console.ResetColor();
 		}
 
-		public static void error()
+		public static void Error()
 		{
 			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}

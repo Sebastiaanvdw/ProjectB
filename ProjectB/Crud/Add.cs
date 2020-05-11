@@ -41,7 +41,7 @@ namespace ProjectB.Crud
 						if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please enter a number between 12-100");
 						}
 					}
@@ -55,7 +55,7 @@ namespace ProjectB.Crud
 						if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please enter a number between 2-5");
 						}
 					}
@@ -69,7 +69,7 @@ namespace ProjectB.Crud
 						if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
 						}
 					}
@@ -84,7 +84,7 @@ namespace ProjectB.Crud
 						if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please enter a positive number.");
 						}
 					}
@@ -98,7 +98,7 @@ namespace ProjectB.Crud
 						if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please use alphabetic characters only");
 						}
 					}
@@ -112,7 +112,7 @@ namespace ProjectB.Crud
 						if (durationSuccess) { RoomsList[NewIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number))*60).ToString() + " minutes"; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please try again");
 						}
 					}
@@ -126,7 +126,7 @@ namespace ProjectB.Crud
 						if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
 						else
 						{
-							Functions.error();
+							Functions.Error();
 							Console.WriteLine("Please use alphabetic characters only");
 						}
 					}

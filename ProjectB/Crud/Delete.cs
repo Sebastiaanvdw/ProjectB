@@ -40,7 +40,7 @@ namespace ProjectB.Crud
 					if (Roomchoicesucces) { DeleteIndex = number; }
 					else
 					{
-						Functions.error();
+						Functions.Error();
 						Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
 					}
 				}

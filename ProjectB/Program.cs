@@ -236,7 +236,7 @@ class MainProgramma
 			Console.Clear();
 			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
 			string InterFaceInput = Console.ReadLine();
-			if (!int.TryParse(InterFaceInput, out int number)) { Functions.error(); }
+			if (!int.TryParse(InterFaceInput, out int number)) { Functions.Error(); }
 
 			if (number == 1) { Functions.CustomerOverview(); }
 			if (number == 2) { Add.Function(RoomsList); }
