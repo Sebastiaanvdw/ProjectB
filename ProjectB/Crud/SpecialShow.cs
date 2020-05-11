@@ -12,8 +12,10 @@ namespace ProjectB.Crud
 			Console.Clear();
 			if (RoomsList.Count <= 0)
 			{
-				Console.WriteLine("ERROR NO ROOM HAS BEEN CREATED YET!");
-			}
+					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
 			else
 			{
 				Console.WriteLine("Room info:\n");

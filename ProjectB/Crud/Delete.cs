@@ -10,68 +10,77 @@ namespace ProjectB.Crud
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{
-			string userInput;
-			int DeleteIndex = 0;
-			bool DeleteInput = false;
-			bool Roomchoicesucces = false;
-			bool Deleteroomsucces = false;
-			Console.Clear();
-			SpecialShow.Function(RoomsList);
-			if (RoomsList.Count == 0) { MainProgramma.ReturnMenuFunction(); }
-			Console.WriteLine("Enter the room number of the room you want to delete");
-			while (!Roomchoicesucces)
-			{
-				userInput = Console.ReadLine();
-				Roomchoicesucces = int.TryParse(userInput, out int number);
-				if (number < 1 || number > RoomsList.Count) { Roomchoicesucces = false; }
-				if (Roomchoicesucces) { DeleteIndex = number; }
-				else
+			bool LoopDeleteRoom = true;
+			while (LoopDeleteRoom)
+			{	
+				string userInput;
+				int DeleteIndex = 0;
+				bool DeleteInput = false;
+				bool Roomchoicesucces = false;
+				bool Deleteroomsucces = false;
+				Console.Clear();
+				SpecialShow.Function(RoomsList);
+				if (RoomsList.Count == 0) { return; } //MainProgramma.ReturnMenuFunction(); }
+				Console.WriteLine("Enter the room number of the room you want to delete");
+				while (!Roomchoicesucces)
 				{
-					Functions.error();
-					Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
-				}
-			}
-			for (int i = 0; i < RoomsList.Count; i++)
-			{
-				if (i == DeleteIndex - 1)
-				{
-					Console.Write("You are about to delete room : "); 
-					Functions.Write(DeleteIndex, ConsoleColor.Yellow); 
-					Console.Write(", are you sure? press ");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
-					
-					while (!Deleteroomsucces)
+					userInput = Console.ReadLine();
+					Roomchoicesucces = int.TryParse(userInput, out int number);
+					if (number < 1 || number > RoomsList.Count) { Roomchoicesucces = false; }
+					if (Roomchoicesucces) { DeleteIndex = number; }
+					else
 					{
-						Deleteroomsucces = util.CheckYN();
-						DeleteInput = Deleteroomsucces;
-						Deleteroomsucces = true;
-					}
-					if (DeleteInput == true)
-					{
-						RoomsList.RemoveAt(DeleteIndex-1);
-						Console.Write("\nThe room has ");
-						Functions.Write("succesfully ", ConsoleColor.Green);
-						Console.Write("been Deleted\n");
-					}
-					if (DeleteInput == false)
-					{
-						Console.Write("\nThe room has "); 
-						Functions.Write("not ", ConsoleColor.Red);
-						Console.Write("been deleted\n");
+						Functions.error();
+						Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
 					}
 				}
-
-			}
-			if (RoomsList.Count > 0)
-			{
 				for (int i = 0; i < RoomsList.Count; i++)
 				{
-					RoomsList[i].roomNumber = i + 1;
+					if (i == DeleteIndex - 1)
+					{
+						Console.Write("You are about to delete room : ");
+						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
+						Console.Write(", are you sure? press ");
+						Functions.Write("y", ConsoleColor.Yellow);
+						Console.Write(" or ");
+						Functions.Write("n", ConsoleColor.Yellow);
+
+						while (!Deleteroomsucces)
+						{
+							Deleteroomsucces = util.CheckYN();
+							DeleteInput = Deleteroomsucces;
+							Deleteroomsucces = true;
+						}
+						if (DeleteInput == true)
+						{
+							RoomsList.RemoveAt(DeleteIndex - 1);
+							Console.Write("\nThe room has ");
+							Functions.Write("succesfully ", ConsoleColor.Green);
+							Console.Write("been Deleted\n");
+						}
+						if (DeleteInput == false)
+						{
+							Console.Write("\nThe room has ");
+							Functions.Write("not ", ConsoleColor.Red);
+							Console.Write("been deleted\n");
+						}
+					}
 				}
+				if (RoomsList.Count > 0)
+				{
+					for (int i = 0; i < RoomsList.Count; i++)
+					{
+						RoomsList[i].roomNumber = i + 1;
+					}
+				}
+				Console.WriteLine("Would you like to delete another room, press");
+				Functions.Write("y", ConsoleColor.Yellow);
+				Console.Write(" or ");
+				Functions.Write("n", ConsoleColor.Yellow);
+				bool Return = util.CheckYN();
+				if (Return == true) { }
+				if (Return == false) { LoopDeleteRoom = false; }
 			}
-			MainProgramma.ReturnMenuFunction();
 		}
 	}
 }
