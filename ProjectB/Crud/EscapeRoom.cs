@@ -13,7 +13,7 @@ namespace ProjectB.Crud
 
 		public override string ToString()
 		{
-			return "Room number = " + "#" + roomNumber + "\n Room name = " + roomName + "\n Minimum age = " + ageMinimum + " years" + "\n Room size = " + roomMinSize + "-" + roomMaxSize + " players" + "\n Room theme = " + roomTheme + "\n Room duration = " + roomDuration + " hours" + "\n Room price = " + "$" + roomPrice + " per participant";
+			return "Room number = " + "#" + roomNumber + "\n Room name = " + roomName + "\n Minimum age = " + ageMinimum + " years" + "\n Room size = " + roomMinSize + "-" + roomMaxSize + " players" + "\n Room theme = " + roomTheme + "\n Room duration = " + roomDuration + "\n Room price = " + "$" + roomPrice + " per participant";
 		}
 	}
 

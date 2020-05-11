@@ -22,11 +22,12 @@ namespace ProjectB
 		public static bool userEmailSucces = false;
 		public static bool userPhoneNumberSucces = false;
 		public static bool userParticipantsSucces = false;
-
+		public static bool LoopContactFunction = false;
 		public static void Contact()
 		{
 			Console.Clear();
 			Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 3546WQ Rotterdam\n");
+			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 
@@ -38,6 +39,7 @@ namespace ProjectB
 
 			Console.Clear();
 			Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "\n");
+			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 
@@ -67,6 +69,7 @@ namespace ProjectB
 			Console.WriteLine("\nTotal Price: $" + userTotalPrice + "(Roomprice * Participants)");
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be send to the following email address: " + userEmail);
+			Console.WriteLine("\nPress any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 		public static void ReserveerFunction()
@@ -151,7 +154,7 @@ namespace ProjectB
 				if (string.IsNullOrEmpty(userinput)) { userPostCodeLetterSucces = false; }
 				else if (userinput.Any(char.IsDigit)) { userPostCodeLetterSucces = false; }
 				else { userPostCodeLetterSucces = true; }
-				if (userPostCodeLetterSucces) { userPostcode += userinput; }
+				if (userPostCodeLetterSucces) { userPostcode += userinput.ToUpper() ; }
 				else
 				{
 					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -221,12 +224,12 @@ namespace ProjectB
 
 			while (!userPhoneNumberSucces)
 			{
-				Console.WriteLine("Fill in your telephonenumber(e.g. '06 7631 9854', the 06 will automaticly be added):"); // Alleen cijfers max. 10 getallen
+				Console.WriteLine("Fill in your telephonenumber(e.g. '0676319854', the 06 will automaticly be added):"); // Alleen cijfers max. 10 getallen
 				userinput = Console.ReadLine();
 				userPhoneNumberSucces = int.TryParse(userinput, out int number);
-				if (number.ToString().Length == 8) { userPhoneNumberSucces = true; }
+				if (number.ToString().Length == 10) { userPhoneNumberSucces = true; }
 				else { userPhoneNumberSucces = false; }
-				if (userPhoneNumberSucces == true) { userPhoneNumber = "06" + number.ToString(); }
+				if (userPhoneNumberSucces == true) { userPhoneNumber = number.ToString(); }
 				else
 				{
 					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -263,17 +266,24 @@ namespace ProjectB
 
 		public static void ContactFunction()
 		{
-			Console.Clear();
-			Console.WriteLine("Welcome to the Contact and F.A.Q. page.\nPlease select one of the options below:\n\n1: Contact information\n2: F.A.Q.\n");
-			string userInputCFAQ = Console.ReadLine();
+			while (!LoopContactFunction)
+			{
+				Console.Clear();
+				Console.WriteLine("Welcome to the Contact and F.A.Q. page.\nPlease select one of the options below:\n\n1: Contact information\n2: F.A.Q.\n3: Exit");
+				string userInputCFAQ = Console.ReadLine();
 
-			if (userInputCFAQ == "1")
-			{
-				Contact();
-			}
-			if (userInputCFAQ == "2")
-			{
-				FAQ();
+				if (userInputCFAQ == "1")
+				{
+					Contact();
+				}
+				if (userInputCFAQ == "2")
+				{
+					FAQ();
+				}
+				if (userInputCFAQ == "3")
+				{
+					return;
+				}
 			}
 		}
 
@@ -292,6 +302,7 @@ namespace ProjectB
 			Console.WriteLine("9) If you decide to leave the room, you wil no longer be allowed to enter the room.");
 			Console.WriteLine("10) The game leader wil be watching the game via camera's. If you break any og the rules, he/she can decide to end the game.");
 			Console.WriteLine("11) You play the game at your own risk. Damage or injury can not be recovered from the escape room");
+			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 

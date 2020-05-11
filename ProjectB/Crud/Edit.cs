@@ -152,11 +152,11 @@ namespace ProjectB.Crud
 							{
 								while (!durationSuccess)
 								{
-									Console.WriteLine("Enter the duration for the escape room (e.g. '2', 'hours' is automaticly added afterwards)):");
+									Console.WriteLine("Enter the duration for the escape room in hours (e.g. '1,5'):");
 									userInput = Console.ReadLine();
-									if (string.IsNullOrEmpty(userInput)) { durationSuccess = false; }
-									else { durationSuccess = true; }
-									if (durationSuccess) { RoomsList[EditRoomIndex].roomDuration = userInput; }
+									durationSuccess = double.TryParse(userInput, out double number);
+									if (number < 0 || number > 5) { durationSuccess = true; }
+									if (durationSuccess) { RoomsList[EditRoomIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number)) * 60).ToString() + " minutes"; }
 									else
 									{
 										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
@@ -187,13 +187,20 @@ namespace ProjectB.Crud
 						}
 					}
 				}
-				Console.WriteLine("Would you like to edit another room, press");
-				Functions.Write("y", ConsoleColor.Yellow);
-				Console.Write(" or ");
-				Functions.Write("n", ConsoleColor.Yellow);
-				bool Return = util.CheckYN();
-				if (Return == true) { }
-				if (Return == false) { LoopEditRoom = false; }
+				if (RoomsList.Count > 1)
+				{
+					Console.Write("Would you like to edit another room, press");
+					Functions.Write("y", ConsoleColor.Yellow);
+					Console.Write(" or ");
+					Functions.Write("n", ConsoleColor.Yellow);
+					bool Return = util.CheckYN();
+					if (Return == true) { }
+					if (Return == false) { LoopEditRoom = false; }
+				}
+				else
+				{
+					return;
+				}
 			}
 		}
 	}

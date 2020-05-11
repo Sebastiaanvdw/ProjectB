@@ -81,7 +81,7 @@ namespace ProjectB.Crud
 						userInput = Console.ReadLine();
 						priceSuccess = Double.TryParse(userInput, out double number);
 						if (number < 0) { priceSuccess = false; }
-						if (priceSuccess) { RoomsList[NewIndex].roomPrice = number; }
+						if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
 						else
 						{
 							Functions.error();
@@ -105,18 +105,17 @@ namespace ProjectB.Crud
 
 					while (!durationSuccess)
 					{
-						Console.WriteLine("Enter the duration for the escape room (e.g. '2', 'hours' is automaticly added afterwards):");
+						Console.WriteLine("Enter the duration for the escape room in hours(e.g. '2'):");
 						userInput = Console.ReadLine();
 						durationSuccess = double.TryParse(userInput, out double number);
 						if (number < 0 || number > 5) { durationSuccess = true; }
-						if (durationSuccess) { RoomsList[NewIndex].roomDuration = number.ToString(); }
+						if (durationSuccess) { RoomsList[NewIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number))*60).ToString() + " minutes"; }
 						else
 						{
 							Functions.error();
 							Console.WriteLine("Please try again");
 						}
 					}
-
 
 					while (!nameSuccess)
 					{
@@ -139,13 +138,16 @@ namespace ProjectB.Crud
 				{
 					Functions.WriteLine("There are already 5 EscapeRooms existing!", ConsoleColor.Red);
 				}
-				Console.WriteLine("Would you like to add another room, press");
-				Functions.Write("y", ConsoleColor.Yellow);
-				Console.Write(" or ");
-				Functions.Write("n", ConsoleColor.Yellow);
-				bool Return = util.CheckYN();
-				if (Return == true) { }
-				if (Return == false) { LoopAddEscaperoom = false; }
+				if (RoomsList.Count < 5)
+				{
+					Console.Write("Would you like to add another room, press");
+					Functions.Write("y", ConsoleColor.Yellow);
+					Console.Write(" or ");
+					Functions.Write("n", ConsoleColor.Yellow);
+					bool Return = util.CheckYN();
+					if (Return == true) { }
+					if (Return == false) { LoopAddEscaperoom = false; }
+				}
 			}
 		}
 	}
