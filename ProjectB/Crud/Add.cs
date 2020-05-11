@@ -10,14 +10,17 @@ namespace ProjectB.Crud
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{
-			string userInput;
-			bool priceSuccess= false;
-			bool themeSuccess = false;
-			bool minSuccess = false;
-			bool maxSuccess = false;
-			bool ageSuccess = false;
-			bool durationSuccess = false;
-			bool nameSuccess = false;
+			bool LoopAddEscaperoom = true;
+			while (LoopAddEscaperoom)
+			{
+				string userInput;
+				bool priceSuccess = false;
+				bool themeSuccess = false;
+				bool minSuccess = false;
+				bool maxSuccess = false;
+				bool ageSuccess = false;
+				bool durationSuccess = false;
+				bool nameSuccess = false;
 
 
 			if (RoomsList.Count >= 0 & RoomsList.Count < 5)
@@ -131,11 +134,18 @@ namespace ProjectB.Crud
 				Functions.WriteLine("Room Complete!", ConsoleColor.Green);
 			}
 
-			else
-			{
-				Functions.WriteLine("There are already 5 EscapeRooms existing!", ConsoleColor.Red);
+				else
+				{
+					Functions.WriteLine("There are already 5 EscapeRooms existing!", ConsoleColor.Red);
+				}
+				Console.Write("Would you like to add another room, press");
+				Functions.Write("y", ConsoleColor.Yellow);
+				Console.Write(" or ");
+				Functions.Write("n", ConsoleColor.Yellow);
+				bool Return = util.CheckYN();
+				if (Return == true) { }
+				if (Return == false) { LoopAddEscaperoom = false; }
 			}
-			MainProgramma.ReturnMenuFunction();
 		}
 	}
 }
