@@ -250,7 +250,7 @@ class MainProgramma
 			}
 		}
 	}
-	
+	/*
 	public static void ReturnMenuFunction()
 	{
 		bool ReturnToMenu = util.CheckML();
@@ -271,5 +271,5 @@ class MainProgramma
 			CustomerSuccess = 0;
 			Main();
 		}
-	}
+	}*/
 }

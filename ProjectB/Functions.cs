@@ -240,7 +240,7 @@ namespace ProjectB
 			
 			while (!userParticipantsSucces)
 			{
-				Console.WriteLine("Fill in how many participants there will be(" + MainProgramma.RoomsList[RoomChoice].roomMinSize + "-" + MainProgramma.RoomsList[RoomChoice].roomMaxSize + ")"); // 2-6 deelnemers
+				Console.WriteLine("Fill in how many participants there will be (" + MainProgramma.RoomsList[RoomChoice].roomMinSize + "-" + MainProgramma.RoomsList[RoomChoice].roomMaxSize + ")"); // 2-6 deelnemers
 				userinput = Console.ReadLine();
 				userParticipantsSucces = int.TryParse(userinput, out int number);
 				if (number >= MainProgramma.RoomsList[RoomChoice].roomMinSize && number <= MainProgramma.RoomsList[RoomChoice].roomMaxSize) { userParticipantsSucces = true; }
@@ -289,36 +289,36 @@ namespace ProjectB
 
 		public static void TotalPrice()
 		{
-			if (userFoodArrangement == 1)
+			if (userFoodArrangement == 1) //none
 			{
 				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants;
 			}
-			if (userFoodArrangement == 2)
+			if (userFoodArrangement == 2) //just food
 			{
 				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 5 * userParticipants;
 			}
-			if (userFoodArrangement == 3)
+			if (userFoodArrangement == 3) //just drinks
 			{
 				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 3.50 * userParticipants;
 			}
-			if (userFoodArrangement == 4)
+			if (userFoodArrangement == 4) //food and drinks
 			{
 				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 7 * userParticipants;
 			}
 
-			if (userArrangement == 1)
+			if (userArrangement == 1) //none
 			{
 				userArrangementPrice = 0;
 			}
-			if (userArrangement == 2)
+			if (userArrangement == 2) //kids party
 			{
 				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.4;
 			}
-			if (userArrangement == 3)
+			if (userArrangement == 3) //ladies night
 			{
 				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.5;
 			}
-			if (userArrangement == 4)
+			if (userArrangement == 4) //work outing
 			{
 				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
@@ -393,6 +393,7 @@ namespace ProjectB
 					Console.WriteLine(RoomsList[i] + "\n");
 				}
 			}
+			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 
