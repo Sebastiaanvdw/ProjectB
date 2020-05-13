@@ -71,11 +71,16 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + userResidency);
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
+			Console.WriteLine("\nClient Food Arrangement: " + userFoodArrangement);
+			Console.WriteLine("\nClient Arrangement: " + userArrangement);
 			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
 			Console.WriteLine("\n\n\nPress any key to return to continue.\n");
 			Console.ReadKey(true);
+
+			userTotalPrice = 0;
+			userFoodArrangement = 0;
 		}
 		public static void ReserveerFunction()
 		{
