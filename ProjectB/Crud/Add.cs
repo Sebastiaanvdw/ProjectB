@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Y_or_N;
-using System.Text;
-using ProjectB;
-using Y_or_N;
+
 
 namespace ProjectB.Crud
 {
@@ -63,7 +61,7 @@ namespace ProjectB.Crud
 
 					while (!maxSuccess)
 					{
-						Console.WriteLine("Enter the maximum amount of players for the escape room (between"+ (RoomsList[NewIndex].roomMinSize + 1) + "-6):");
+						Console.WriteLine("Enter the maximum amount of players for the escape room (between "+ (RoomsList[NewIndex].roomMinSize + 1) + "-6):");
 						userInput = Console.ReadLine();
 						maxSuccess = int.TryParse(userInput, out int number);
 						if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
@@ -131,7 +129,6 @@ namespace ProjectB.Crud
 							Console.WriteLine("Please use alphabetic characters only");
 						}
 					}
-
 					Functions.WriteLine("Room Complete!", ConsoleColor.Green);
 				}
 
@@ -141,7 +138,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count < 5)
 				{
-					Console.Write("Would you like to add another room, press");
+					Console.Write("Would you like to add another room, press ");
 					Functions.Write("y", ConsoleColor.Yellow);
 					Console.Write(" or ");
 					Functions.Write("n", ConsoleColor.Yellow);

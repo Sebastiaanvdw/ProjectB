@@ -6,7 +6,7 @@ using Y_or_N;
 
 
 
-class MainProgramma
+class MainProgram
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
@@ -38,6 +38,7 @@ class MainProgramma
 				LoopEmployeeLogin = true;
 				LoopAdminLogin = true;
 				Console.Clear();
+				util.Log("");
 				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
 				Console.Write("Please press [1], [2] or [3] on the keyboard");
 				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
@@ -63,7 +64,7 @@ class MainProgramma
 				}
 			}
 			Console.Clear();
-			Console.Write("Would you like to continue the program? Press");
+			Console.Write("Would you like to continue the program? Press ");
 			Functions.Write("y", ConsoleColor.Yellow);
 			Console.Write(" or ");
 			Functions.Write("n", ConsoleColor.Yellow);
@@ -235,20 +236,17 @@ class MainProgramma
 		while (AdminSuccess == 1)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
-			string InterFaceInput = Console.ReadLine();
-			if (!int.TryParse(InterFaceInput, out int number)) { Functions.Error(); }
-
-			if (number == 1) { Functions.CustomerOverview(); }
-			if (number == 2) { Add.Function(RoomsList); }
-			if (number == 3) { Edit.Function(RoomsList); }
-			if (number == 4) { Delete.Function(RoomsList); }
-			if (number == 5) { Functions.ShowFunction(RoomsList); }
-			if (number == 6)
-			{
-				LoginTries = 4;
-				AdminSuccess -= 1;
-			}
+			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1) Customer overview (IN PROGRESS)\n2) Add an escape room\n3) Edit an escape room\n4) Delete an escape room\n5) Show escape rooms\n6) Logout\n=======================================\n");
+			Console.Write("Please press [");Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5",ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Functions.Write("Your input - ", ConsoleColor.Yellow);
+			var input = Console.ReadKey();
+			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
+			else if (input.Key == ConsoleKey.D2) { Add.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D3) { Edit.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D4) { Delete.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(RoomsList); }
+			else if (input.Key == ConsoleKey.D6) { LoginTries = 4; AdminSuccess -= 1; }
+			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine();}
 		}
 	}
 	/*

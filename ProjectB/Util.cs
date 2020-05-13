@@ -75,7 +75,7 @@ namespace Y_or_N
 
                 Functions.Write("\nYour input - ", ConsoleColor.Yellow);// Asks the user to answer with 'Y' or 'N'.
                 response = Console.ReadKey().Key; // Gets the user's response.
-
+                Console.WriteLine();
             } while (response != ConsoleKey.Y && response != ConsoleKey.N); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
 
             /* 
@@ -108,14 +108,45 @@ namespace Y_or_N
                 response = Console.ReadKey().Key; // Gets the user's response.
 
             } while (response != ConsoleKey.C && response != ConsoleKey.M); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
-
-            /* 
-             * Return true if the user responded with 'Y', otherwise false.
-             * 
-             * We know the response was either 'Y' or 'N', so we can assume 
-             * the response is 'N' if it is not 'Y'.
-             */
             return response == ConsoleKey.C;
+        }
+
+        private static string GetTimestamp()
+        {
+            return DateTime.Now.ToString("HH:mm:ss.fff");
+        }
+
+        public static void Log(string s)
+        {
+            if (true)
+            {
+                bool flag = false;
+                Console.Write("[");
+                if (!flag)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.Write(GetTimestamp());
+                if (!flag)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+                Console.Write("] [");
+                if (!flag)
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                }
+                Console.Write("Project-B");
+                if (!flag)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+                Console.WriteLine("] " + s);
+                if (flag)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
         }
 
     }
