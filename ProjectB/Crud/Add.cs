@@ -34,6 +34,7 @@ namespace ProjectB.Crud
 					{
 						Console.WriteLine("Enter the minimum age for the escape room (between 12-100):");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -41,23 +42,28 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						ageSuccess = int.TryParse(userInput, out int number);
-						if (number < 12 || number > 100) { ageSuccess = false; }
-						if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
 						else
 						{
-							Functions.Error();
-							Console.WriteLine("Please enter a number between 12-100");
+							ageSuccess = int.TryParse(userInput, out int number);
+							if (number < 12 || number > 100) { ageSuccess = false; }
+							if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please enter a number between 12-100");
+							}
 						}
+						
 					}
 
 					while (!minSuccess)
 					{
 						Console.WriteLine("Enter the minimum amount of players for the escape room (between 2-5):");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -65,23 +71,28 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						minSuccess = int.TryParse(userInput, out int number);
-						if (number < 2 || number > 5) { minSuccess = false; }
-						if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 						else
 						{
-							Functions.Error();
-							Console.WriteLine("Please enter a number between 2-5");
+							minSuccess = int.TryParse(userInput, out int number);
+							if (number < 2 || number > 5) { minSuccess = false; }
+							if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please enter a number between 2-5");
+							}
 						}
+						
 					}
 
 					while (!maxSuccess)
 					{
 						Console.WriteLine("Enter the maximum amount of players for the escape room (between"+ (RoomsList[NewIndex].roomMinSize + 1) + "-6):");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -89,16 +100,19 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						maxSuccess = int.TryParse(userInput, out int number);
-						if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
-						if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
 						else
 						{
-							Functions.Error();
-							Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
+							maxSuccess = int.TryParse(userInput, out int number);
+							if (number <= RoomsList[NewIndex].roomMinSize || number > 6) { maxSuccess = false; }
+							if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
+							}
 						}
 					}
 
@@ -107,6 +121,7 @@ namespace ProjectB.Crud
 					{
 						Console.WriteLine("Enter the price for the escape room (price is per participant):");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -114,23 +129,27 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						priceSuccess = Double.TryParse(userInput, out double number);
-						if (number < 0) { priceSuccess = false; }
-						if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
-						else
-						{
-							Functions.Error();
-							Console.WriteLine("Please enter a positive number.");
+						else {
+							priceSuccess = Double.TryParse(userInput, out double number);
+							if (number < 0) { priceSuccess = false; }
+							if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please enter a positive number.");
+							}
 						}
+						
 					}
 
 					while (!themeSuccess)
 					{
 						Console.WriteLine("Enter a theme for the escape room:");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -138,23 +157,27 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						themeSuccess = userInput.All(c => Char.IsLetter(c));
-						if (string.IsNullOrEmpty(userInput)) { themeSuccess = false; }
-						if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
-						else
-						{
-							Functions.Error();
-							Console.WriteLine("Please use alphabetic characters only");
+						else {
+							themeSuccess = userInput.All(c => Char.IsLetter(c));
+							if (string.IsNullOrEmpty(userInput)) { themeSuccess = false; }
+							if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please use alphabetic characters only");
+							}
 						}
+						
 					}
 
 					while (!durationSuccess)
 					{
 						Console.WriteLine("Enter the duration for the escape room in hours(e.g. '2' or '1,5'):");
 						userInput = Console.ReadLine();
+						
 						if (userInput == "return")
 						{
 							Console.Write("Would you like to return to the menu, press");
@@ -162,16 +185,18 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						durationSuccess = double.TryParse(userInput, out double number);
-						if (number < 0 || number > 5) { durationSuccess = true; }
-						if (durationSuccess) { RoomsList[NewIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number))*60).ToString() + " minutes"; }
-						else
-						{
-							Functions.Error();
-							Console.WriteLine("Please try again");
+						else {
+							durationSuccess = double.TryParse(userInput, out double number);
+							if (number < 0 || number > 5) { durationSuccess = true; }
+							if (durationSuccess) { RoomsList[NewIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number)) * 60).ToString() + " minutes"; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please try again");
+							}
 						}
 					}
 
@@ -186,17 +211,20 @@ namespace ProjectB.Crud
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
 							bool Return = util.CheckYN();
-							if (Return == true) { MainProgramma.AdminPage(); LoopAddEscaperoom = false; }
+							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
-						if (string.IsNullOrEmpty(userInput)) { nameSuccess = false; }
-						else { nameSuccess = true; }
-						if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
-						else
-						{
-							Functions.Error();
-							Console.WriteLine("Please use alphabetic characters only");
+						else {
+							if (string.IsNullOrEmpty(userInput)) { nameSuccess = false; }
+							else { nameSuccess = true; }
+							if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
+							else
+							{
+								Functions.Error();
+								Console.WriteLine("Please use alphabetic characters only");
+							}
 						}
+						
 					}
 
 					Functions.WriteLine("Room Complete!", ConsoleColor.Green);

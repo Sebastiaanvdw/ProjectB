@@ -184,7 +184,7 @@ class MainProgramma
 			switch (Console.ReadLine())
 			{
 				case "1":
-					Functions.ShowFunction(RoomsList);
+					Functions.CustomerShowFunction(RoomsList);
 					break;
 				case "2":
 					Functions.InfoFunction();
@@ -249,28 +249,6 @@ class MainProgramma
 				LoginTries = 4;
 				AdminSuccess -= 1;
 			}
-		}
-	}
-
-	public static void ReturnMenuFunction()
-	{
-		bool ReturnToMenu = util.CheckML();
-
-
-		if (ReturnToMenu == true)
-		{
-			if (AdminSuccess == 1) { Console.Clear(); AdminPage(); }
-			if (EmployeeSuccess == 1) { Console.Clear(); EmployeeMenu(); }
-			if (CustomerSuccess == 1) { Console.Clear(); CustomerMenu(); }
-		}
-
-		else if (ReturnToMenu == false)
-		{
-			Console.Clear();
-			AdminSuccess = 0;
-			EmployeeSuccess = 0;
-			CustomerSuccess = 0;
-			Main();
 		}
 	}
 }

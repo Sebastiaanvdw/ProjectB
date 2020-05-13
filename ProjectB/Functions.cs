@@ -13,6 +13,9 @@ namespace ProjectB
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber;
 		public static string userUniqueID;
+		public static double foodPrice = 5.00;
+		public static double drinksPrice = 3.50;
+		public static double foodAndDrinksPrice= 7.50;
 		public static bool RoomChoiceSucces = false;
 		public static bool UserNameSucces = false;
 		public static bool userLastNameSucces = false;
@@ -68,7 +71,7 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + userResidency);
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nTotal Price: $" + userTotalPrice + "(Roomprice * Participants)");
+			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
 			Console.WriteLine("\n\n\nPress any key to return to continue.\n");
@@ -296,15 +299,15 @@ namespace ProjectB
 			}
 			if (userFoodArrangement == 2) //just food
 			{
-				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 5 * userParticipants;
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + foodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
-				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 3.50 * userParticipants;
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + drinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
-				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + 7 * userParticipants;
+				userFoodArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * userParticipants + foodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none
@@ -387,7 +390,7 @@ namespace ProjectB
 				Console.Write("Press ");Functions.Write("c", ConsoleColor.Yellow);Console.Write(" to create a room or ");Functions.Write("m ", ConsoleColor.Yellow);Console.Write("to return to menu.");
 				showBool = util.CheckCM();
 				if(showBool == true) {Add.Function(MainProgramma.RoomsList); }
-				else { MainProgramma.AdminPage(); }
+				else { return; }
 			}
 			else
 			{
@@ -396,8 +399,9 @@ namespace ProjectB
 				{
 					Console.WriteLine(RoomsList[i] + "\n");
 				}
-				MainProgramma.ReturnMenuFunction();
 			}
+			Console.WriteLine("Press any key to return to continue.\n");
+			Console.ReadKey(true);
 		}
 
 		public static void CustomerShowFunction(List<EscapeRoom> RoomsList)
