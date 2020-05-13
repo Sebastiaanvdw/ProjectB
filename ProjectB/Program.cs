@@ -39,7 +39,7 @@ class MainProgramma
 				Console.Clear();
 				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
 				Console.Write("Please press [1], [2] or [3] on the keyboard");
-				Console.Write("Your input - ");
+				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 
 				switch (input.Key) //Switch on Key enum
