@@ -13,6 +13,9 @@ namespace ProjectB
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber;
 		public static string userUniqueID;
+		public static double foodPrice = 5.00;
+		public static double drinksPrice = 3.50;
+		public static double foodAndDrinksPrice= 7.50;
 		public static bool RoomChoiceSucces = false;
 		public static bool UserNameSucces = false;
 		public static bool userLastNameSucces = false;
@@ -68,11 +71,16 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + userResidency);
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nTotal Price: $" + userTotalPrice + "(Roomprice * Participants)");
+			Console.WriteLine("\nClient Food Arrangement: " + userFoodArrangement);
+			Console.WriteLine("\nClient Arrangement: " + userArrangement);
+			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
 			Console.WriteLine("\n\n\nPress any key to return to continue.\n");
 			Console.ReadKey(true);
+
+			userTotalPrice = 0;
+			userFoodArrangement = 0;
 		}
 		public static void ReserveerFunction()
 		{
@@ -99,7 +107,7 @@ namespace ProjectB
 				if (RoomChoiceSucces) { RoomChoice = number - 1; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a number between 1 and " + MainProgram.RoomsList.Count);
 				}
 			}
@@ -114,7 +122,7 @@ namespace ProjectB
 				if (UserNameSucces) { userName = userinput; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid name");
 				}
 			}
@@ -129,7 +137,7 @@ namespace ProjectB
 				if (userLastNameSucces) { userLastName = userinput; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid name last");
 				}
 			}
@@ -144,7 +152,7 @@ namespace ProjectB
 				if (userPostCodeDigitSucces == true) { userPostcode = userinput.ToString(); }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid postcode");
 				}
 			}
@@ -159,7 +167,7 @@ namespace ProjectB
 				if (userPostCodeLetterSucces) { userPostcode += userinput.ToUpper() ; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid name last");
 				}
 			}
@@ -174,7 +182,7 @@ namespace ProjectB
 				if (userStreetSucces) { userStreet = userinput; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid street name");
 				}
 			}
@@ -189,7 +197,7 @@ namespace ProjectB
 				if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid housenumber");
 				}
 			}
@@ -203,7 +211,7 @@ namespace ProjectB
 				if (userResidencySucces) { userResidency = userinput; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid street name");
 				}
 			}
@@ -219,7 +227,7 @@ namespace ProjectB
 				if (userEmailSucces) { userEmail = userinput; }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid Email adress");
 				}
 			}
@@ -234,7 +242,7 @@ namespace ProjectB
 				if (userPhoneNumberSucces == true) { userPhoneNumber = userinput.ToString(); }
 				else
 				{
-					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 					Console.WriteLine("Please enter a valid Phonenumber");
 				}
 			}
@@ -287,7 +295,6 @@ namespace ProjectB
 			TotalPrice();
 			ReceiptFunction();
 		}
-
 		public static void TotalPrice()
 		{
 			if (userFoodArrangement == 1) //none
@@ -296,15 +303,15 @@ namespace ProjectB
 			}
 			if (userFoodArrangement == 2) //just food
 			{
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + 5 * userParticipants;
+				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + 3.50 * userParticipants;
+				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + drinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + 7 * userParticipants;
+				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none
@@ -387,7 +394,7 @@ namespace ProjectB
 				Console.Write("Press ");Functions.Write("c", ConsoleColor.Yellow);Console.Write(" to create a room or ");Functions.Write("m ", ConsoleColor.Yellow);Console.Write("to return to menu.");
 				showBool = util.CheckCM();
 				if(showBool == true) {Add.Function(MainProgram.RoomsList); }
-				else { MainProgram.AdminPage(); }
+				else { return; }
 			}
 			else
 			{

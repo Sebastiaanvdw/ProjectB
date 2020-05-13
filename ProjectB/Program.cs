@@ -6,7 +6,7 @@ using Y_or_N;
 
 
 
-class MainProgramma
+class MainProgram
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
