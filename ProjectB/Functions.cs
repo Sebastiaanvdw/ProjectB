@@ -124,7 +124,7 @@ namespace ProjectB
 			Console.WriteLine("Fill in your email(e.g. 'voorbeeld@mail.com'):"); // Moet een @ en . hebben
 			MainProgramma.userEmail = Console.ReadLine();
 
-			Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 7631 9854'):"); // Alleen cijfers max. 10 getallen
+			Console.WriteLine("Fill in your telephonenumber(e.g. ' (+31) 6 76319854'):"); // Alleen cijfers max. 10 getallen
 			MainProgramma.userPhoneNumber = Console.ReadLine();
 
 			Console.WriteLine("Fill in which food arrangment you want(None, Just Food, Just Drinks or Food and Drinks):"); // Alleen 1 van de 4 opties
