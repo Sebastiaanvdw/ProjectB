@@ -6,7 +6,7 @@ using Y_or_N;
 
 namespace ProjectB.Crud
 {
-	class Delete //Als er 0 kamers zijn zit je hierin vast lol haal dit weg zodra dat gefixed is top ty
+	class Delete
 	{
 		public static void Function(List<EscapeRoom> RoomsList)
 		{
@@ -17,6 +17,7 @@ namespace ProjectB.Crud
 			bool Deleteroomsucces = false;
 			Console.Clear();
 			SpecialShow.Function(RoomsList);
+			if (RoomsList.Count == 0) { MainProgramma.ReturnMenuFunction(); }
 			Console.WriteLine("Enter the room number of the room you want to delete");
 			while (!Roomchoicesucces)
 			{

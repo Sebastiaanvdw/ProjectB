@@ -14,16 +14,11 @@ namespace ProjectB.Crud
 			int EditRoomIndex = 0;
 			int EditRoomChoice = 0;
 			bool RoomIndexSucces = false;
-			bool RoomEditSucces = false;
-			bool priceSuccess = false;
-			bool themeSuccess = false;
-			bool minSuccess = false;
-			bool maxSuccess = false;
-			bool ageSuccess = false;
-			bool durationSuccess = false;
-			bool nameSuccess = false;
+
 			Console.Clear();
 			SpecialShow.Function(RoomsList);
+			if (RoomsList.Count == 0) { MainProgramma.ReturnMenuFunction(); }
+
 			Console.WriteLine("Choose the room that you want to edit(use a roomnumber 1-" + RoomsList.Count + ")");
 			while (!RoomIndexSucces)
 			{
@@ -45,6 +40,14 @@ namespace ProjectB.Crud
 					bool Continue_RoomEdit = true;
 					while (Continue_RoomEdit)
 					{
+						bool RoomEditSucces = false;
+						bool priceSuccess = false;
+						bool themeSuccess = false;
+						bool minSuccess = false;
+						bool maxSuccess = false;
+						bool ageSuccess = false;
+						bool durationSuccess = false;
+						bool nameSuccess = false;
 						Console.Clear();
 						Console.WriteLine(RoomsList[EditRoomIndex] + "\n");
 						Console.WriteLine("Choose what you would like to change about the room: ");
@@ -176,8 +179,8 @@ namespace ProjectB.Crud
 						{
 							Continue_RoomEdit = false;
 						}
-						//MainProgramma.ReturnMenuFunction();
 					}
+					MainProgramma.ReturnMenuFunction();
 				}
 			}
 		}

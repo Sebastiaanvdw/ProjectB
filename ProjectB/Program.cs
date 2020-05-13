@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ProjectB;
+﻿using ProjectB;
 using ProjectB.Crud;
+using System;
+using System.Collections.Generic;
 using Y_or_N;
+
+
 
 class MainProgramma
 {
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
 	public static List<string> CustomerList = new List<string>();
-	
+
 	public static int roomKeuze, userParticipants;
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -20,9 +21,11 @@ class MainProgramma
 	public static string UserNameLogin = "";
 	public static string UserPassWordLogin = "";
 	public static string EmployeeLogin = "";
-	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, userArrangement;
+	public static string userName, userLastName, userPostcode, userStreet, userWoonplaats, userHouseNumber, userEmail, userPhoneNumber, userArrangement, userFoodArrangement;
 	public static string userUniqueID;
 	public static double userTotalPrice = 0;
+	public static double userFoodArrangementPrice = 0;
+	public static double userArrangementPrice = 0;
 
 	public static void Main()
 	{
@@ -31,22 +34,10 @@ class MainProgramma
 		Console.WriteLine("Please press [1], [2] or [3] on the keyboard");
 		Console.Write("Your input - ");
 		var input = Console.ReadKey();
-
-		switch (input.Key) //Switch on Key enum
-		{
-			case ConsoleKey.D1:
-				CustomerLoginFunction();
-				break;
-			case ConsoleKey.D2:
-				EmployeeLoginFunction();
-				break;
-			case ConsoleKey.D3:
-				AdminFunction();
-				break;
-			default:
-				Console.WriteLine("Unknown Command");
-				break;
-		}
+		if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); }
+		if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); }
+		if (input.Key == ConsoleKey.D3) { AdminFunction(); }
+		else { Console.Write("\n"); Functions.error(); Console.Write("\nPress enter to continue...\n"); Console.ReadLine(); Main(); }
 	}
 
 	public static void FAQ()
@@ -58,7 +49,7 @@ class MainProgramma
 		Console.Clear();
 		Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "\n");
 		ReturnMenuFunction();
-		
+
 	}
 
 	static void AdminFunction()
@@ -71,7 +62,7 @@ class MainProgramma
 			string AdminLogin = Console.ReadLine();
 			if (AdminLogin == "admin")
 			{
-				AdminSuccess += 1;
+				AdminSuccess = 1;
 				AdminPage();
 			}
 			else
@@ -123,10 +114,10 @@ class MainProgramma
 			Console.ReadKey(true);
 			CustomerLoginFunction();
 		}
-	
+
 		if (UserNameLogin == "user" && UserPassWordLogin == "12345")
 		{
-			CustomerSuccess += 1;
+			CustomerSuccess = 1;
 			CustomerMenu();
 		}
 	}
@@ -135,26 +126,28 @@ class MainProgramma
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Employee login page, please enter the right password:\n=========================================================================\n");
+		Console.Write("Password: ");
 		string EmployeeLogin = Console.ReadLine();
 		if (EmployeeLogin == "employee")
 		{
-			EmployeeSuccess += 1;
+			EmployeeSuccess = 1;
 			EmployeeMenu();
 		}
 		if (EmployeeLogin == "")
 		{
-			Console.WriteLine("Return to the main menu? y or n");
-			string Return = Console.ReadLine();
-			if (Return == "y")
+			Console.Write("Return to the main menu? press ");
+			Functions.Write("y", ConsoleColor.Yellow);
+			Console.Write(" or ");
+			Functions.Write("n", ConsoleColor.Yellow);
+			bool Return = util.CheckYN();
+			if (Return == true)
 			{
 				Main();
 			}
-			if (Return != "n")
+			if (Return == false)
 			{
 				Console.Clear();
-				Console.WriteLine("Error, you didn't press y or n.\nAs a failsafe you will be returned to the main menu.\nPress any key to return to the main menu.");
-				Console.ReadKey(true);
-				Main();
+				EmployeeLoginFunction();
 			}
 		}
 		else
@@ -165,37 +158,35 @@ class MainProgramma
 		}
 	}
 
-	static void CustomerMenu() {
+	static void CustomerMenu()
+	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Customer menu!\n=======================================\n1. Escape Rooms\n2. Info \n3. Contact and F.A.Q.\n4. Reserveren\n5. Logout\n=======================================\n");
-		switch (Console.ReadLine())
-		{
-			case "1":
-				Functions.ShowFunction(RoomsList);
-				break;
-			case "2":
-				Functions.InfoFunction();
-				break;
-			case "3":
-				Functions.ContactFunction();
-				break;
-			case "4":
-				Functions.ReserveerFunction();
-				break;
-			case "5":
-				CustomerSuccess -= 1;
-				Main();
-				break;
-			default:
-				Console.WriteLine("\n*****ERROR*****\nPlease enter a valid option");
-				break;
-				
-		}
-	
+		Console.Write("Please press [");
+		Functions.Write("1", ConsoleColor.Yellow);
+		Console.Write("], [");
+		Functions.Write("2", ConsoleColor.Yellow);
+		Console.Write("], [");
+		Functions.Write("3", ConsoleColor.Yellow);
+		Console.Write("], [");
+		Functions.Write("4", ConsoleColor.Yellow);
+		Console.Write("] or [");
+		Functions.Write("5", ConsoleColor.Yellow);
+		Console.WriteLine("] on the keyboard");
+		Console.Write("Your input - ");
+		var input = Console.ReadKey();
+		if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(RoomsList); }
+		if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
+		if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
+		if (input.Key == ConsoleKey.D4) { Functions.ReserveerFunction(); }
+		if (input.Key == ConsoleKey.D5) { CustomerSuccess = 0; Main(); }
+		else { Console.Write("\n"); Functions.error(); Console.Write("\nPress enter to continue...\n"); Console.ReadLine(); CustomerMenu(); }
+
+
 
 	}
 
-	static void EmployeeMenu()
+	public static void EmployeeMenu()
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the Employee menu!\n=======================================\n1. Escape Rooms\n2. Info \n3. Contact and F.A.Q.\n4. Reservations (IN PROGRESS)\n5. Logout\n=======================================\n");
@@ -204,7 +195,8 @@ class MainProgramma
 		if (InterFaceInput == 1) { Functions.ShowFunction(RoomsList); }
 		if (InterFaceInput == 2) { Functions.InfoFunction(); }
 		if (InterFaceInput == 3) { Functions.ContactFunction(); }
-		if (InterFaceInput == 4) { 
+		if (InterFaceInput == 4)
+		{
 			Console.Clear();
 			Console.WriteLine("W.I.P, press any key to continue.\n");
 			Console.ReadKey(true);
@@ -212,12 +204,12 @@ class MainProgramma
 		}
 		if (InterFaceInput == 5)
 		{
-			EmployeeSuccess -= 1;
+			EmployeeSuccess = 0;
 			Main();
 		}
 	}
 
-	static void AdminPage()
+	public static void AdminPage()
 	{
 		Console.Clear();
 		Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
@@ -232,7 +224,7 @@ class MainProgramma
 		if (number == 6)
 		{
 			LoginTries = 4;
-			AdminSuccess -= 1;
+			AdminSuccess = 0;
 			Main();
 		}
 	}
@@ -248,7 +240,7 @@ class MainProgramma
 	public static void ReturnMenuFunction()
 	{
 		bool ReturnToMenu = util.CheckML();
-		
+
 
 		if (ReturnToMenu == true)
 		{
