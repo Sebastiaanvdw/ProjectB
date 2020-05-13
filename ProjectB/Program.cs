@@ -11,7 +11,7 @@ class MainProgram
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
 	public static List<string> CustomerList = new List<string>();
-	
+
 
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -38,9 +38,10 @@ class MainProgram
 				LoopEmployeeLogin = true;
 				LoopAdminLogin = true;
 				Console.Clear();
+				util.Log("");
 				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
-				Console.Write("Please press [1], [2] or [3] on the keyboard\n");
-				Console.Write("Your input - ");
+				Console.Write("Please press [1], [2] or [3] on the keyboard");
+				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 
 				switch (input.Key) //Switch on Key enum
@@ -63,7 +64,7 @@ class MainProgram
 				}
 			}
 			Console.Clear();
-			Console.Write("Would you like to continue the program? Press");
+			Console.Write("Would you like to continue the program? Press ");
 			Functions.Write("y", ConsoleColor.Yellow);
 			Console.Write(" or ");
 			Functions.Write("n", ConsoleColor.Yellow);
@@ -110,7 +111,7 @@ class MainProgram
 
 	static void CustomerLoginFunction()
 	{
-		while(LoopCustomerLogin)
+		while (LoopCustomerLogin)
 		{
 			Console.Clear();
 			Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
@@ -126,7 +127,7 @@ class MainProgram
 				Functions.Write("n", ConsoleColor.Yellow);
 				bool Return = util.CheckYN();
 				if (Return == true) { return; }
-				if (Return == false) {}
+				if (Return == false) { }
 			}
 			else if (UserNameLogin != "user" || UserPassWordLogin != "12345")
 			{
@@ -175,7 +176,7 @@ class MainProgram
 		}
 	}
 
-	static void CustomerMenu() 
+	static void CustomerMenu()
 	{
 		while (CustomerSuccess == 1)
 		{
@@ -184,7 +185,7 @@ class MainProgram
 			switch (Console.ReadLine())
 			{
 				case "1":
-					Functions.CustomerShowFunction(RoomsList);
+					Functions.ShowFunction(RoomsList);
 					break;
 				case "2":
 					Functions.InfoFunction();
@@ -235,20 +236,19 @@ class MainProgram
 		while (AdminSuccess == 1)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1. Customer overview (IN PROGRESS)\n2. Add an escape room\n3. Edit an escape room\n4. Delete an escape room\n5. Show escape rooms\n6. Logout\n=======================================\n");
-			string InterFaceInput = Console.ReadLine();
-			if (!int.TryParse(InterFaceInput, out int number)) { Functions.Error(); }
-
-			if (number == 1) { Functions.CustomerOverview(); }
-			if (number == 2) { Add.Function(RoomsList); }
-			if (number == 3) { Edit.Function(RoomsList); }
-			if (number == 4) { Delete.Function(RoomsList); }
-			if (number == 5) { Functions.ShowFunction(RoomsList); }
-			if (number == 6)
-			{
-				LoginTries = 4;
-				AdminSuccess -= 1;
-			}
+			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1) Customer overview (IN PROGRESS)\n2) Add an escape room\n3) Edit an escape room\n4) Delete an escape room\n5) Show escape rooms\n6) Edit menu\n7) Logout\n=======================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("7", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Functions.Write("Your input - ", ConsoleColor.Yellow);
+			var input = Console.ReadKey();
+			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
+			else if (input.Key == ConsoleKey.D2) { Add.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D3) { Edit.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D4) { Delete.Function(RoomsList); }
+			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(RoomsList); }
+			else if (input.Key == ConsoleKey.D6) { FoodPrice.Editmenu(); }
+			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1; }
+			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 		}
 	}
+
 }

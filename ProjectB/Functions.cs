@@ -11,7 +11,7 @@ namespace ProjectB
 		public static string userinput;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
-		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber;
+		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 		public static string userUniqueID;
 		public static double foodPrice = 5.00;
 		public static double drinksPrice = 3.50;
@@ -37,7 +37,6 @@ namespace ProjectB
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-
 		public static void FAQ()
 		{
 			string FAQ1 = "Q: Do you provide food during or after the Escape Room?\nA: We can provide food and drinks after the Escape Room is done via a special arrangement you can order.\n\n";
@@ -49,7 +48,6 @@ namespace ProjectB
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-
 		public static void ReceiptFunction()
 		{
 			while (true)
@@ -71,8 +69,8 @@ namespace ProjectB
 			Console.WriteLine("\nClient Postcode: " + userPostcode);
 			Console.WriteLine("\nClient Woonplaats: " + userResidency);
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nClient Food Arrangement: " + userFoodArrangement);
-			Console.WriteLine("\nClient Arrangement: " + userArrangement);
+			Console.WriteLine("\nClient Food Arrangement: " + userFoodString);
+			Console.WriteLine("\nClient Arrangement: " + userArrangementString);
 			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
@@ -81,6 +79,9 @@ namespace ProjectB
 
 			userTotalPrice = 0;
 			userFoodArrangement = 0;
+			userFoodString = "";
+			userArrangementString = "";
+			userArrangement = 0;
 		}
 		public static void ReserveerFunction()
 		{
@@ -299,35 +300,43 @@ namespace ProjectB
 		{
 			if (userFoodArrangement == 1) //none
 			{
+				userFoodString = "None";
 				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants;
 			}
 			if (userFoodArrangement == 2) //just food
 			{
+				userFoodString = "Just Food";
 				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
+				userFoodString = "Just Drinks";
 				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + drinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
+				userFoodString = "Food and Drinks";
 				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none
 			{
+				userArrangementString = "None";
 				userArrangementPrice = 0;
 			}
 			if (userArrangement == 2) //kids party
 			{
+				userArrangementString = "Kids Party";
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.4;
 			}
 			if (userArrangement == 3) //ladies night
 			{
+				userArrangementString = "Ladies Night";
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.5;
 			}
 			if (userArrangement == 4) //work outing
 			{
+				userArrangementString = "Work Outing";
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
 			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
@@ -339,9 +348,6 @@ namespace ProjectB
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-
-
-
 		public static void ContactFunction()
 		{
 			while (!LoopContactFunction)
@@ -364,7 +370,6 @@ namespace ProjectB
 				}
 			}
 		}
-
 		public static void InfoFunction()
 		{
 			Console.Clear();
@@ -380,10 +385,11 @@ namespace ProjectB
 			Console.WriteLine("9) If you decide to leave the room, you wil no longer be allowed to enter the room.");
 			Console.WriteLine("10) The game leader wil be watching the game via camera's. If you break any og the rules, he/she can decide to end the game.");
 			Console.WriteLine("11) You play the game at your own risk. Damage or injury can not be recovered from the escape room");
+			Console.WriteLine("12) You can arrange a special arrangement with discounts! These are the arrangements we offer: Kids Party 40% discount, Ladies Night 50% discount, Work Outing 30% discount.");
+			Console.WriteLine("DISCLAIMER: Please note that these discounts are discounts on the base price of an escape room.");
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-
 		public static void ShowFunction(List<EscapeRoom> RoomsList)
 		{
 			bool showBool = false;
@@ -408,7 +414,6 @@ namespace ProjectB
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
 		}
-
 		public static void CustomerShowFunction(List<EscapeRoom> RoomsList)
 		{
 			Console.Clear();
@@ -430,7 +435,6 @@ namespace ProjectB
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-
 		public static void WriteLine(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -438,12 +442,10 @@ namespace ProjectB
 			Console.WriteLine(obj);
 			Console.ResetColor();
 		}
-
 		public static void Error()
 		{
 			Functions.WriteLine("Oh no, your input did not fit!",ConsoleColor.Red);
 		}
-
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -451,7 +453,6 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
-
 	}
 }
 
