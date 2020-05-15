@@ -29,7 +29,9 @@ namespace ProjectB.Crud
 					int NewIndex = RoomsList.Count - 1;
 					if (RoomsList.Count == 1) { NewIndex = 0; }
 					RoomsList[NewIndex].roomNumber = NewIndex + 1;
+					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Incase you want to return to the menu type: 'return'");
+					Console.WriteLine("-----------------------------");
 					while (!ageSuccess)
 					{
 						Console.WriteLine("Enter the minimum age for the escape room (between 12-100):");

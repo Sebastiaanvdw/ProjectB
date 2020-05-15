@@ -185,7 +185,7 @@ class MainProgram
 			switch (Console.ReadLine())
 			{
 				case "1":
-					Functions.ShowFunction(RoomsList);
+					Functions.CustomerShowFunction(RoomsList);
 					break;
 				case "2":
 					Functions.InfoFunction();
