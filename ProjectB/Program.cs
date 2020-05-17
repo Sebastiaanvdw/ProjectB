@@ -11,7 +11,7 @@ class MainProgram
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
 	public static List<string> CustomerList = new List<string>();
-	
+
 
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -111,7 +111,7 @@ class MainProgram
 
 	static void CustomerLoginFunction()
 	{
-		while(LoopCustomerLogin)
+		while (LoopCustomerLogin)
 		{
 			Console.Clear();
 			Console.WriteLine("Welcome to the Customer login page, please enter your username and the right password:\n===================================================================================\n");
@@ -127,7 +127,7 @@ class MainProgram
 				Functions.Write("n", ConsoleColor.Yellow);
 				bool Return = util.CheckYN();
 				if (Return == true) { return; }
-				if (Return == false) {}
+				if (Return == false) { }
 			}
 			else if (UserNameLogin != "user" || UserPassWordLogin != "12345")
 			{
@@ -176,7 +176,7 @@ class MainProgram
 		}
 	}
 
-	static void CustomerMenu() 
+	static void CustomerMenu()
 	{
 		while (CustomerSuccess == 1)
 		{
@@ -185,7 +185,7 @@ class MainProgram
 			switch (Console.ReadLine())
 			{
 				case "1":
-					Functions.ShowFunction(RoomsList);
+					Functions.CustomerShowFunction(RoomsList);
 					break;
 				case "2":
 					Functions.InfoFunction();
@@ -236,8 +236,8 @@ class MainProgram
 		while (AdminSuccess == 1)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1) Customer overview (IN PROGRESS)\n2) Add an escape room\n3) Edit an escape room\n4) Delete an escape room\n5) Show escape rooms\n6) Logout\n=======================================\n");
-			Console.Write("Please press [");Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5",ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Console.WriteLine("Welcome to the admin page, please select what you would like to do today:\n=======================================\n1) Customer overview (IN PROGRESS)\n2) Add an escape room\n3) Edit an escape room\n4) Delete an escape room\n5) Show escape rooms\n6) Edit menu\n7) Logout\n=======================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("7", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
@@ -245,30 +245,10 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D3) { Edit.Function(RoomsList); }
 			else if (input.Key == ConsoleKey.D4) { Delete.Function(RoomsList); }
 			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(RoomsList); }
-			else if (input.Key == ConsoleKey.D6) { LoginTries = 4; AdminSuccess -= 1; }
-			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine();}
+			else if (input.Key == ConsoleKey.D6) { FoodPrice.Editmenu(); }
+			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1; }
+			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 		}
 	}
-	/*
-	public static void ReturnMenuFunction()
-	{
-		bool ReturnToMenu = util.CheckML();
 
-
-		if (ReturnToMenu == true)
-		{
-			if (AdminSuccess == 1) { Console.Clear(); AdminPage(); }
-			if (EmployeeSuccess == 1) { Console.Clear(); EmployeeMenu(); }
-			if (CustomerSuccess == 1) { Console.Clear(); CustomerMenu(); }
-		}
-
-		else if (ReturnToMenu == false)
-		{
-			Console.Clear();
-			AdminSuccess = 0;
-			EmployeeSuccess = 0;
-			CustomerSuccess = 0;
-			Main();
-		}
-	}*/
 }
