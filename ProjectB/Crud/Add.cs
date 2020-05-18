@@ -39,7 +39,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -68,7 +68,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -97,7 +97,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -126,7 +126,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -154,7 +154,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -182,7 +182,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -208,7 +208,7 @@ namespace ProjectB.Crud
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -238,7 +238,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count < 5)
 				{
-					Console.Write("Would you like to add another room, press");
+					Console.Write("Would you like to add another room, press ");
 					Functions.Write("y", ConsoleColor.Yellow);
 					Console.Write(" or ");
 					Functions.Write("n", ConsoleColor.Yellow);

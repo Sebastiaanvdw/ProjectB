@@ -8,7 +8,7 @@ namespace BetaalPagina_Jelmer
 {
     class Program
     {
-        static void Main()
+        static void payment()
         {
             string RoomPrice = ""; //Room Price P.P.
             string userParticipants = ""; //MainProgramma.userParticipants

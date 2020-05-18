@@ -85,7 +85,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count > 0)
 				{
-					Console.Write("Would you like to choose another room to delete, press");
+					Console.Write("Would you like to choose another room to delete, press ");
 					Functions.Write("y", ConsoleColor.Yellow);
 					Console.Write(" or ");
 					Functions.Write("n", ConsoleColor.Yellow);

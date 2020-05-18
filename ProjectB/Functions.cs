@@ -111,7 +111,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -138,7 +138,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -166,7 +166,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -194,7 +194,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -222,7 +222,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -250,7 +250,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -278,7 +278,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -305,7 +305,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -334,7 +334,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -362,7 +362,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -390,7 +390,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -418,7 +418,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -446,7 +446,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press");
+							Console.Write("Would you like to return to the menu, press ");
 							Functions.Write("y", ConsoleColor.Yellow);
 							Console.Write(" or ");
 							Functions.Write("n", ConsoleColor.Yellow);
@@ -472,7 +472,7 @@ namespace ProjectB
 					{
 						TotalPrice();
 						ReceiptFunction();
-						Console.Write("Would you like to add another reservation?, press");
+						Console.Write("Would you like to add another reservation?, press ");
 						Functions.Write("y", ConsoleColor.Yellow);
 						Console.Write(" or ");
 						Functions.Write("n", ConsoleColor.Yellow);
@@ -532,7 +532,7 @@ namespace ProjectB
 		{
 			Console.Clear();
 			Console.WriteLine(userName + "," + userLastName + "," + userPostcode + "," + userStreet + "," + userResidency + "," + userEmail + "\n");
-			Console.WriteLine("Press any key to return to continue.\n");
+			Console.WriteLine("press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 		public static void ContactFunction()

@@ -33,7 +33,7 @@ namespace ProjectB.Crud
                 userInput = Console.ReadLine();
                 if (userInput == "return")
                 {
-                    Console.Write("Would you like to return to the menu, press");
+                    Console.Write("Would you like to return to the menu, press ");
                     Functions.Write("y", ConsoleColor.Yellow);
                     Console.Write(" or ");
                     Functions.Write("n", ConsoleColor.Yellow);
@@ -61,7 +61,7 @@ namespace ProjectB.Crud
                     userInput = Console.ReadLine();
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press");
+                        Console.Write("Would you like to return to the menu, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
@@ -78,7 +78,7 @@ namespace ProjectB.Crud
                             Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
                             Console.WriteLine("Please use digits only");
                         }
-                        Console.Write("Would you like to edit another menu item, press");
+                        Console.Write("Would you like to edit another menu item, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
@@ -97,7 +97,7 @@ namespace ProjectB.Crud
 
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press");
+                        Console.Write("Would you like to return to the menu, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
@@ -114,7 +114,7 @@ namespace ProjectB.Crud
                             Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
                             Console.WriteLine("Please use digits only");
                         }
-                        Console.Write("Would you like to edit another menu item, press");
+                        Console.Write("Would you like to edit another menu item, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
@@ -132,7 +132,7 @@ namespace ProjectB.Crud
                     userInput = Console.ReadLine();
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press");
+                        Console.Write("Would you like to return to the menu, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
@@ -149,7 +149,7 @@ namespace ProjectB.Crud
                             Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
                             Console.WriteLine("Please use digits only");
                         }
-                        Console.Write("Would you like to edit another menu item, press");
+                        Console.Write("Would you like to edit another menu item, press ");
                         Functions.Write("y", ConsoleColor.Yellow);
                         Console.Write(" or ");
                         Functions.Write("n", ConsoleColor.Yellow);
