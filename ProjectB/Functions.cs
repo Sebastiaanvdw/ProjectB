@@ -153,7 +153,7 @@ namespace ProjectB
 				Console.WriteLine("Fill in the last 2 Letters of your postcode:"); //2 letters
 				userinput = Console.ReadLine();
 				if (string.IsNullOrEmpty(userinput)) { userPostCodeLetterSucces = false; }
-				else if (userinput.Any(char.IsDigit)) { userPostCodeLetterSucces = false; }
+				else if (userinput.Any(char.IsDigit) | userinput.Length != 2 ) { userPostCodeLetterSucces = false; }
 				else { userPostCodeLetterSucces = true; }
 				if (userPostCodeLetterSucces) { userPostcode += userinput.ToUpper() ; }
 				else
@@ -203,7 +203,7 @@ namespace ProjectB
 				else
 				{
 					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine("Please enter a valid street name");
+					Console.WriteLine("Please enter a valid place of residence");
 				}
 			}
 
@@ -258,8 +258,8 @@ namespace ProjectB
 				Console.WriteLine("Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):"); // Alleen 1 van de 4 opties
 				userinput = Console.ReadLine();
 				userFoodArrangementSucces = int.TryParse(userinput, out int number);
-				if (number < 0 | number > 5) { userFoodArrangementSucces = false; }
-				else { userFoodArrangementSucces = true; }
+				if (number > 0 & number < 5) { userFoodArrangementSucces = true; }
+				else { userFoodArrangementSucces = false; }
 				if (userFoodArrangementSucces) { userFoodArrangement = number; }
 				else
 				{
@@ -273,8 +273,8 @@ namespace ProjectB
 				Console.WriteLine("Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):"); // Alleen 1 van de 4 opties
 				userinput = Console.ReadLine();
 				userArrangementSucces = int.TryParse(userinput, out int number);
-				if (number < 0 | number > 5) { userArrangementSucces = false; }
-				else { userArrangementSucces = true; }
+				if (number > 0 & number < 5) { userArrangementSucces = true; }
+				else { userArrangementSucces = false; }
 				if (userArrangementSucces) { userArrangement = number; }
 				else
 				{
