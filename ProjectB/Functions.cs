@@ -323,6 +323,7 @@ namespace ProjectB
 				userArrangementPrice = MainProgramma.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
 			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
+			
 		}
 		public static void CustomerOverview()
 		{

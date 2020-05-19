@@ -8,12 +8,13 @@ namespace ProjectB.Crud
 	{
 		public int roomNumber, ageMinimum, roomMinSize, roomMaxSize;
 		public double roomPrice;
-		public string roomTheme, roomDuration, roomReview, roomName;
+		public string roomTheme, roomReview, roomName;
+		public TimeSpan roomDuration;
 		public bool roomAvailability, isTaken = false;
 
 		public override string ToString()
 		{
-			return "Room number = " + "#" + roomNumber + "\n Room name = " + roomName + "\n Minimum age = " + ageMinimum + " years" + "\n Room size = " + roomMinSize + "-" + roomMaxSize + " players" + "\n Room theme = " + roomTheme + "\n Room duration = " + roomDuration + "\n Room price = " + "$" + roomPrice + " per participant";
+			return "Room number = " + "#" + roomNumber + "\n Room name = " + roomName + "\n Minimum age = " + ageMinimum + " years" + "\n Room size = " + roomMinSize + "-" + roomMaxSize + " players" + "\n Room theme = " + roomTheme + "\n Room duration = " + roomDuration + " hour(s)" + "\n Room price = " + "$" + roomPrice + " per participant";
 		}
 	}
 

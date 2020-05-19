@@ -34,7 +34,7 @@ class MainProgramma
 		RoomsList[0].ageMinimum = 14;
 		RoomsList[0].roomMinSize = 4;
 		RoomsList[0].roomMaxSize = 6;
-		RoomsList[0].roomDuration = "1 hour and 30 minutes";
+		RoomsList[0].roomDuration = new TimeSpan(1, 30, 0);
 		RoomsList[0].roomName = "Horror Room";
 		RoomsList[0].roomPrice = 7.50;
 		RoomsList[0].roomTheme = "Horror";
