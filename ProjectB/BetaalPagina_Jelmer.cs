@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BetaalPagina_Jelmer
 {
-    class Program
+    public class Program
     {
-        static void payment()
+        public static void payment()
         {
             string RoomPrice = ""; //Room Price P.P.
             string userParticipants = ""; //MainProgramma.userParticipants

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Y_or_N;
+using BetaalPagina_Jelmer;
 
 namespace ProjectB
 {
@@ -61,7 +62,7 @@ namespace ProjectB
 			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
-			Console.WriteLine("\n\n\nPress any key to return to continue.\n");
+			Console.WriteLine("\n\n\nPress any key to return to continue to the payment page...\n");
 			Console.ReadKey(true);
 
 			userTotalPrice = 0;
@@ -69,6 +70,7 @@ namespace ProjectB
 			userFoodString = "";
 			userArrangementString = "";
 			userArrangement = 0;
+			Program.payment();
 		}
 		public static void ReserveerFunction()
 		{
