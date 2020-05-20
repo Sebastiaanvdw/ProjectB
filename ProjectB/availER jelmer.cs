@@ -19,7 +19,7 @@
 //            Console.WriteLine("Overzicht beschikbaarheid van de Escape Rooms." + "\n");
 //            Console.WriteLine("Kamer 1: "+ Kamer1 + "\n" + "Kamer 2: " + Kamer2 + "\n" + "Kamer 3: "+ Kamer3 + "\n" + "Kamer 4: " + Kamer4 + "\n" + "Kamer 5: " + Kamer5);
 //            Console.WriteLine("====================================");
-//            Console.WriteLine("Welke kamer wilt u boeken(1-5)?");
+//            Console.WriteLine("Welke kamer wilt u boeken(1-5)?"); 
 
 //            switch (Console.ReadLine())
 //            {

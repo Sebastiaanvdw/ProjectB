@@ -45,9 +45,6 @@ class MainProgram
 		RoomsList[0].roomPrice = 7.50;
 		RoomsList[0].roomTheme = "Horror";
 		//temporary room for testing
-
-		while (ContinueProgram)
-		{
 			while (Mainpage)
 			{
 				LoopCustomerLogin = true;
@@ -55,27 +52,15 @@ class MainProgram
 				LoopAdminLogin = true;
 				Console.Clear();
 				util.Log("");
-				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n=======================================\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
+				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Exit Application\n=======================================\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
 				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
-				if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); Mainpage = false; customerFalse = false; }
-				else if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); Mainpage = false; employeeFalse = false; }
-				else if (input.Key == ConsoleKey.D3) { AdminFunction(); Mainpage = false; adminFalse = false; }
+				if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); customerFalse = false; }
+				else if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); employeeFalse = false; }
+				else if (input.Key == ConsoleKey.D3) { AdminFunction(); adminFalse = false; }
+				else if (input.Key == ConsoleKey.D4) { break; }
 			}
-			Console.Clear();
-			Console.Write("Would you like to continue the program? Press ");
-			Functions.Write("y", ConsoleColor.Yellow);
-			Console.Write(" or ");
-			Functions.Write("n", ConsoleColor.Yellow);
-			bool Return = util.CheckYN();
-			if (Return == true) { Mainpage = true; }
-			if (Return == false)
-			{
-				ContinueProgram = false;
-				Console.WriteLine("Closing Application...");
-			}
-		}
 	}
 
 	static void AdminFunction()
@@ -191,7 +176,7 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D4) { Functions.ReserveerFunction();  }
-			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1; Main(); }
+			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1;}
 			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 		}
 	}
@@ -214,9 +199,8 @@ class MainProgram
 				Console.Clear();
 				Console.WriteLine("W.I.P, press any key to continue.\n");
 				Console.ReadKey(true);
-				EmployeeMenu();
 			}
-			else if (input.Key == ConsoleKey.D5) { EmployeeSuccess -= 1; Main(); }
+			else if (input.Key == ConsoleKey.D5) { EmployeeSuccess -= 1;}
 			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 		}
 	}
@@ -237,8 +221,8 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D4) { Delete.Function(RoomsList); }
 			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(RoomsList); }
 			else if (input.Key == ConsoleKey.D6) { FoodPrice.Editmenu(); }
-			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1; Main(); }
-			else { adminFalse = true; AdminPage(); }
+			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1;}
+			else { adminFalse = true;}
 		}
 	}
 

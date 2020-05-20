@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectB;
 
 namespace BetaalPagina_Jelmer
 {
-    public class Program
+    public class BetaalPagina
     {
         public static void payment()
         {
-            string RoomPrice = ""; //Room Price P.P.
-            string userParticipants = ""; //MainProgramma.userParticipants
-            string Arrangements = ""; //Price Chosen Arrangements
-            string FoodAndDrinks = ""; //Price Chosen Food & Drinks
-            string SubTotal = ""; //SubTotal = (P.P. * Participants) + Food & Drinks + Arrangementen 
-
+            int roomChoice = Functions.RoomChoice;
+            //string roomPrice = ""; //Room Price P.P.
+            //string userParticipants = ""; //MainProgramma.userParticipants
+            //string Arrangements = ""; //Price Chosen Arrangements
+            //string FoodAndDrinks = ""; //Price Chosen Food & Drinks
+            //string SubTotal = ""; //SubTotal = (P.P. * Participants) + Food & Drinks + Arrangementen 
+            
             Console.Clear();
             Console.WriteLine("==========================");
-            Console.WriteLine("Room Price P.P.: " + RoomPrice + "$");
-            Console.WriteLine("Participants: " + userParticipants);
-            Console.WriteLine("Arrangements: " + Arrangements + "$");
-            Console.WriteLine("Food & Drinks: " + FoodAndDrinks + "$");
+            Console.WriteLine("Room Price P.P.: " + MainProgram.RoomsList[roomChoice].roomPrice + "$");
+            Console.WriteLine("Participants: " + Functions.userParticipants);
+            Console.WriteLine("Arrangements: " + Functions.userArrangementPrice + "$");
+            Console.WriteLine("Food & Drinks: " + Functions.userFoodArrangementPrice + "$");
             Console.WriteLine("-------------------- +" + "\n");
-            Console.WriteLine("SubTotal: " + SubTotal + "$");
+            Console.WriteLine("SubTotal: " + Functions.userTotalPrice + "$");
             Console.WriteLine("==========================" + "\n");
 
             Console.WriteLine("Do you want to continue with your payment?('Yes' or 'No')");
@@ -54,18 +56,18 @@ namespace BetaalPagina_Jelmer
                     string PaymentMethod = "Tikkie";
                     Console.WriteLine("Your chosen payment method is: " + PaymentMethod);
                 }
-                Console.WriteLine("Your payment was succesful!");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
+                Functions.WriteLine("Your payment was succesful!\n", ConsoleColor.Green);
+                //Console.WriteLine("Press any key to continue...");
+                //Console.ReadKey();
                 //Redirect to main menu
             }
             else if (ContinuePayment == "No" || ContinuePayment == "no")
             {
                 Console.Clear();
-                Console.WriteLine("Your payment has been cancelled!");
-                Console.WriteLine("You will shortly be redirected to the main menu.");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
+                Functions.WriteLine("Your payment has been cancelled!\n", ConsoleColor.Yellow);
+                //Console.WriteLine("You will shortly be redirected to the main menu.");
+                //Console.WriteLine("Press any key to continue...");
+                //Console.ReadKey(true);
                 //Redirect to main menu
             }
         }
