@@ -245,6 +245,20 @@ namespace ProjectB
 							}
 						}
 					}
+			while (!userPostCodeLetterSucces)
+			{
+				Console.WriteLine("Fill in the last 2 Letters of your postcode:"); //2 letters
+				userinput = Console.ReadLine();
+				if (string.IsNullOrEmpty(userinput)) { userPostCodeLetterSucces = false; }
+				else if (userinput.Any(char.IsDigit) | userinput.Length != 2 ) { userPostCodeLetterSucces = false; }
+				else { userPostCodeLetterSucces = true; }
+				if (userPostCodeLetterSucces) { userPostcode += userinput.ToUpper() ; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a valid name last");
+				}
+			}
 
 					while (!userStreetSucces)
 					{
@@ -328,6 +342,34 @@ namespace ProjectB
 							}
 						}
 					}
+			while (!userHouseNumberSucces)
+			{
+				Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
+				userinput = Console.ReadLine();
+				userHouseNumberSucces = int.TryParse(userinput, out int number);
+				if (number > 0 && number < 2000) { userHouseNumberSucces = true; }
+				else { userHouseNumberSucces = false; }
+				if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a valid housenumber");
+				}
+			}
+			while (!userResidencySucces)
+			{
+				Console.WriteLine("Fill in your place of residence(e.g. 'Pijnacker'):"); // Alleen Letters
+				userinput = Console.ReadLine();
+				if (string.IsNullOrEmpty(userinput)) { userResidencySucces = false; }
+				else if (userinput.Any(char.IsDigit)) { userResidencySucces = false; }
+				else { userResidencySucces = true; }
+				if (userResidencySucces) { userResidency = userinput; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a valid place of residence");
+				}
+			}
 
 
 					while (!userEmailSucces)
@@ -441,6 +483,20 @@ namespace ProjectB
 							}
 						}
 					}
+			while (!userFoodArrangementSucces)
+			{
+				Console.WriteLine("Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):"); // Alleen 1 van de 4 opties
+				userinput = Console.ReadLine();
+				userFoodArrangementSucces = int.TryParse(userinput, out int number);
+				if (number > 0 & number < 5) { userFoodArrangementSucces = true; }
+				else { userFoodArrangementSucces = false; }
+				if (userFoodArrangementSucces) { userFoodArrangement = number; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a number between 1 and 4");
+				}
+			}
 
 					while (!userArrangementSucces)
 					{
@@ -484,6 +540,23 @@ namespace ProjectB
 					}
 				}
 			}
+			while (!userArrangementSucces)
+			{
+				Console.WriteLine("Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):"); // Alleen 1 van de 4 opties
+				userinput = Console.ReadLine();
+				userArrangementSucces = int.TryParse(userinput, out int number);
+				if (number > 0 & number < 5) { userArrangementSucces = true; }
+				else { userArrangementSucces = false; }
+				if (userArrangementSucces) { userArrangement = number; }
+				else
+				{
+					WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine("Please enter a number between 1 and 4");
+				}
+			}
+			Console.Clear();
+			TotalPrice();
+			ReceiptFunction();
 		}
 		public static void TotalPrice()
 		{
@@ -529,6 +602,7 @@ namespace ProjectB
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
 			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
+			
 		}
 		public static void CustomerOverview()
 		{

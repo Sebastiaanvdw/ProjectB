@@ -140,11 +140,12 @@ namespace ProjectB.Crud
 									userInput = Console.ReadLine();
 									priceSuccess = Double.TryParse(userInput, out double number);
 									if (number < 1) { priceSuccess = false; }
+									else if (userInput.Contains(".")) { priceSuccess = false; }
 									if (priceSuccess) { RoomsList[EditRoomIndex].roomPrice = number; }
 									else
 									{
 										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number above 0.");
+										Console.WriteLine("Please enter a number above 0, if it's a decimal number use ','.");
 									}
 								}
 							}
@@ -155,12 +156,13 @@ namespace ProjectB.Crud
 									Console.WriteLine("Enter the duration for the escape room in hours (e.g. '1,5'):");
 									userInput = Console.ReadLine();
 									durationSuccess = double.TryParse(userInput, out double number);
-									if (number < 0 || number > 5) { durationSuccess = true; }
-									if (durationSuccess) { RoomsList[EditRoomIndex].roomDuration = Math.Truncate(number).ToString() + " hour(s) and " + Math.Round((number - Math.Truncate(number)) * 60).ToString() + " minutes"; }
+									if (number < 0 || number > 5) { durationSuccess = false; }
+									else if (userInput.Contains(".")) { durationSuccess = false; }
+									if (durationSuccess) { RoomsList[EditRoomIndex].roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 									else
 									{
 										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please try again");
+										Console.WriteLine("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
 									}
 								}
 							}

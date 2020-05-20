@@ -145,6 +145,15 @@ namespace ProjectB.Crud
 							}
 						}
 						
+						priceSuccess = Double.TryParse(userInput, out double number);
+						if (number < 0) { priceSuccess = false; }
+						else if (userInput.Contains(".")) { priceSuccess = false; }
+						if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
+						else
+						{
+							Functions.Error();
+							Console.WriteLine("Please enter a positive number, if it's a decimal number use ','.");
+						}
 					}
 
 					while (!themeSuccess)
@@ -199,6 +208,16 @@ namespace ProjectB.Crud
 								Functions.Error();
 								Console.WriteLine("Please try again");
 							}
+						}
+					}
+						durationSuccess = double.TryParse(userInput, out double number);
+						if (number < 0 || number > 5) { durationSuccess = false; }
+						else if (userInput.Contains(".")) { durationSuccess = false; }
+						if (durationSuccess) { RoomsList[NewIndex].roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number))*60)),0); }
+						else
+						{
+							Functions.Error();
+							Console.WriteLine("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
 						}
 					}
 
