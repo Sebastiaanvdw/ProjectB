@@ -148,6 +148,5 @@ namespace Y_or_N
                 }
             }
         }
-
     }
 }

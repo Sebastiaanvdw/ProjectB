@@ -9,14 +9,14 @@ namespace ProjectB
 {
 	class Functions
 	{
-		public static string userInput;
+		public static string input_message, error_message;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 		public static string userUniqueID;
 		public static double foodPrice = 5.00;
 		public static double drinksPrice = 3.50;
-		public static double foodAndDrinksPrice= 7.50;
+		public static double foodAndDrinksPrice = 7.50;
 		public static bool LoopContactFunction = false;
 		public static void Contact()
 		{
@@ -76,19 +76,6 @@ namespace ProjectB
 			bool LoopAddReservation = true;
 			while (LoopAddReservation)
 			{
-				bool RoomChoiceSucces = false;
-				bool UserNameSucces = false;
-				bool userLastNameSucces = false;
-				bool userPostCodeDigitSucces = false;
-				bool userPostCodeLetterSucces = false;
-				bool userStreetSucces = false;
-				bool userResidencySucces = false;
-				bool userHouseNumberSucces = false;
-				bool userEmailSucces = false;
-				bool userPhoneNumberSucces = false;
-				bool userParticipantsSucces = false;
-				bool userFoodArrangementSucces = false;
-				bool userArrangementSucces = false;
 				Console.Clear();
 				if (MainProgram.RoomsList.Count < 1)
 				{
@@ -106,367 +93,59 @@ namespace ProjectB
 					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + MainProgram.RoomsList.Count + ")"); // Tussen 1-5
 
 					for (int i = 0; i < MainProgram.RoomsList.Count; i++) { Console.WriteLine(MainProgram.RoomsList[i].roomNumber + " - " + MainProgram.RoomsList[i].roomName); ; }
-					Console.WriteLine("\nRoom:");
-					while (!RoomChoiceSucces)
-					{
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							RoomChoiceSucces = int.TryParse(userInput, out int number);
-							if (number < 1 || number > MainProgram.RoomsList.Count) { RoomChoiceSucces = false; }
-							if (RoomChoiceSucces) { RoomChoice = number - 1; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and " + MainProgram.RoomsList.Count);
-							}
-						}
-					}
 
-					while (!UserNameSucces)
-					{
-						Console.WriteLine("Fill in your first name(e.g. 'Piet'):"); // Alleen Letters
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { UserNameSucces = false; }
-							else if (userInput.Any(char.IsDigit)) { UserNameSucces = false; }
-							else { UserNameSucces = true; }
-							if (UserNameSucces) { userName = userInput; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name");
-							}
-						}
-					}
+					input_message = "\nRoom:";
+					error_message = "Please enter a number between 1 and " + MainProgram.RoomsList.Count;
+					RoomChoice = Error_Exception_Int(input_message, error_message, 1, MainProgram.RoomsList.Count) - 1;
 
-					while (!userLastNameSucces)
-					{
-						Console.WriteLine("Fill in your last name(e.g. 'de Koning'):"); //Alleen Letters
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userLastNameSucces = false; }
-							else if (userInput.Any(char.IsDigit)) { userLastNameSucces = false; }
-							else { userLastNameSucces = true; }
-							if (userLastNameSucces) { userLastName = userInput; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name last");
-							}
-						}
-					}
+					input_message = "Fill in your first name(e.g. 'Piet'):";
+					error_message = "Please enter a valid name";
+					userName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", ""); //(message, errorMessage, is it a number, does the length matter, minimum length, maximum length
 
-					while (!userPostCodeDigitSucces)
-					{
-						Console.WriteLine("Fill in the first four digits of your postcode:"); //4 Cijfers
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							userPostCodeDigitSucces = int.TryParse(userInput, out int number);
-							if (number.ToString().Length == 4) { userPostCodeDigitSucces = true; }
-							else { userPostCodeDigitSucces = false; }
-							if (userPostCodeDigitSucces == true) { userPostcode = userInput.ToString(); }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid postcode");
-							}
-						}
-					}
+					input_message = "Fill in your last name(e.g. 'de Koning'):";
+					error_message = "Please enter a valid name last";
+					userLastName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
 
-					while (!userPostCodeLetterSucces)
-					{
-						Console.WriteLine("Fill in the last 2 Letters of your postcode:"); //2 letters
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userPostCodeLetterSucces = false; }
-							else if (userInput.Any(char.IsDigit) | userInput.Length != 2) { userPostCodeLetterSucces = false; }
-							else { userPostCodeLetterSucces = true; }
-							if (userPostCodeLetterSucces) { userPostcode += userInput.ToUpper(); }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name last");
-							}
-						}
-					}
+					input_message = "Fill in the first four digits of your postcode:";
+					error_message = "Please enter a valid postcode";
+					userPostcode = Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
 
+					input_message = "Fill in the last two letters of your postcode: ";
+					error_message = "Please fill two letters";
+					userPostcode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
 
-					while (!userStreetSucces)
-					{
-						Console.WriteLine("Fill in your street(e.g. 'Tulpenlaan'):"); // Alleen Letters
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userStreetSucces = false; }
-							else if (userInput.Any(char.IsDigit)) { userStreetSucces = false; }
-							else { userStreetSucces = true; }
-							if (userStreetSucces) { userStreet = userInput; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid street name");
-							}
-						}
-					}
+					input_message = "Fill in your street(e.g. 'Tulpenlaan'):";
+					error_message = "Please enter a valid street name";
+					userStreet = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
 
-					while (!userHouseNumberSucces)
-					{
-						Console.WriteLine("Fill in your housenumber(e.g. '98'):"); // Alleen cijfers max. 19999
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							userHouseNumberSucces = int.TryParse(userInput, out int number);
-							if (number > 0 && number < 2000) { userHouseNumberSucces = true; }
-							else { userHouseNumberSucces = false; }
-							if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid housenumber");
-							}
-						}
-					}
-					while (!userResidencySucces)
-					{
-						Console.WriteLine("Fill in your place of residence(e.g. 'Pijnacker'):"); // Alleen Letters
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userResidencySucces = false; }
-							else if (userInput.Any(char.IsDigit)) { userResidencySucces = false; }
-							else { userResidencySucces = true; }
-							if (userResidencySucces) { userResidency = userInput; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid street name");
-							}
-						}
-					}
-					while (!userEmailSucces)
-					{
-						Console.WriteLine("Fill in your email(e.g. 'voorbeeld@mail.com'):"); // Moet een @ en . hebben
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userEmailSucces = false; }
-							else if (userInput.Contains("@") && userInput.Contains(".")) { userEmailSucces = true; }
-							else { userEmailSucces = false; }
-							if (userEmailSucces) { userEmail = userInput; }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid Email adress");
-							}
-						}
-					}
+					input_message = "Fill in your housenumber(e.g. '98'):";
+					error_message = "Please enter a valid housenumber";
+					userHouseNumber = Error_Exception_Int(input_message, error_message, 1, 2000).ToString();
 
-					while (!userPhoneNumberSucces)
-					{
-						Console.WriteLine("Fill in your telephonenumber(e.g. '0676319854'):"); // Alleen cijfers max. 10 getallen
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							if (string.IsNullOrEmpty(userInput)) { userPhoneNumberSucces = false; }
-							else if (userInput.Length == 10 & userInput.All(Char.IsDigit)) { userPhoneNumberSucces = true; }
-							else { userPhoneNumberSucces = false; }
-							if (userPhoneNumberSucces == true) { userPhoneNumber = userInput.ToString(); }
-							else
-							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid Phonenumber");
-							}
-						}
-					}
+					input_message = "Fill in your place of residence(e.g. 'Pijnacker'):";
+					error_message = "Please enter a valid place of residence";
+					userResidency = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
 
-					while (!userParticipantsSucces)
-					{
-						Console.WriteLine("Fill in how many participants there will be (" + MainProgram.RoomsList[RoomChoice].roomMinSize + "-" + MainProgram.RoomsList[RoomChoice].roomMaxSize + ")"); // 2-6 deelnemers
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							userParticipantsSucces = int.TryParse(userInput, out int number);
-							if (number >= MainProgram.RoomsList[RoomChoice].roomMinSize && number <= MainProgram.RoomsList[RoomChoice].roomMaxSize) { userParticipantsSucces = true; }
-							else { userParticipantsSucces = false; }
-							if (userParticipantsSucces == true) { userParticipants = number; }
-							else
-							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid number of participants");
-							}
-						}
-					}
+					input_message = "Fill in your email(e.g. 'voorbeeld@mail.com'):";
+					error_message = "Please enter a valid Email adress";
+					userEmail = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
 
-					while (!userFoodArrangementSucces)
-					{
-						Console.WriteLine("Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):"); // Alleen 1 van de 4 opties
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							userFoodArrangementSucces = int.TryParse(userInput, out int number);
-							if (number > 0 & number < 5) { userFoodArrangementSucces = true; }
-							else { userFoodArrangementSucces = false; }
-							if (userFoodArrangementSucces) { userFoodArrangement = number; }
-							else
-							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and 4");
-							}
-						}
-					}
+					input_message = "Fill in your telephonenumber(e.g. '0676319854'):";
+					error_message = "Please enter a valid Phonenumber";
+					userPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
+					
+					input_message = "Fill in how many participants there will be (" + MainProgram.RoomsList[RoomChoice].roomMinSize + "-" + MainProgram.RoomsList[RoomChoice].roomMaxSize + ")";
+					error_message = "Please enter a valid number of participants";
+					userParticipants = Error_Exception_Int(input_message, error_message, MainProgram.RoomsList[RoomChoice].roomMinSize, MainProgram.RoomsList[RoomChoice].roomMaxSize);
 
-					while (!userArrangementSucces)
-					{
-						Console.WriteLine("Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):"); // Alleen 1 van de 4 opties
-						userInput = Console.ReadLine();
-						if (userInput == "return")
-						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
-							if (Return == true) { RoomChoiceSucces = false; return; }
-							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
-						}
-						else
-						{
-							userArrangementSucces = int.TryParse(userInput, out int number);
-							if (number > 0 & number < 5) { userArrangementSucces = true; }
-							else { userArrangementSucces = false; }
-							if (userArrangementSucces) { userArrangement = number; }
-							else
-							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and 4");
-							}
-						}
-					}
+					input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
+					error_message = "Please enter a number between 1 and 4";
+					userFoodArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
+
+					input_message = "Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):";
+					error_message = "Please enter a number between 1 and 4";
+					userArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
+
 					Console.Clear();
 					if (userArrangement != 0)
 					{
@@ -527,7 +206,7 @@ namespace ProjectB
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
 			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
-			
+
 		}
 		public static void CustomerOverview()
 		{
@@ -584,9 +263,9 @@ namespace ProjectB
 			if (RoomsList.Count <= 0)
 			{
 				Functions.WriteLine("Oh no, it looks like noone has created a room yet!", ConsoleColor.Red);
-				Console.Write("Press ");Functions.Write("c", ConsoleColor.Yellow);Console.Write(" to create a room or ");Functions.Write("m ", ConsoleColor.Yellow);Console.Write("to return to menu.");
+				Console.Write("Press "); Functions.Write("c", ConsoleColor.Yellow); Console.Write(" to create a room or "); Functions.Write("m ", ConsoleColor.Yellow); Console.Write("to return to menu.");
 				bool showBool = util.CheckCM();
-				if(showBool == true) {Add.Function(MainProgram.RoomsList); }
+				if (showBool == true) { Add.Function(MainProgram.RoomsList); }
 				else { return; }
 			}
 			else
@@ -606,9 +285,9 @@ namespace ProjectB
 			Console.Clear();
 			if (RoomsList.Count <= 0)
 			{
-					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
-					Console.ReadKey(true);
-					return; ;
+				Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
+				Console.ReadKey(true);
+				return; ;
 			}
 			else
 			{
@@ -617,7 +296,7 @@ namespace ProjectB
 				{
 					Console.WriteLine(RoomsList[i] + "\n");
 				}
-				
+
 			}
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
@@ -631,7 +310,7 @@ namespace ProjectB
 		}
 		public static void Error()
 		{
-			Functions.WriteLine("Oh no, your input did not fit!",ConsoleColor.Red);
+			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
@@ -640,6 +319,53 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
+
+		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
+		{
+			string userInput = "";
+			bool Succes = false;
+			Console.Clear();
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				if (string.IsNullOrEmpty(userInput)) { Succes = false; }
+				else if (!isanumber && userInput.Any(char.IsDigit)) { Succes = false; }
+				else if (isanumber && !userInput.Any(char.IsDigit)) { Succes = false; }
+				else if (lengthmatters && (userInput.Length < minlength || userInput.Length > maxlength)) { Succes = false; }
+				else if (specialcontain && !userInput.Contains(contains1) || !userInput.Contains(contains2)) { Succes = false; }
+				else if (userInput.Length < 5 && userInput.Contains(" ")) { Succes = false; }
+				else { Succes = true; }
+				if (Succes) { }
+				else
+				{
+					Write("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine(errormessage);
+				}
+			}
+			return userInput;
+		}
+		
+		public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
+		{
+			string userInput = "";
+			bool Succes = false;
+			Console.Clear();
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				Succes = int.TryParse(userInput, out int number);
+				if (number >= minlength && number <= maxlength) { Succes = true; }
+				else { Succes = false; }
+				if (Succes) { }
+				else
+				{
+					Write("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine(errormessage);
+				}
+			}
+			return Int32.Parse(userInput);
+		}
 	}
 }
-
