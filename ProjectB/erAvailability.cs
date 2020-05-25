@@ -7,14 +7,19 @@ namespace ConsoleApp1
         public static TimeSpan roomDuration = TimeSpan.Parse("1:00");
         public static TimeSpan cleanUp = TimeSpan.Parse("00:30");
         public static TimeSpan openingTime = TimeSpan.Parse("09:00");
+        public static string[] tijden = new string[3] { "13:00", "15:00", "17:00" };
+        public static string[] opties = new string[3] { "1", "2", "3" };
+        public static string availability = " Available";
+        public static string availability2 = " Available";
+        public static string availability3 = " Available";
+
         public static void Main()
 
         {
 
-
-
             TimeSpan endTime = roomDuration + openingTime;
             TimeSpan openingpluscleanup = openingTime + cleanUp;
+
 
             string formattedEndTime = endTime.ToString("hh\\:mm");
             string formattedOpeninTime = openingTime.ToString("hh\\:mm");
@@ -24,14 +29,17 @@ namespace ConsoleApp1
             Console.Clear();
 
 
-            Console.WriteLine("Day?");
+            Console.WriteLine("Please select a day:");
 
             string Day = Console.ReadLine();
 
-            Console.WriteLine("Time");
+            Console.WriteLine("--- Time Options ---");
 
-            //DateTime tempTime = Console.ReadLine();
-            //string tempTime2 = tempTime.ToString("hh\\:mm");
+            Console.WriteLine("|" + opties[0] + "|" + tijden[0] + "\n" + "|" + opties[1] + "|" + tijden[1] + "\n" + "|" + opties[2] + "|" + tijden[2]);
+            Console.WriteLine("Make an option to change the availability of a room:");
+            string tempTime = Console.ReadLine();
+
+
 
 
             Console.WriteLine("-- Availability Escape Rooms --");
@@ -48,7 +56,25 @@ namespace ConsoleApp1
                     Console.WriteLine("--- Monday ---");
                     Console.WriteLine("On Monday the rooms are occupied at: ");
 
+                    Console.WriteLine(tijden[0] + "-" + formattedEndTime + availability);
+                    Console.WriteLine(tijden[1] + "-" + formattedEndTime + availability2);
+                    Console.WriteLine(tijden[2] + "-" + formattedEndTime + availability3);
 
+                    if (tempTime == opties[0])
+                    {
+                        availability = " Unavailable";
+
+                    }
+                    if (tempTime == opties[1])
+                    {
+                        availability2 = " Unavailable";
+
+                    }
+                    if (tempTime == opties[2])
+                    {
+                        availability3 = " Unavailable";
+
+                    }
 
                     break;
 
@@ -57,9 +83,24 @@ namespace ConsoleApp1
                     Console.WriteLine("--- Tuesday ---");
                     Console.WriteLine("On Tuesday the rooms are occupied at: ");
 
-                    if (Day == "Tuesday")
-                        Console.WriteLine("");
-
+                    if (tempTime == opties[0])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Unavailable");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Available");
+                    }
+                    if (tempTime == opties[1])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Unavailable");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Available");
+                    }
+                    if (tempTime == opties[2])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Unavailable");
+                    }
 
                     break;
 
@@ -68,8 +109,24 @@ namespace ConsoleApp1
                     Console.WriteLine("--- Wednesday---");
                     Console.WriteLine("On Wednesday the rooms are occupied at: ");
 
-                    if (Day == "Wednesday")
-                        Console.WriteLine("");
+                    if (tempTime == opties[0])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Unavailable");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Available");
+                    }
+                    if (tempTime == opties[1])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Unavailable");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Available");
+                    }
+                    if (tempTime == opties[2])
+                    {
+                        Console.WriteLine(tijden[0] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[1] + "-" + formattedEndTime + " Available");
+                        Console.WriteLine(tijden[2] + "-" + formattedEndTime + " Unavailable");
+                    }
 
                     break;
 
@@ -85,14 +142,13 @@ namespace ConsoleApp1
 
                 case "Friday":
                     Console.WriteLine("--- Friday ---");
-                    Console.WriteLine("On Tuesday the rooms are occupied at: ");
+                    Console.WriteLine("On Friday the rooms are occupied at: ");
 
                     if (Day == "Friday")
                         Console.WriteLine("");
 
 
                     break;
-
 
             }
             {
