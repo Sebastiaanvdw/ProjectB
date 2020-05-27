@@ -19,13 +19,16 @@ namespace BetaalPagina_Jelmer
             //string SubTotal = ""; //SubTotal = (P.P. * Participants) + Food & Drinks + Arrangementen 
             
             Console.Clear();
+            Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("==========================");
-            Console.WriteLine("Room Price P.P.: " + MainProgram.RoomsList[roomChoice].roomPrice + "$");
+            Console.WriteLine("Room Price P.P.: "  + "€" + MainProgram.RoomsList[roomChoice].roomPrice);
             Console.WriteLine("Participants: " + Functions.userParticipants);
-            Console.WriteLine("Arrangements: " + Functions.userArrangementPrice + "$");
-            Console.WriteLine("Food & Drinks: " + Functions.userFoodArrangementPrice + "$");
-            Console.WriteLine("-------------------- +" + "\n");
-            Console.WriteLine("SubTotal: " + Functions.userTotalPrice + "$");
+            Console.WriteLine("Total Participant Price: " + Functions.userParticipants * MainProgram.RoomsList[roomChoice].roomPrice);
+            Console.WriteLine("Food & Drinks: " + "€" + Functions.userFoodArrangementPrice);
+            Console.WriteLine("========================== +");
+            Console.WriteLine("Arrangements: " + "€" + Functions.userArrangementPrice);
+            Console.WriteLine("========================== -");
+            Console.WriteLine("SubTotal: " + "€" + Functions.userTotalPrice );
             Console.WriteLine("==========================" + "\n");
 
             Console.WriteLine("Do you want to continue with your payment?('Yes' or 'No')");

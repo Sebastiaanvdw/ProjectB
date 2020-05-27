@@ -1,5 +1,6 @@
 ﻿using ProjectB.Crud;
 using System;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using Y_or_N;
@@ -49,6 +50,7 @@ namespace ProjectB
 			}
 
 			Console.Clear();
+			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("======================");
 			Console.WriteLine("\nThe following room has been chosen: " + MainProgram.RoomsList[RoomChoice].roomName);
 			Console.WriteLine("Amount of participants: " + userParticipants);
@@ -59,7 +61,7 @@ namespace ProjectB
 			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
 			Console.WriteLine("\nClient Food Arrangement: " + userFoodString);
 			Console.WriteLine("\nClient Arrangement: " + userArrangementString);
-			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
+			Console.WriteLine("\nTotal Price: €" + userTotalPrice);
 			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
 			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
 			Console.WriteLine("\n\n\nPress any key to continue to the payment page...\n");
@@ -488,22 +490,22 @@ namespace ProjectB
 			if (userFoodArrangement == 1) //none
 			{
 				userFoodString = "None";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants;
+				userFoodArrangementPrice = 0;
 			}
 			if (userFoodArrangement == 2) //just food
 			{
 				userFoodString = "Just Food";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodPrice * userParticipants;
+				userFoodArrangementPrice = foodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
 				userFoodString = "Just Drinks";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + drinksPrice * userParticipants;
+				userFoodArrangementPrice = drinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
 				userFoodString = "Food and Drinks";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodAndDrinksPrice * userParticipants;
+				userFoodArrangementPrice = foodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none
@@ -526,7 +528,7 @@ namespace ProjectB
 				userArrangementString = "Work Outing";
 				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.3;
 			}
-			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
+			userTotalPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + userFoodArrangementPrice - userArrangementPrice;
 			
 		}
 		public static void CustomerOverview()
