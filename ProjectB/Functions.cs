@@ -51,20 +51,23 @@ namespace ProjectB
 
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
-			Console.WriteLine("======================");
-			Console.WriteLine("\nThe following room has been chosen: " + MainProgram.RoomsList[RoomChoice].roomName);
-			Console.WriteLine("Amount of participants: " + userParticipants);
-			Console.WriteLine("\nClient Name: " + userName + " " + userLastName);
-			Console.WriteLine("\nClient Street: " + userStreet + " " + userHouseNumber);
-			Console.WriteLine("\nClient Postcode: " + userPostcode);
-			Console.WriteLine("\nClient Woonplaats: " + userResidency);
-			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nClient Food Arrangement: " + userFoodString);
-			Console.WriteLine("\nClient Arrangement: " + userArrangementString);
-			Console.WriteLine("\nTotal Price: €" + userTotalPrice);
-			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
-			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
-			Console.WriteLine("\n\n\nPress any key to continue to the payment page...\n");
+			Console.WriteLine("============================================");
+			Console.WriteLine("The following room has been chosen: " + MainProgram.RoomsList[RoomChoice].roomName);
+			Console.WriteLine("\nAmount of participants: " + userParticipants);
+			Console.WriteLine("============================================");
+			Console.WriteLine("Name:			" + userName + " " + userLastName);
+			Console.WriteLine("Street:			" + userStreet + " " + userHouseNumber);
+			Console.WriteLine("Postalcode:		" + userPostcode);
+			Console.WriteLine("Place of residence:	" + userResidency);
+			Console.WriteLine("Phonenumber:		" + userPhoneNumber);
+			Console.WriteLine("Food arrangement:	" + userFoodString);
+			Console.WriteLine("Arrangement:		" + userArrangementString);
+			Console.WriteLine("\nTotal Price:		€" + userTotalPrice);
+			Console.Write("\nClient UniqueID (Bring this to the desk): ");
+			Write(userUniqueID, ConsoleColor.Green);
+			Console.WriteLine("\nThis will be sent to the following email address: " + userEmail);
+			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
+			Console.WriteLine("============================================");
 			Console.ReadKey(true);
 			BetaalPagina.payment();
 			userTotalPrice = 0;
@@ -107,7 +110,7 @@ namespace ProjectB
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + MainProgram.RoomsList.Count + ")"); // Tussen 1-5
 
-					for (int i = 0; i < MainProgram.RoomsList.Count; i++) { Console.WriteLine(MainProgram.RoomsList[i].roomNumber + " - " + MainProgram.RoomsList[i].roomName); ; }
+					for (int i = 0; i < MainProgram.RoomsList.Count; i++) { Console.WriteLine(MainProgram.RoomsList[i].roomNumber + " - " + MainProgram.RoomsList[i].roomName + "(" + MainProgram.RoomsList[i].roomMinSize + "-" + MainProgram.RoomsList[i].roomMaxSize + ")"); ; }
 					Console.WriteLine("\nRoom:");
 					while (!RoomChoiceSucces)
 					{
