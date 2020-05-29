@@ -1,0 +1,24 @@
+{
+  "escaperooms": [
+    {
+      "roomNumber": 2,
+      "ageMinimum": 12,
+      "roomMinSize": 2,
+      "roomMaxSize": 4,
+      "roomPrice": 15.0,
+      "roomTheme": "sefg",
+      "roomName": "seg",
+      "roomDuration": "02:00:00"
+    },
+    {
+      "roomNumber": 1,
+      "ageMinimum": 12,
+      "roomMinSize": 2,
+      "roomMaxSize": 4,
+      "roomPrice": 234.0,
+      "roomTheme": "adw",
+      "roomName": "awd",
+      "roomDuration": "02:00:00"
+    }
+  ]
+}

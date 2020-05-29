@@ -1,8 +1,10 @@
 ﻿using ProjectB;
+using Newtonsoft.Json;
 using ProjectB.Crud;
 using System;
 using System.Collections.Generic;
 using Y_or_N;
+using System.IO;
 
 
 
@@ -11,6 +13,9 @@ class MainProgram
 	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
 	public static List<string> CustomerList = new List<string>();
+
+	private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
+	private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
 
 	public static int LoginTries = 4;
@@ -34,17 +39,17 @@ class MainProgram
 
 	public static void Main()
 	{
-		//temporary room for testing
-		RoomsList.Add(new EscapeRoom() { });
-		RoomsList[0].roomNumber = 1;
-		RoomsList[0].ageMinimum = 14;
-		RoomsList[0].roomMinSize = 4;
-		RoomsList[0].roomMaxSize = 6;
-		RoomsList[0].roomDuration = new TimeSpan(1, 30, 0);
-		RoomsList[0].roomName = "Horror Room";
-		RoomsList[0].roomPrice = 7.50;
-		RoomsList[0].roomTheme = "Horror";
-		//temporary room for testing
+		////temporary room for testing
+		//RoomsList.Add(new EscapeRoom() { });
+		//RoomsList[0].roomNumber = 1;
+		//RoomsList[0].ageMinimum = 14;
+		//RoomsList[0].roomMinSize = 4;
+		//RoomsList[0].roomMaxSize = 6;
+		//RoomsList[0].roomDuration = new TimeSpan(1, 30, 0);
+		//RoomsList[0].roomName = "Horror Room";
+		//RoomsList[0].roomPrice = 7.50;
+		//RoomsList[0].roomTheme = "Horror";
+		////temporary room for testing
 			while (Mainpage)
 			{
 				LoopCustomerLogin = true;
@@ -172,7 +177,7 @@ class MainProgram
 			if (customerFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
-			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(RoomsList); }
+			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(); }
 			else if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D4) { Functions.ReserveerFunction();  }
@@ -191,7 +196,7 @@ class MainProgram
 			if (employeeFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
-			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(RoomsList); }
+			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(); }
 			else if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D4)
@@ -216,10 +221,10 @@ class MainProgram
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
-			else if (input.Key == ConsoleKey.D2) { Add.Function(RoomsList); }
-			else if (input.Key == ConsoleKey.D3) { Edit.Function(RoomsList); }
-			else if (input.Key == ConsoleKey.D4) { Delete.Function(RoomsList); }
-			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(RoomsList); }
+			else if (input.Key == ConsoleKey.D2) { Add.Function(); }
+			else if (input.Key == ConsoleKey.D3) { /*Edit.Function(RoomsList);*/ }
+			else if (input.Key == ConsoleKey.D4) { /*Delete.Function(RoomsList); */}
+			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(); }
 			else if (input.Key == ConsoleKey.D6) { FoodPrice.Editmenu(); }
 			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1;}
 			else { adminFalse = true;}
