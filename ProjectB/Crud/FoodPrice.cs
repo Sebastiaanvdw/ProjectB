@@ -33,11 +33,7 @@ namespace ProjectB.Crud
                 userInput = Console.ReadLine();
                 if (userInput == "return")
                 {
-                    Console.Write("Would you like to return to the menu, press ");
-                    Functions.Write("y", ConsoleColor.Yellow);
-                    Console.Write(" or ");
-                    Functions.Write("n", ConsoleColor.Yellow);
-                    bool Return = util.CheckYN();
+                    bool Return = util.ReturnToMenu();
                     if (Return == true) { menuEditSuccess = true; return; }
                     if (Return == false) { Console.WriteLine(""); Editmenu(); }
                 }
@@ -48,8 +44,7 @@ namespace ProjectB.Crud
                     if (menuEditSuccess) { EditFoodChoice = number; }
                     else
                     {
-                        Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-                        Console.WriteLine("Please enter a number between 1 and 3");
+                        Functions.ErrorMessage("Please enter a number between 1 and 3");
                     }
                 }
             }
@@ -61,11 +56,7 @@ namespace ProjectB.Crud
                     userInput = Console.ReadLine();
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
-                        bool Return = util.CheckYN();
+                        bool Return = util.ReturnToMenu();
                         if (Return == true) { drinksSuccess = true; return; }
                         if (Return == false) { Console.WriteLine(""); Editmenu(); }
                     }
@@ -75,13 +66,9 @@ namespace ProjectB.Crud
                         if (drinksSuccess) { Functions.drinksPrice = number; }
                         else
                         {
-                            Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-                            Console.WriteLine("Please use digits only");
+                            Functions.ErrorMessage("Please use numbers only");
                         }
-                        Console.Write("Would you like to edit another menu item, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
+                        Console.Write("Would you like to edit another menu item?");
                         bool Return = util.CheckYN();
                         if (Return == true) { Editmenu(); }
                         if (Return == false) { return; }
@@ -97,11 +84,7 @@ namespace ProjectB.Crud
 
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
-                        bool Return = util.CheckYN();
+                        bool Return = util.ReturnToMenu();
                         if (Return == true) { foodSuccess = true; return; }
                         if (Return == false) { Console.WriteLine(""); Editmenu(); }
                     }
@@ -111,13 +94,9 @@ namespace ProjectB.Crud
                         if (foodSuccess) { Functions.foodPrice = number; }
                         else
                         {
-                            Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-                            Console.WriteLine("Please use digits only");
+                            Functions.ErrorMessage("Please use numbers only");
                         }
-                        Console.Write("Would you like to edit another menu item, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
+                        Console.Write("Would you like to edit another menu item?");
                         bool Return = util.CheckYN();
                         if (Return == true) { Editmenu(); }
                         if (Return == false) { return; }
@@ -132,11 +111,7 @@ namespace ProjectB.Crud
                     userInput = Console.ReadLine();
                     if (userInput == "return")
                     {
-                        Console.Write("Would you like to return to the menu, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
-                        bool Return = util.CheckYN();
+                        bool Return = util.ReturnToMenu();
                         if (Return == true) { foodAndDrinksSuccess = true; return; }
                         if (Return == false) { Console.WriteLine(""); Editmenu(); }
                     }
@@ -146,13 +121,9 @@ namespace ProjectB.Crud
                         if (foodAndDrinksSuccess) { Functions.foodAndDrinksPrice = number; }
                         else
                         {
-                            Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-                            Console.WriteLine("Please use digits only");
+                            Functions.ErrorMessage("Please use numbers only");
                         }
-                        Console.Write("Would you like to edit another menu item, press ");
-                        Functions.Write("y", ConsoleColor.Yellow);
-                        Console.Write(" or ");
-                        Functions.Write("n", ConsoleColor.Yellow);
+                        Console.Write("Would you like to edit another menu item?");
                         bool Return = util.CheckYN();
                         if (Return == true) { Editmenu(); }
                         if (Return == false) { return; }

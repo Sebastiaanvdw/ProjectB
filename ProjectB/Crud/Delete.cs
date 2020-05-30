@@ -27,11 +27,7 @@ namespace ProjectB.Crud
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						Console.Write("Return to the main menu? press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
-						bool Return = util.CheckYN();
+						bool Return = util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -40,8 +36,7 @@ namespace ProjectB.Crud
 					if (Roomchoicesucces) { DeleteIndex = number; }
 					else
 					{
-						Functions.Error();
-						Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + RoomsList.Count);
 					}
 				}
 				for (int i = 0; i < RoomsList.Count; i++)
@@ -50,11 +45,7 @@ namespace ProjectB.Crud
 					{
 						Console.Write("You are about to delete room : ");
 						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
-						Console.Write(", are you sure? press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
-
+						Console.Write(", are you sure?");
 						while (!Deleteroomsucces)
 						{
 							Deleteroomsucces = util.CheckYN();
@@ -85,10 +76,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count > 0)
 				{
-					Console.Write("Would you like to choose another room to delete, press ");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
+					Console.Write("Would you like to choose another room to delete?");
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteRoom = false; }

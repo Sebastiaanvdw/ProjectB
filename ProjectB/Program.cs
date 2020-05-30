@@ -107,11 +107,7 @@ class MainProgram
 			string UserPassWordLogin = Console.ReadLine();
 			if (UserNameLogin == "" && UserPassWordLogin == "")
 			{
-				Console.Write("Return to the main menu? press ");
-				Functions.Write("y", ConsoleColor.Yellow);
-				Console.Write(" or ");
-				Functions.Write("n", ConsoleColor.Yellow);
-				bool Return = util.CheckYN();
+				bool Return = util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}
@@ -146,11 +142,7 @@ class MainProgram
 			}
 			else if (EmployeeLogin == "")
 			{
-				Console.Write("Return to the main menu? press ");
-				Functions.Write("y", ConsoleColor.Yellow);
-				Console.Write(" or ");
-				Functions.Write("n", ConsoleColor.Yellow);
-				bool Return = util.CheckYN();
+				bool Return = util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}

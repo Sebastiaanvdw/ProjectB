@@ -33,8 +33,7 @@ namespace ProjectB.Crud
 					if (RoomIndexSucces) { EditRoomIndex = number - 1; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number between 1 and " + RoomsList.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + RoomsList.Count);
 					}
 				}
 
@@ -65,8 +64,7 @@ namespace ProjectB.Crud
 								if (RoomEditSucces) { EditRoomChoice = number; }
 								else
 								{
-									Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-									Console.WriteLine("Please enter a number between 1 and 7");
+									Functions.ErrorMessage("Please enter a number between 1 and 7");
 								}
 							}
 
@@ -81,8 +79,7 @@ namespace ProjectB.Crud
 									if (nameSuccess) { RoomsList[EditRoomIndex].roomName = userInput; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please use alphabetic characters only");
+										Functions.ErrorMessage("Please use alphabetic characters only");
 									}
 								}
 							}
@@ -97,8 +94,7 @@ namespace ProjectB.Crud
 									if (ageSuccess) { RoomsList[EditRoomIndex].ageMinimum = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 12-100");
+										Functions.ErrorMessage("Please enter a number between 12-100");
 									}
 								}
 							}
@@ -113,8 +109,7 @@ namespace ProjectB.Crud
 									if (minSuccess) { RoomsList[EditRoomIndex].roomMinSize = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 2-5");
+										Functions.ErrorMessage("Please enter a number between 2-5");
 									}
 								}
 
@@ -127,8 +122,7 @@ namespace ProjectB.Crud
 									if (maxSuccess) { RoomsList[EditRoomIndex].roomMaxSize = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[EditRoomIndex].roomMinSize + 1) + "-6");
+										Functions.ErrorMessage("Please enter a valid number inbetween " + (RoomsList[EditRoomIndex].roomMinSize + 1) + "-6");
 									}
 								}
 							}
@@ -144,8 +138,7 @@ namespace ProjectB.Crud
 									if (priceSuccess) { RoomsList[EditRoomIndex].roomPrice = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number above 0, if it's a decimal number use ','.");
+										Functions.ErrorMessage("Please enter a number above 0, if it's a decimal number use ','.");
 									}
 								}
 							}
@@ -161,8 +154,7 @@ namespace ProjectB.Crud
 									if (durationSuccess) { RoomsList[EditRoomIndex].roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
+										Functions.ErrorMessage("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
 									}
 								}
 							}
@@ -177,8 +169,7 @@ namespace ProjectB.Crud
 									if (themeSuccess) { RoomsList[EditRoomIndex].roomTheme = userInput; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please use alphabetic characters only");
+										Functions.ErrorMessage("Please enter alphabetic characters only");
 									}
 								}
 							}
@@ -191,10 +182,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count > 1)
 				{
-					Console.Write("Would you like to edit another room, press");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
+					Console.Write("Would you like to edit another room?");
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopEditRoom = false; }

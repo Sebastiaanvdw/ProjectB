@@ -112,10 +112,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
+							Console.Write("Would you like to return to the menu?");
 							bool Return = util.CheckYN();
 							if (Return == true) { return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
@@ -127,8 +124,7 @@ namespace ProjectB
 							if (RoomChoiceSucces) { RoomChoice = number - 1; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and " + MainProgram.RoomsList.Count);
+								ErrorMessage("Please enter a number between 1 and " + MainProgram.RoomsList.Count);
 							}
 						}
 					}
@@ -139,11 +135,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -155,8 +147,7 @@ namespace ProjectB
 							if (UserNameSucces) { userName = userInput; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name");
+								ErrorMessage("Please enter a valid name");
 							}
 						}
 					}
@@ -167,11 +158,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -183,8 +170,7 @@ namespace ProjectB
 							if (userLastNameSucces) { userLastName = userInput; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name last");
+								ErrorMessage("Please enter a valid last name");
 							}
 						}
 					}
@@ -195,11 +181,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -211,8 +193,7 @@ namespace ProjectB
 							if (userPostCodeDigitSucces == true) { userPostcode = userInput.ToString(); }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid postcode");
+								ErrorMessage("Please enter four digits");
 							}
 						}
 					}
@@ -223,11 +204,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -239,8 +216,7 @@ namespace ProjectB
 							if (userPostCodeLetterSucces) { userPostcode += userInput.ToUpper(); }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid name last");
+								ErrorMessage("Please enter two letters");
 							}
 						}
 					}
@@ -252,11 +228,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -268,8 +240,7 @@ namespace ProjectB
 							if (userStreetSucces) { userStreet = userInput; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid street name");
+								ErrorMessage("Please enter a valid address");
 							}
 						}
 					}
@@ -280,11 +251,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -296,8 +263,7 @@ namespace ProjectB
 							if (userHouseNumberSucces == true) { userHouseNumber = number.ToString(); }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid housenumber");
+								ErrorMessage("Please enter numbers only");
 							}
 						}
 					}
@@ -307,11 +273,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -323,8 +285,7 @@ namespace ProjectB
 							if (userResidencySucces) { userResidency = userInput; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid street name");
+								ErrorMessage("Please use alphabetic characters");
 							}
 						}
 					}
@@ -334,11 +295,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -350,8 +307,7 @@ namespace ProjectB
 							if (userEmailSucces) { userEmail = userInput; }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid Email adress");
+								ErrorMessage("Email does not contain a '@' or '.' ");
 							}
 						}
 					}
@@ -362,11 +318,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -378,8 +330,7 @@ namespace ProjectB
 							if (userPhoneNumberSucces == true) { userPhoneNumber = userInput.ToString(); }
 							else
 							{
-								Console.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid Phonenumber");
+								ErrorMessage("Please enter a valid phonenumber");
 							}
 						}
 					}
@@ -390,11 +341,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -406,8 +353,7 @@ namespace ProjectB
 							if (userParticipantsSucces == true) { userParticipants = number; }
 							else
 							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a valid number of participants");
+								ErrorMessage("That amount of participants is not possible");
 							}
 						}
 					}
@@ -418,11 +364,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -434,8 +376,7 @@ namespace ProjectB
 							if (userFoodArrangementSucces) { userFoodArrangement = number; }
 							else
 							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and 4");
+								ErrorMessage("Please enter a number between 1 and 4");
 							}
 						}
 					}
@@ -446,11 +387,7 @@ namespace ProjectB
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomChoiceSucces = false; return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddReservation = false; }
 						}
@@ -462,8 +399,7 @@ namespace ProjectB
 							if (userArrangementSucces) { userArrangement = number; }
 							else
 							{
-								WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-								Console.WriteLine("Please enter a number between 1 and 4");
+								ErrorMessage("Please enter a number between 1 and 4");
 							}
 						}
 					}
@@ -472,10 +408,7 @@ namespace ProjectB
 					{
 						TotalPrice();
 						ReceiptFunction();
-						Console.Write("Would you like to add another reservation?, press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
+						Console.Write("Would you like to add another reservation?");
 						bool Return = util.CheckYN();
 						if (Return == true) { }
 						if (Return == false) { LoopAddReservation = false; return; }
@@ -629,9 +562,15 @@ namespace ProjectB
 			Console.WriteLine(obj);
 			Console.ResetColor();
 		}
+		public static void ErrorMessage(object obj)
+		{
+			Error();
+			Console.WriteLine(obj);
+		}
+
 		public static void Error()
 		{
-			Functions.WriteLine("Oh no, your input did not fit!",ConsoleColor.Red);
+			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
 		public static void Write(object obj, ConsoleColor? color = null)
 		{

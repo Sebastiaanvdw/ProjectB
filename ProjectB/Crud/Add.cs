@@ -39,11 +39,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -54,8 +50,7 @@ namespace ProjectB.Crud
 							if (ageSuccess) { RoomsList[NewIndex].ageMinimum = number; }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please enter a number between 12-100");
+								Functions.ErrorMessage("Please enter a number between 12-100");
 							}
 						}
 						
@@ -68,11 +63,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -83,8 +74,7 @@ namespace ProjectB.Crud
 							if (minSuccess) { RoomsList[NewIndex].roomMinSize = number; }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please enter a number between 2-5");
+								Functions.ErrorMessage("Please enter a number between 2-5");
 							}
 						}
 						
@@ -97,11 +87,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -112,8 +98,7 @@ namespace ProjectB.Crud
 							if (maxSuccess) { RoomsList[NewIndex].roomMaxSize = number; }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please enter a valid number inbetween " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
+								Functions.ErrorMessage("Please enter a valid number between " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
 							}
 						}
 					}
@@ -126,11 +111,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -141,8 +122,7 @@ namespace ProjectB.Crud
 							if (priceSuccess) { RoomsList[NewIndex].roomPrice = Math.Round(number, 2); }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please enter a positive number.");
+								Functions.ErrorMessage("Please enter a positive number");
 							}
 						}
 					}
@@ -154,11 +134,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -168,8 +144,7 @@ namespace ProjectB.Crud
 							if (themeSuccess) { RoomsList[NewIndex].roomTheme = userInput; }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please use alphabetic characters only");
+								Functions.ErrorMessage("Please use alphabetic characters only");
 							}
 						}
 						
@@ -182,11 +157,7 @@ namespace ProjectB.Crud
 						
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -197,8 +168,7 @@ namespace ProjectB.Crud
 							if (durationSuccess) { RoomsList[NewIndex].roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please try again");
+								Functions.ErrorMessage("Please try again");//idk of de 2 uur maximum is toegevoegd
 							}
 						}
 					}
@@ -209,11 +179,7 @@ namespace ProjectB.Crud
 						userInput = Console.ReadLine();
 						if (userInput == "return")
 						{
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
+							bool Return = util.ReturnToMenu();
 							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -223,8 +189,7 @@ namespace ProjectB.Crud
 							if (nameSuccess) { RoomsList[NewIndex].roomName = userInput; }
 							else
 							{
-								Functions.Error();
-								Console.WriteLine("Please use alphabetic characters only");
+								Functions.ErrorMessage("Please use alphabetic characters only");
 							}
 						}
 						
@@ -239,10 +204,7 @@ namespace ProjectB.Crud
 				}
 				if (RoomsList.Count < 5)
 				{
-					Console.Write("Would you like to add another room, press ");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
+					Console.Write("Would you like to add another room?");
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopAddEscaperoom = false; }
