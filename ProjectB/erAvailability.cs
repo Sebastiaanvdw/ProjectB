@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -7,7 +8,7 @@ namespace ConsoleApp1
         public static TimeSpan roomDuration = TimeSpan.Parse("1:00");
         public static TimeSpan cleanUp = TimeSpan.Parse("00:30");
         public static TimeSpan openingTime = TimeSpan.Parse("09:00");
-        public static string[] tijden = new string[3] { "13:00", "15:00", "17:00" };
+        public static string[] tijden = new string[3] { "09:15", "12:15", "14:45" };
         public static string[] opties = new string[3] { "1", "2", "3" };
         public static string availability = " Available";
         public static string availability2 = " Available";
@@ -17,7 +18,7 @@ namespace ConsoleApp1
 
         {
 
-            TimeSpan endTime = roomDuration + openingTime;
+            TimeSpan endTime = roomDuration + TimeSpan.Parse(tijden[2]);
             TimeSpan openingpluscleanup = openingTime + cleanUp;
 
 
@@ -41,7 +42,7 @@ namespace ConsoleApp1
 
 
 
-
+            Console.WriteLine("");
             Console.WriteLine("-- Availability Escape Rooms --");
             Console.WriteLine("What day would you like to see?");
             Console.WriteLine("-------------------------------");
@@ -56,9 +57,13 @@ namespace ConsoleApp1
                     Console.WriteLine("--- Monday ---");
                     Console.WriteLine("On Monday the rooms are occupied at: ");
 
-                    Console.WriteLine(tijden[0] + "-" + formattedEndTime + availability);
-                    Console.WriteLine(tijden[1] + "-" + formattedEndTime + availability2);
-                    Console.WriteLine(tijden[2] + "-" + formattedEndTime + availability3);
+
+                    for (int i = 0; i <= tijden.Length - 1; i++)
+                    {
+                        endTime = roomDuration + TimeSpan.Parse(tijden[i]);
+                        formattedEndTime = endTime.ToString("hh\\:mm");
+                        Console.WriteLine(tijden[i] + "-" + formattedEndTime + availability);
+                    }
 
                     if (tempTime == opties[0])
                     {
