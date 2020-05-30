@@ -16,9 +16,6 @@ namespace ProjectB
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 		public static string userUniqueID;
-		public static double foodPrice = 5.00;
-		public static double drinksPrice = 3.50;
-		public static double foodAndDrinksPrice = 7.50;
 		public static bool LoopContactFunction = false;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
@@ -26,6 +23,9 @@ namespace ProjectB
 
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
 		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+
+		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
+		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 		public static void ReservationWriteToDatabase()
 		{
 
@@ -215,17 +215,17 @@ namespace ProjectB
 			if (userFoodArrangement == 2) //just food
 			{
 				userFoodString = "Just Food";
-				userFoodArrangementPrice = foodPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].FoodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
 				userFoodString = "Just Drinks";
-				userFoodArrangementPrice = drinksPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
 				userFoodString = "Food and Drinks";
-				userFoodArrangementPrice = foodAndDrinksPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none

@@ -27,7 +27,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count == 0)
 				{
 					return;
-				} //MainProgramma.ReturnMenuFunction(); }
+				} 
 
 				Console.WriteLine("Choose the room that you want to edit(use a roomnumber 1-" + escapeRoomsList.EscapeRooms.Count + ")");
 				while (!RoomIndexSucces)
