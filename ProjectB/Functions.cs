@@ -1,10 +1,9 @@
-﻿using ProjectB.Crud;
-using System;
+﻿using System;
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using Y_or_N;
-//using BetaalPagina_Jelmer;
+using BetaalPagina_Jelmer;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -24,6 +23,35 @@ namespace ProjectB
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+		public static void ReservationWriteToDatabase()
+		{
+
+			Reservation reservation = new Reservation
+			{
+				UniqueID = userUniqueID,
+				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
+				FirstName = userName,
+				LastName = userLastName,
+				PostalCode = userPostcode,
+				StreetName = userStreet,
+				HouseNumber = userHouseNumber,
+				ResidencyName = userResidency,
+				Email = userEmail,
+				PhoneNumber = userPhoneNumber,
+				Participants = userParticipants,
+				FoodArrangement = userFoodString,
+				Arrangement = userArrangementString,
+				TotalPrice = userTotalPrice,
+				PaymentMethod = BetaalPagina.PaymentMethod
+			};
+
+			reservationsList.Reservations.Add(reservation);
+			string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
+			File.WriteAllText(PathReservation, json);
+		}
 		public static void Contact()
 		{
 			Console.Clear();
@@ -74,7 +102,11 @@ namespace ProjectB
 			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
 			Console.WriteLine("============================================");
 			Console.ReadKey(true);
-			//BetaalPagina.payment();
+			BetaalPagina.payment();
+			if (BetaalPagina.PaymentSuccess == true) 
+			{
+				ReservationWriteToDatabase();
+			}
 			userTotalPrice = 0;
 			userFoodArrangement = 0;
 			userFoodString = "";
@@ -275,9 +307,12 @@ namespace ProjectB
 			Console.WriteLine("Room info:\n");
 			for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 			{
-				Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomName + "\n");
+				Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+				Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+				Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+				Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
 			}
-
 
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
@@ -296,7 +331,11 @@ namespace ProjectB
 				Console.WriteLine("Room info:\n");
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 				{
-					Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomName + "\n");
+					Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+					Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+					Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+					Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
 				}
 
 			}

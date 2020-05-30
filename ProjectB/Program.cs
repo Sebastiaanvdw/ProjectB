@@ -1,6 +1,5 @@
 ﻿using ProjectB;
 using Newtonsoft.Json;
-using ProjectB.Crud;
 using System;
 using System.Collections.Generic;
 using Y_or_N;
@@ -39,33 +38,22 @@ class MainProgram
 
 	public static void Main()
 	{
-		////temporary room for testing
-		//RoomsList.Add(new EscapeRoom() { });
-		//RoomsList[0].roomNumber = 1;
-		//RoomsList[0].ageMinimum = 14;
-		//RoomsList[0].roomMinSize = 4;
-		//RoomsList[0].roomMaxSize = 6;
-		//RoomsList[0].roomDuration = new TimeSpan(1, 30, 0);
-		//RoomsList[0].roomName = "Horror Room";
-		//RoomsList[0].roomPrice = 7.50;
-		//RoomsList[0].roomTheme = "Horror";
-		////temporary room for testing
-			while (Mainpage)
-			{
-				LoopCustomerLogin = true;
-				LoopEmployeeLogin = true;
-				LoopAdminLogin = true;
-				Console.Clear();
-				util.Log("");
-				Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Exit Application\n=======================================\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
-				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
-				var input = Console.ReadKey();
-				if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); customerFalse = false; }
-				else if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); employeeFalse = false; }
-				else if (input.Key == ConsoleKey.D3) { AdminFunction(); adminFalse = false; }
-				else if (input.Key == ConsoleKey.D4) { break; }
-			}
+		while (Mainpage)
+		{
+			LoopCustomerLogin = true;
+			LoopEmployeeLogin = true;
+			LoopAdminLogin = true;
+			Console.Clear();
+			util.Log("");
+			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Exit Application\n=======================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
+			Functions.Write("\nYour input - ", ConsoleColor.Yellow);
+			var input = Console.ReadKey();
+			if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); customerFalse = false; }
+			else if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); employeeFalse = false; }
+			else if (input.Key == ConsoleKey.D3) { AdminFunction(); adminFalse = false; }
+			else if (input.Key == ConsoleKey.D4) { break; }
+		}
 	}
 
 	static void AdminFunction()
@@ -222,8 +210,8 @@ class MainProgram
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
 			else if (input.Key == ConsoleKey.D2) { Add.Function(); }
-			else if (input.Key == ConsoleKey.D3) { /*Edit.Function(RoomsList);*/ }
-			else if (input.Key == ConsoleKey.D4) { /*Delete.Function(RoomsList); */}
+			else if (input.Key == ConsoleKey.D3) { Edit.Function(); }
+			else if (input.Key == ConsoleKey.D4) { Delete.Function();}
 			else if (input.Key == ConsoleKey.D5) { Functions.ShowFunction(); }
 			else if (input.Key == ConsoleKey.D6) { FoodPrice.Editmenu(); }
 			else if (input.Key == ConsoleKey.D7) { LoginTries = 4; AdminSuccess -= 1;}
