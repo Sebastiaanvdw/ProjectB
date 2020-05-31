@@ -114,6 +114,5 @@ namespace Y_or_N
 
             return response == ConsoleKey.Y;
         }
-
     }
 }
