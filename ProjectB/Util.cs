@@ -18,7 +18,7 @@ namespace Y_or_N
         public static bool CheckYN()
         {
             ConsoleKey response; // Creates a variable to hold the user's response.
-
+        
             do
             {
                 while (Console.KeyAvailable) // Flushes the input queue.
