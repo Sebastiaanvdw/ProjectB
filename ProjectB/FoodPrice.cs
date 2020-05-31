@@ -2,30 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using Y_or_N;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
-namespace ProjectB.Crud
+namespace ProjectB
 {
     class FoodPrice
     {
+        private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
+        private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+
         public static void Editmenu()
         {
             string userInput;
             int EditFoodChoice = 0;
-            double drinksPrice = Functions.drinksPrice;
-            double foodPrice = Functions.foodPrice;
-            double foodAndDrinksPrice = Functions.foodAndDrinksPrice;
             bool foodSuccess = false;
             bool drinksSuccess = false;
             bool foodAndDrinksSuccess = false;
             bool menuEditSuccess = false;
 
+            string json = File.ReadAllText(PathMenu);
+            JObject obj = JObject.Parse(json);
+
+            var foodVal = obj["foodPrice"];
+            var drinksVal = obj["drinksPrice"];
+            var foodAndDrinksVal = obj["foodPrice"];
+            string result = obj.ToString();
+
             Console.Clear();
             Console.WriteLine("-----------------------------");
             Console.WriteLine("Incase you want to return to the menu type: 'return'");
             Console.WriteLine("-----------------------------\nThese are the current prices for our food arrangements.");
-            Console.WriteLine("1) Drinks $" + drinksPrice);
-            Console.WriteLine("2) Food $" + foodPrice);
-            Console.WriteLine("3) Food and Drinks $" + foodAndDrinksPrice + "\n-----------------------------\n");
+            Console.WriteLine("1) Drinks $" + menusList.Menus[0].DrinksPrice);
+            Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
+            Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
 
             Console.WriteLine("Choose the menu item that you want to edit(use 1-3)");
             while (!menuEditSuccess)
@@ -63,7 +74,7 @@ namespace ProjectB.Crud
                     else
                     {
                         drinksSuccess = double.TryParse(userInput, out double number);
-                        if (drinksSuccess) { Functions.drinksPrice = number; }
+                        if (drinksSuccess) { drinksVal["drinksPrice"] = number; }
                         else
                         {
                             Functions.ErrorMessage("Please use numbers only");
@@ -91,7 +102,7 @@ namespace ProjectB.Crud
                     else
                     {
                         foodSuccess = double.TryParse(userInput, out double number);
-                        if (foodSuccess) { Functions.foodPrice = number; }
+                        if (foodSuccess) { foodVal["foodPrice"] = number; }
                         else
                         {
                             Functions.ErrorMessage("Please use numbers only");
@@ -118,7 +129,7 @@ namespace ProjectB.Crud
                     else
                     {
                         foodAndDrinksSuccess = double.TryParse(userInput, out double number);
-                        if (foodAndDrinksSuccess) { Functions.foodAndDrinksPrice = number; }
+                        if (foodAndDrinksSuccess) { foodAndDrinksVal["foodAndDrinksPrice"] = number; }
                         else
                         {
                             Functions.ErrorMessage("Please use numbers only");

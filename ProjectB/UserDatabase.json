@@ -1,0 +1,32 @@
+﻿{
+  "users": [
+    {
+      "userID": "0",
+      "userName": "admin",
+      "userPassword": "admin",
+      "userFirstName": "Sebastiaan",
+      "userLastName": "van der Weel",
+      "userPostalCode": "3192PA",
+      "userStreetName": "Boomkor",
+      "userHouseNumber": "49",
+      "userResidencyName": "Hoogvliet Rotterdam",
+      "userEmail": "asr.vanderweel@gmail.com",
+      "userPhoneNumber": "0687654321",
+      "role": "admin",
+    },
+    {
+      "userID": "1",
+      "userName": "employee",
+      "userPassword": "employee",
+      "userFirstName": "Chris",
+      "userLastName": "Man",
+      "userPostalCode": "1234AB",
+      "userStreetName": "Hoogstraat",
+      "userHouseNumber": "1",
+      "userResidencyName": "Rotterdam",
+      "userEmail": "c.M@gmail.com",
+      "userPhoneNumber": "0612345678",
+      "role": "employee",
+    }
+  ]
+}
