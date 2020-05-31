@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using Y_or_N;
 using BetaalPagina_Jelmer;
 
+
+
 namespace ProjectB
 {
 	class Functions
@@ -88,7 +90,7 @@ namespace ProjectB
 				else
 				{
 					Console.WriteLine("-----------------------------");
-					Console.WriteLine("Incase you want to return to the menu type: 'return'");
+					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Please choose your room and fill in the information required:");
 					Console.WriteLine("-----------------------------");
@@ -317,6 +319,9 @@ namespace ProjectB
 		{
 			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
+
+
+
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -344,8 +349,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return userInput;
@@ -366,8 +370,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return Int32.Parse(userInput);
