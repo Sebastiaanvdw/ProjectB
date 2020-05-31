@@ -4,18 +4,20 @@ using System;
 using System.Collections.Generic;
 using Y_or_N;
 using System.IO;
+using System.Text;
+using System.Linq;
 
 
 
 class MainProgram
 {
-	public static List<EscapeRoom> RoomsList = new List<EscapeRoom>();
 	public static List<string> IDList = new List<string>();
-	public static List<string> CustomerList = new List<string>();
 
 	private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 	private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
+	private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
+	private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -34,8 +36,6 @@ class MainProgram
 	public static bool employeeFalse = false;
 	public static bool adminFalse = false;
 	
-
-
 	public static void Main()
 	{
 		while (Mainpage)
@@ -61,21 +61,33 @@ class MainProgram
 		while (LoopAdminLogin)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the Admin login page, please enter the right password:\n");
+			Console.WriteLine("Welcome to the Admin login page, please enter the right password:\n=======================================");
 			if (LoginTries > 0)
 			{
+				Console.WriteLine("ID:");
+				string input_message = Console.ReadLine();
+				int ID = Int32.Parse(input_message);
+				Console.WriteLine("Username:");
+				string AdminNameLogin = Console.ReadLine();
 				Console.WriteLine("Password:");
-				string AdminLogin = Console.ReadLine();
-				if (AdminLogin == "admin")
+				string AdminPassWordLogin = Console.ReadLine();
+
+				if (ID == usersList.Users[ID].UserID && AdminNameLogin == usersList.Users[ID].UserName && AdminPassWordLogin == usersList.Users[ID].UserPassword && usersList.Users[ID].UserRole == "admin")
 				{
 					AdminSuccess += 1;
 					AdminPage();
 					LoopAdminLogin = false;
 				}
+				else if (ID == usersList.Users[ID].UserID && AdminNameLogin == usersList.Users[ID].UserName && AdminPassWordLogin == usersList.Users[ID].UserPassword && usersList.Users[ID].UserRole != "admin")
+				{
+					LoginTries -= 1;
+					Console.WriteLine("You are not an Admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================\nPress any key to continue...\n");
+					Console.ReadKey(true);
+				}
 				else
 				{
 					LoginTries -= 1;
-					Console.WriteLine("This is not the password! Try again, you have " + LoginTries + " attempts left.\nPress any key to continue...\n");
+					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n=======================================\nPress any key to continue...\n");
 					Console.ReadKey(true);
 				}
 			}
