@@ -21,7 +21,7 @@
       "roomDuration": "01:30:00"
     },
     {
-      "roomNumber": 2,
+      "roomNumber": 3,
       "ageMinimum": 16,
       "roomMinSize": 2,
       "roomMaxSize": 6,
@@ -29,6 +29,16 @@
       "roomTheme": "Scifi",
       "roomName": "Star Wars",
       "roomDuration": "01:00:00"
+    },
+    {
+      "roomNumber": 3,
+      "ageMinimum": 12,
+      "roomMinSize": 2,
+      "roomMaxSize": 6,
+      "roomPrice": 34.0,
+      "roomTheme": "Aquatic",
+      "roomName": "adawdaw",
+      "roomDuration": "02:00:00"
     }
   ]
 }
