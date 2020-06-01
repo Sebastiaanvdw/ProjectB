@@ -319,7 +319,6 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
-
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
 		{
 			string userInput = "";
@@ -345,7 +344,6 @@ namespace ProjectB
 			}
 			return userInput;
 		}
-		
 		public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
 		{
 			string userInput = "";
