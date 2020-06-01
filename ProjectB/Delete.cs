@@ -42,7 +42,6 @@ namespace ProjectB
 					{
 						Functions.Error();
 						Console.WriteLine("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
-						Functions.ErrorMessage("Please enter a number between 1 and " + RoomsList.Count);
 					}
 				}
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)

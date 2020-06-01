@@ -38,7 +38,7 @@ namespace ProjectB
 					if (RoomIndexSucces) { EditRoomIndex = number - 1; }
 					else
 					{
-						Functions.ErrorMessage("Please enter a number between 1 and " + RoomsList.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 						Console.WriteLine("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 					}
@@ -129,9 +129,7 @@ namespace ProjectB
 									if (maxSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMaxSize = number; }
 									else
 									{
-										Functions.ErrorMessage("Please enter a valid number inbetween " + (RoomsList[EditRoomIndex].roomMinSize + 1) + "-6");
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
+										Functions.ErrorMessage("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
 									}
 								}
 							}
@@ -163,6 +161,7 @@ namespace ProjectB
 									if (durationSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 									else
 									{
+
 										Functions.ErrorMessage("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
 									}
 								}

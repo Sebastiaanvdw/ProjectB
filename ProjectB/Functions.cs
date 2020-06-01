@@ -409,5 +409,24 @@ namespace ProjectB
 			}
 			return Int32.Parse(userInput);
 		}
+		public static double Error_Exception_Double(string message, string errormessage, int minlength, int maxlength)
+		{
+			string userInput = "";
+			bool Succes = false;
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				Succes = Double.TryParse(userInput, out double number);
+				if (number >= minlength && number <= maxlength) { Succes = true; }
+				else if (userInput.Contains(".")) { Succes = false; }
+				if (Succes) { }
+				else
+				{
+					ErrorMessage(errormessage);
+				}
+			}
+			return Double.Parse(userInput);
+		}
 	}
 }

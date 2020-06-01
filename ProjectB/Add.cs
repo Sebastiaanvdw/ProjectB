@@ -67,7 +67,7 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
+							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
 						else
@@ -91,12 +91,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -121,7 +115,7 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
+							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
 						else
@@ -131,7 +125,7 @@ namespace ProjectB
 							if (maxSuccess) { roomMaxSize = number; }
 							else
 							{
-								Functions.ErrorMessage("Please enter a valid number between " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
+								Functions.ErrorMessage("Please enter a valid number between " + (roomMinSize + 1) + "-6");
 							}
 						}
 					}
@@ -145,12 +139,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -174,12 +162,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -203,23 +185,17 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
 						else {
 							durationSuccess = double.TryParse(userInput, out double number);
-							if (number < 0 || number > 5) { durationSuccess = false; }
+							if (number < 0 || number > 2) { durationSuccess = false; }
 							else if (userInput.Contains(".")) { durationSuccess = false; }
 							if (durationSuccess) { roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 							else
 							{
-								Functions.ErrorMessage("Please try again");//idk of de 2 uur maximum is toegevoegd
+								Functions.ErrorMessage("Please try again");
 							}
 						}
 					}
@@ -231,12 +207,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
