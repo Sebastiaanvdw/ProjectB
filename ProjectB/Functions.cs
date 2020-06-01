@@ -1,9 +1,13 @@
-﻿using ProjectB.Crud;
-using System;
+﻿using System;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using Y_or_N;
 using BetaalPagina_Jelmer;
+using System.IO;
+using Newtonsoft.Json;
+
+
 
 namespace ProjectB
 {
@@ -14,10 +18,42 @@ namespace ProjectB
 		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 		public static string userUniqueID;
-		public static double foodPrice = 5.00;
-		public static double drinksPrice = 3.50;
-		public static double foodAndDrinksPrice = 7.50;
 		public static bool LoopContactFunction = false;
+
+		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
+		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+
+		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
+		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+		public static void ReservationWriteToDatabase()
+		{
+
+			Reservation reservation = new Reservation
+			{
+				UniqueID = userUniqueID,
+				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
+				FirstName = userName,
+				LastName = userLastName,
+				PostalCode = userPostcode,
+				StreetName = userStreet,
+				HouseNumber = userHouseNumber,
+				ResidencyName = userResidency,
+				Email = userEmail,
+				PhoneNumber = userPhoneNumber,
+				Participants = userParticipants,
+				FoodArrangement = userFoodString,
+				Arrangement = userArrangementString,
+				TotalPrice = userTotalPrice,
+				PaymentMethod = BetaalPagina.PaymentMethod
+			};
+
+			reservationsList.Reservations.Add(reservation);
+			string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
+			File.WriteAllText(PathReservation, json);
+		}
 		public static void Contact()
 		{
 			Console.Clear();
@@ -49,22 +85,30 @@ namespace ProjectB
 			}
 
 			Console.Clear();
-			Console.WriteLine("======================");
-			Console.WriteLine("\nThe following room has been chosen: " + MainProgram.RoomsList[RoomChoice].roomName);
-			Console.WriteLine("Amount of participants: " + userParticipants);
-			Console.WriteLine("\nClient Name: " + userName + " " + userLastName);
-			Console.WriteLine("\nClient Street: " + userStreet + " " + userHouseNumber);
-			Console.WriteLine("\nClient Postcode: " + userPostcode);
-			Console.WriteLine("\nClient Woonplaats: " + userResidency);
-			Console.WriteLine("\nClient Phonenumber: " + userPhoneNumber);
-			Console.WriteLine("\nClient Food Arrangement: " + userFoodString);
-			Console.WriteLine("\nClient Arrangement: " + userArrangementString);
-			Console.WriteLine("\nTotal Price: $" + userTotalPrice);
-			Console.WriteLine("\nClient UniqueID (Bring this to the desk): " + userUniqueID);
-			Console.WriteLine("\n\nThis will be sent to the following email address: " + userEmail);
-			Console.WriteLine("\n\n\nPress any key to continue to the payment page...\n");
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.WriteLine("============================================");
+			Console.WriteLine("The following room has been chosen: " + escapeRoomsList.EscapeRooms[RoomChoice].RoomName);
+			Console.WriteLine("\nAmount of participants: " + userParticipants);
+			Console.WriteLine("============================================");
+			Console.WriteLine("Name:			" + userName + " " + userLastName);
+			Console.WriteLine("Street:			" + userStreet + " " + userHouseNumber);
+			Console.WriteLine("Postalcode:		" + userPostcode);
+			Console.WriteLine("Place of residence:	" + userResidency);
+			Console.WriteLine("Phonenumber:		" + userPhoneNumber);
+			Console.WriteLine("Food arrangement:	" + userFoodString);
+			Console.WriteLine("Arrangement:		" + userArrangementString);
+			Console.WriteLine("\nTotal Price:		€" + userTotalPrice);
+			Console.Write("\nClient UniqueID (Bring this to the desk): ");
+			Write(userUniqueID, ConsoleColor.Green);
+			Console.WriteLine("\nThis will be sent to the following email address: " + userEmail);
+			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
+			Console.WriteLine("============================================");
 			Console.ReadKey(true);
 			BetaalPagina.payment();
+			if (BetaalPagina.PaymentSuccess == true) 
+			{
+				ReservationWriteToDatabase();
+			}
 			userTotalPrice = 0;
 			userFoodArrangement = 0;
 			userFoodString = "";
@@ -77,7 +121,7 @@ namespace ProjectB
 			while (LoopAddReservation)
 			{
 				Console.Clear();
-				if (MainProgram.RoomsList.Count < 1)
+				if (escapeRoomsList.EscapeRooms.Count < 1)
 				{
 					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
 					Console.ReadKey(true);
@@ -86,17 +130,17 @@ namespace ProjectB
 				else
 				{
 					Console.WriteLine("-----------------------------");
-					Console.WriteLine("Incase you want to return to the menu type: 'return'");
+					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Please choose your room and fill in the information required:");
 					Console.WriteLine("-----------------------------");
-					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + MainProgram.RoomsList.Count + ")"); // Tussen 1-5
+					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
 
-					for (int i = 0; i < MainProgram.RoomsList.Count; i++) { Console.WriteLine(MainProgram.RoomsList[i].roomNumber + " - " + MainProgram.RoomsList[i].roomName); ; }
+					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")"); }
 
 					input_message = "\nRoom:";
-					error_message = "Please enter a number between 1 and " + MainProgram.RoomsList.Count;
-					RoomChoice = Error_Exception_Int(input_message, error_message, 1, MainProgram.RoomsList.Count) - 1;
+					error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
+					RoomChoice = Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
 
 					input_message = "Fill in your first name(e.g. 'Piet'):";
 					error_message = "Please enter a valid name";
@@ -134,9 +178,9 @@ namespace ProjectB
 					error_message = "Please enter a valid Phonenumber";
 					userPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
 					
-					input_message = "Fill in how many participants there will be (" + MainProgram.RoomsList[RoomChoice].roomMinSize + "-" + MainProgram.RoomsList[RoomChoice].roomMaxSize + ")";
+					input_message = "Fill in how many participants there will be (" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")";
 					error_message = "Please enter a valid number of participants";
-					userParticipants = Error_Exception_Int(input_message, error_message, MainProgram.RoomsList[RoomChoice].roomMinSize, MainProgram.RoomsList[RoomChoice].roomMaxSize);
+					userParticipants = Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize, escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize);
 
 					input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
 					error_message = "Please enter a number between 1 and 4";
@@ -151,10 +195,7 @@ namespace ProjectB
 					{
 						TotalPrice();
 						ReceiptFunction();
-						Console.Write("Would you like to add another reservation?, press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
+						Console.Write("Would you like to add another reservation?");
 						bool Return = util.CheckYN();
 						if (Return == true) { }
 						if (Return == false) { LoopAddReservation = false; return; }
@@ -167,22 +208,22 @@ namespace ProjectB
 			if (userFoodArrangement == 1) //none
 			{
 				userFoodString = "None";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants;
+				userFoodArrangementPrice = 0;
 			}
 			if (userFoodArrangement == 2) //just food
 			{
 				userFoodString = "Just Food";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].FoodPrice * userParticipants;
 			}
 			if (userFoodArrangement == 3) //just drinks
 			{
 				userFoodString = "Just Drinks";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + drinksPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * userParticipants;
 			}
 			if (userFoodArrangement == 4) //food and drinks
 			{
 				userFoodString = "Food and Drinks";
-				userFoodArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * userParticipants + foodAndDrinksPrice * userParticipants;
+				userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * userParticipants;
 			}
 
 			if (userArrangement == 1) //none
@@ -193,20 +234,20 @@ namespace ProjectB
 			if (userArrangement == 2) //kids party
 			{
 				userArrangementString = "Kids Party";
-				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.4;
+				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.4;
 			}
 			if (userArrangement == 3) //ladies night
 			{
 				userArrangementString = "Ladies Night";
-				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.5;
+				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.5;
 			}
 			if (userArrangement == 4) //work outing
 			{
 				userArrangementString = "Work Outing";
-				userArrangementPrice = MainProgram.RoomsList[RoomChoice].roomPrice * 1.3;
+				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.3;
 			}
-			userTotalPrice = userFoodArrangementPrice - userArrangementPrice;
-
+			userTotalPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * userParticipants + userFoodArrangementPrice - userArrangementPrice;
+			
 		}
 		public static void CustomerOverview()
 		{
@@ -257,33 +298,27 @@ namespace ProjectB
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
-		public static void ShowFunction(List<EscapeRoom> RoomsList)
+		public static void ShowFunction()
 		{
 			Console.Clear();
-			if (RoomsList.Count <= 0)
-			{
-				Functions.WriteLine("Oh no, it looks like noone has created a room yet!", ConsoleColor.Red);
-				Console.Write("Press "); Functions.Write("c", ConsoleColor.Yellow); Console.Write(" to create a room or "); Functions.Write("m ", ConsoleColor.Yellow); Console.Write("to return to menu.");
-				bool showBool = util.CheckCM();
-				if (showBool == true) { Add.Function(MainProgram.RoomsList); }
-				else { return; }
-			}
-			else
-			{
-				Console.WriteLine("Room info:\n");
-				for (int i = 0; i < RoomsList.Count; i++)
-				{
-					Console.WriteLine(RoomsList[i] + "\n");
-				}
 
+			Console.WriteLine("Room info:\n");
+			for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
+			{
+				Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+				Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+				Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+				Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
 			}
+
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
 		}
-		public static void CustomerShowFunction(List<EscapeRoom> RoomsList)
+		public static void CustomerShowFunction()
 		{
 			Console.Clear();
-			if (RoomsList.Count <= 0)
+			if (escapeRoomsList.EscapeRooms.Count <= 0)
 			{
 				Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
 				Console.ReadKey(true);
@@ -292,9 +327,13 @@ namespace ProjectB
 			else
 			{
 				Console.WriteLine("Room info:\n");
-				for (int i = 0; i < RoomsList.Count; i++)
+				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 				{
-					Console.WriteLine(RoomsList[i] + "\n");
+					Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+					Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+					Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+					Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
 				}
 
 			}
@@ -308,10 +347,19 @@ namespace ProjectB
 			Console.WriteLine(obj);
 			Console.ResetColor();
 		}
+		public static void ErrorMessage(object obj)
+		{
+			Error();
+			Console.WriteLine(obj);
+		}
+
 		public static void Error()
 		{
 			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
+
+
+
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -323,7 +371,6 @@ namespace ProjectB
 		{
 			string userInput = "";
 			bool Succes = false;
-			Console.Clear();
 			while (!Succes)
 			{
 				Console.WriteLine(message);
@@ -338,8 +385,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return userInput;
@@ -348,7 +394,6 @@ namespace ProjectB
 		{
 			string userInput = "";
 			bool Succes = false;
-			Console.Clear();
 			while (!Succes)
 			{
 				Console.WriteLine(message);
@@ -359,8 +404,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return Int32.Parse(userInput);

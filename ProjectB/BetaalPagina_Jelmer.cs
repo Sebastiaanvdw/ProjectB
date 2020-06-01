@@ -4,71 +4,96 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectB;
+using Y_or_N;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace BetaalPagina_Jelmer
 {
     public class BetaalPagina
     {
+        private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
+        private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+        public static string PaymentMethod = "";
+        public static bool PaymentSuccess = false;
         public static void payment()
         {
             int roomChoice = Functions.RoomChoice;
-            //string roomPrice = ""; //Room Price P.P.
-            //string userParticipants = ""; //MainProgramma.userParticipants
-            //string Arrangements = ""; //Price Chosen Arrangements
-            //string FoodAndDrinks = ""; //Price Chosen Food & Drinks
-            //string SubTotal = ""; //SubTotal = (P.P. * Participants) + Food & Drinks + Arrangementen 
-            
+            PaymentSuccess = false;
+
             Console.Clear();
-            Console.WriteLine("==========================");
-            Console.WriteLine("Room Price P.P.: " + MainProgram.RoomsList[roomChoice].roomPrice + "$");
-            Console.WriteLine("Participants: " + Functions.userParticipants);
-            Console.WriteLine("Arrangements: " + Functions.userArrangementPrice + "$");
-            Console.WriteLine("Food & Drinks: " + Functions.userFoodArrangementPrice + "$");
-            Console.WriteLine("-------------------- +" + "\n");
-            Console.WriteLine("SubTotal: " + Functions.userTotalPrice + "$");
-            Console.WriteLine("==========================" + "\n");
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine("==============================");
+            Console.WriteLine("Participants:            " + Functions.userParticipants);
+            Console.WriteLine("==============================");
+            Console.WriteLine("Room Price P.P.:         " + "€" + escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
+            Console.WriteLine("Total Participant Price: " + "€" + Functions.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
+            Console.WriteLine("Food & Drinks:           " + "€" + Functions.userFoodArrangementPrice);
+            Console.WriteLine("============================== +");
+            Console.WriteLine("Arrangements:            " + "€" + Functions.userArrangementPrice);
+            Console.WriteLine("============================== -");
+            Console.WriteLine("SubTotal:                " + "€" + Functions.userTotalPrice);
+            Console.WriteLine("==============================" + "\n");
 
-            Console.WriteLine("Do you want to continue with your payment?('Yes' or 'No')");
-            string ContinuePayment = Console.ReadLine();
-
-            if (ContinuePayment == "Yes" || ContinuePayment == "yes")
+            Console.Write("Would you like to continue with your payment? Press ");
+            Functions.Write("y", ConsoleColor.Yellow);
+            Console.Write(" or ");
+            Functions.Write("n", ConsoleColor.Yellow);
+            bool Return = util.CheckYN();
+            if (Return == true)
             {
                 Console.Clear();
-                Console.WriteLine("Choose your payment method of choice:" + "\n" + "1) iDEAL" + "\n" + "2) Paypal" + "\n" + "3) Creditcard" + "\n" + "4) Tikkie");
-                string UserMethodChoice = Console.ReadLine();
-                if (UserMethodChoice == "1")
+                Console.WriteLine("Choose your payment method of choice:" + "\n" + "1) iDEAL" + "\n" + "2) Paypal" + "\n" + "3) Creditcard" + "\n" + "4) Tikkie" + "\n" + "5) Return to previous menu");
+                Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");
+                Functions.Write("\nYour input - ", ConsoleColor.Yellow);
+                var input = Console.ReadKey();
+                if (input.Key == ConsoleKey.D1)
                 {
-                    string PaymentMethod = "iDEAL";
-                    Console.WriteLine("Your chosen payment method is: " + PaymentMethod);
+                    PaymentMethod = "iDEAL";
+                    Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+                    Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+                    PaymentSuccess = true;
+                    Console.ReadKey(true);
                 }
-                else if (UserMethodChoice == "2")
+                else if (input.Key == ConsoleKey.D2)
                 {
-                    string PaymentMethod = "Paypal";
-                    Console.WriteLine("Your chosen payment method is: " + PaymentMethod);
+                    PaymentMethod = "Paypal";
+                    Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+                    Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+                    PaymentSuccess = true;
+                    Console.ReadKey(true);
                 }
-                else if (UserMethodChoice == "3")
+                else if (input.Key == ConsoleKey.D3)
                 {
-                    string PaymentMethod = "Creditcard";
-                    Console.WriteLine("Your chosen payment method is: " + PaymentMethod);
+                    PaymentMethod = "Creditcard";
+                    Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+                    Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+                    PaymentSuccess = true;
+                    Console.ReadKey(true);
                 }
-                else if (UserMethodChoice == "4")
+                else if (input.Key == ConsoleKey.D4)
                 {
-                    string PaymentMethod = "Tikkie";
-                    Console.WriteLine("Your chosen payment method is: " + PaymentMethod);
+                    PaymentMethod = "Tikkie";
+                    Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+                    Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+                    PaymentSuccess = true;
+                    Console.ReadKey(true);
                 }
-                Functions.WriteLine("Your payment was succesful!\n", ConsoleColor.Green);
-                //Console.WriteLine("Press any key to continue...");
-                //Console.ReadKey();
-                //Redirect to main menu
+                else if (input.Key == ConsoleKey.D5)
+                {
+                    Console.Clear();
+                    Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
+                    Console.ReadKey(true);
+                    return;
+                }
             }
-            else if (ContinuePayment == "No" || ContinuePayment == "no")
+            else if (Return == false)
             {
                 Console.Clear();
-                Functions.WriteLine("Your payment has been cancelled!\n", ConsoleColor.Yellow);
-                //Console.WriteLine("You will shortly be redirected to the main menu.");
-                //Console.WriteLine("Press any key to continue...");
-                //Console.ReadKey(true);
-                //Redirect to main menu
+                Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
+                Console.ReadKey(true);
+                return;
             }
         }
     }
