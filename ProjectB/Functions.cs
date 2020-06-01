@@ -26,6 +26,9 @@ namespace ProjectB
 
 		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
 		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+
+		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
+		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 		public static void ReservationWriteToDatabase()
 		{
 
@@ -55,18 +58,19 @@ namespace ProjectB
 		public static void Contact()
 		{
 			Console.Clear();
-			Console.WriteLine("Opening hours:\nMon to Thurs: 9:00am - 5:00pm\nFriday: 9:00am - 7:00pm\n\nTelephone number: 01034235423\n\nE-mail: EscapeMail@rooms.com\n\nLocation: Janpieterstraat 49 3546WQ Rotterdam\n");
+			Console.WriteLine("=======================================\nOpening hours:\nMonday through Friday:	9:00am - 5:00pm\n\nTelephone number:	01034235423\nE-mail:			EscapeMail@rooms.com\nAddress:		Janpieterstraat 49 3546WQ Rotterdam\n=======================================\n");
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 		public static void FAQ()
 		{
-			string FAQ1 = "Q: Do you provide food during or after the Escape Room?\nA: We can provide food and drinks after the Escape Room is done via a special arrangement you can order.\n\n";
-			string FAQ2 = "Q: Do I have to bring 5 people if the Escape Room specifically says its for 5 people?\nA: No you don't have to bring 5 people, but we recommend bringing as many people as possible up to the maximum amount.\n\n";
-			string FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n\n";
+			string FAQ1 = "Q: Do you provide food during or after the Escape Room?\nA: We can provide food and drinks after the Escape Room is done via a special arrangement you can order.\n";
+			string FAQ2 = "Q: Do I have to bring 5 people if the Escape Room specifically says its for 5 people?\nA: No you don't have to bring 5 people, but we recommend bringing as many people as possible up to the maximum amount.\n";
+			string FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n=======================================\n";
 
 			Console.Clear();
-			Console.WriteLine(FAQ1 + FAQ2 + FAQ3 + "\n");
+			Console.WriteLine("=======================================");
+			Console.WriteLine(FAQ1 + "\n" + FAQ2 + "\n" + FAQ3);
 			Console.WriteLine("Press any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
@@ -254,8 +258,44 @@ namespace ProjectB
 		public static void CustomerOverview()
 		{
 			Console.Clear();
-			Console.WriteLine(userName + "," + userLastName + "," + userPostcode + "," + userStreet + "," + userResidency + "," + userEmail + "\n");
-			Console.WriteLine("press any key to return to continue.\n");
+
+			Console.WriteLine("User info:\n=======================================");
+			for (int i = 0; i < usersList.Users.Count; i++)
+			{
+				Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
+				Console.WriteLine("Username:	" + usersList.Users[i].UserName);
+				Console.WriteLine("First name:	" + usersList.Users[i].UserFirstName);
+				Console.WriteLine("Last name:	" + usersList.Users[i].UserLastName);
+				Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
+				Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
+				Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
+				Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+			}
+
+			Console.WriteLine("\nPress any key to continue...");
+			Console.ReadKey(true);
+		}
+		public static void ReservationOverview()
+		{
+			Console.Clear();
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.WriteLine("Reservation info:\n=======================================");
+			for (int i = 0; i < reservationsList.Reservations.Count; i++)
+			{
+				Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
+				Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
+				Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
+				Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
+				Console.WriteLine("First name:	" + reservationsList.Reservations[i].FirstName);
+				Console.WriteLine("Last name:	" + reservationsList.Reservations[i].LastName);
+				Console.WriteLine("Address:	" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
+				Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
+				Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
+				Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
+				Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+			}
+
+			Console.WriteLine("\nPress any key to continue...");
 			Console.ReadKey(true);
 		}
 		public static void ContactFunction()
@@ -263,55 +303,50 @@ namespace ProjectB
 			while (!LoopContactFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("Welcome to the Contact and F.A.Q. page.\nPlease select one of the options below:\n\n1: Contact information\n2: F.A.Q.\n3: Exit");
-				string userInputCFAQ = Console.ReadLine();
-
-				if (userInputCFAQ == "1")
-				{
-					Contact();
-				}
-				if (userInputCFAQ == "2")
-				{
-					FAQ();
-				}
-				if (userInputCFAQ == "3")
-				{
-					return;
-				}
+				Console.WriteLine("=======================================\nWelcome to the Contact and F.A.Q. page.\n=======================================\n1) Contact information\n2) F.A.Q.\n3) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow);Console.Write("] or ["); Functions.Write("3", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Functions.Write("Your input - ", ConsoleColor.Yellow);
+				var input = Console.ReadKey();
+				if (input.Key == ConsoleKey.D1) { Contact(); }
+				else if (input.Key == ConsoleKey.D2) { FAQ(); }
+				else if (input.Key == ConsoleKey.D3) { return; }
+				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 			}
 		}
 		public static void InfoFunction()
 		{
 			Console.Clear();
-			Console.WriteLine("What is an escape room?\n\nIn an escape room the door wil be closed and locked and it is up to you to escape the room as quickly as possible.Usually you wil have around 60 minutes to escape.\nWhile you are inside you wil have to solve puzzle's that wil bring you close to the 'key' or code that wil help you open the door.\nIf you manage to open the door within the given time, you win.");
-			Console.WriteLine("\nHouserules:\n1) It is forbidden to enter the escape rooms under the influence of drugs and/or alcohol.");
-			Console.WriteLine("2) Inside the escape room you won't have to use force to open something.");
-			Console.WriteLine("3) The only way to advance in the game is with a key or by correctly executing an assignment. Don't move the furniture or any what is hanging on the walls.");
-			Console.WriteLine("4) Smoking is forbidden in the whole building");
-			Console.WriteLine("5) It is not allowed to bring your own food and/or drinks.");
-			Console.WriteLine("6) Phone's and other personal belongings are to be left in the locker in the entranceroom. You wil take the key to this locker with you inside the escape room.");
-			Console.WriteLine("7) It is forbidden to take photo's inside the escape room");
-			Console.WriteLine("8) If something happens, or someone wants to leave the room, then you are allowed to leave the room, the door is open.");
-			Console.WriteLine("9) If you decide to leave the room, you wil no longer be allowed to enter the room.");
-			Console.WriteLine("10) The game leader wil be watching the game via camera's. If you break any og the rules, he/she can decide to end the game.");
-			Console.WriteLine("11) You play the game at your own risk. Damage or injury can not be recovered from the escape room");
-			Console.WriteLine("12) You can arrange a special arrangement with discounts! These are the arrangements we offer: Kids Party 40% discount, Ladies Night 50% discount, Work Outing 30% discount.");
-			Console.WriteLine("DISCLAIMER: Please note that these discounts are discounts on the base price of an escape room.");
-			Console.WriteLine("Press any key to return to continue.\n");
+			Write("What is an escape room?", ConsoleColor.Green);
+			WriteLine("\n=======================================\nIn an escape room the door wil be closed and locked and it is up to you to escape the room as quickly as possible.\nUsually you wil have around 60 minutes to escape.\nWhile you are inside you wil have to solve puzzles that wil bring you close to the 'key' or code that wil help you open the door.\nIf you manage to open the door within the given time, you win.\n=======================================");
+			Write("Houserules:", ConsoleColor.Green);
+			WriteLine("\n=======================================\n1) It is not allowed to enter the escape rooms under the influence of drugs and/or alcohol.");
+			WriteLine("2) Inside the escape room you won't have to use force to open something.");
+			WriteLine("3) The only way to advance in the game is with a key or by correctly executing an assignment. Don't move any furniture!");
+			WriteLine("4) Smoking is not allowed inside the whole building");
+			WriteLine("5) It is not allowed to bring your own food and/or drinks.");
+			WriteLine("6) Phones and other personal belongings are to be left in a locker provided by us. You wil take the key with you inside the escape room.");
+			WriteLine("7) It is not allowed to take photo's inside the escape room");
+			WriteLine("8) If someone wants to leave the room, you are allowed to leave the room, the door is open.");
+			WriteLine("9) If you decide to leave the room, you are no longer allowed to enter back into the room.");
+			WriteLine("10) The game leader wil be watching the game via cameras.\nIf you break any of the rules, he/she can decide to end the game.");
+			WriteLine("11) You play the game at your own risk. We are not responsible for any injuries.");
+			Write("TIP: We have special discount arrangements! Kids Party 40%, Ladies Night 50%, Work Outing 30%.\n", ConsoleColor.Green);
+			Write("DISCLAIMER: Please note that these discounts are on the base price of an escape room.\n", ConsoleColor.Yellow);
+			WriteLine("=======================================\nPress any key to return to continue.\n");
 			Console.ReadKey(true);
 		}
 		public static void ShowFunction()
 		{
 			Console.Clear();
-
-			Console.WriteLine("Room info:\n");
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.WriteLine("Room info:\n==============================================================================");
 			for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 			{
 				Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
 				Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
-				Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+				Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 				Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
+				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
 			}
 
 			Console.WriteLine("Press any key to continue...");
@@ -320,6 +355,7 @@ namespace ProjectB
 		public static void CustomerShowFunction()
 		{
 			Console.Clear();
+			Console.OutputEncoding = Encoding.UTF8;
 			if (escapeRoomsList.EscapeRooms.Count <= 0)
 			{
 				Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
@@ -328,14 +364,14 @@ namespace ProjectB
 			}
 			else
 			{
-				Console.WriteLine("Room info:\n");
+				Console.WriteLine("Room info:\n==============================================================================");
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 				{
 					Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
 					Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
-					Console.WriteLine("Price per participant:		" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+					Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 					Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n");
+					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
 				}
 
 			}
