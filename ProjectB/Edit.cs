@@ -38,9 +38,7 @@ namespace ProjectB
 					if (RoomIndexSucces) { EditRoomIndex = number - 1; }
 					else
 					{
-						Functions.ErrorMessage("Please enter a number between 1 and " + RoomsList.Count);
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 					}
 				}
 
@@ -128,10 +126,8 @@ namespace ProjectB
 									if (number <= escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize || number > 6) { maxSuccess = false; }
 									if (maxSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMaxSize = number; }
 									else
-									{
-										Functions.ErrorMessage("Please enter a valid number inbetween " + (RoomsList[EditRoomIndex].roomMinSize + 1) + "-6");
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
+									{ 	
+										Functions.ErrorMessage("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
 									}
 								}
 							}

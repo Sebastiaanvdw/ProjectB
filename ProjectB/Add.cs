@@ -67,7 +67,7 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
+							if (Return == true) { return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
 						else
@@ -91,12 +91,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -121,7 +115,7 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
+							if (Return == true) {  return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
 						else
@@ -131,7 +125,7 @@ namespace ProjectB
 							if (maxSuccess) { roomMaxSize = number; }
 							else
 							{
-								Functions.ErrorMessage("Please enter a valid number between " + (RoomsList[NewIndex].roomMinSize + 1) + "-6");
+								Functions.ErrorMessage("Please enter a valid number between " + (roomMinSize + 1) + "-6");
 							}
 						}
 					}
@@ -145,12 +139,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -174,12 +162,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -203,12 +185,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -231,12 +207,6 @@ namespace ProjectB
 						if (userInput == "return")
 						{
 							bool Return = util.ReturnToMenu();
-							if (Return == true) { RoomsList.RemoveAt(NewIndex); return; }
-							Console.Write("Would you like to return to the menu, press ");
-							Functions.Write("y", ConsoleColor.Yellow);
-							Console.Write(" or ");
-							Functions.Write("n", ConsoleColor.Yellow);
-							bool Return = util.CheckYN();
 							if (Return == true) { escapeRoomsList.EscapeRooms.RemoveAt(NewIndex); return; }
 							if (Return == false) { Console.WriteLine(""); LoopAddEscaperoom = false; }
 						}
@@ -257,7 +227,8 @@ namespace ProjectB
 
 				else
 				{
-					Functions.WriteLine("There are already 5 EscapeRooms existing!", ConsoleColor.Red);
+					Functions.WriteLine("\nThere are already 5 EscapeRooms existing!", ConsoleColor.Red);
+					Console.ReadKey(true);
 				}
 				if (escapeRoomsList.EscapeRooms.Count < 5)
 				{
