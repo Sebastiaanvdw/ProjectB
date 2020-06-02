@@ -211,7 +211,7 @@ class MainProgram
 		while (AdminSuccess == 1)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin menu!\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add an escape room\n7) Edit an escape room\n8) Delete an escape room\n9) Edit menu\n0) Logout\n=======================================\n");
+			Console.WriteLine("Welcome to the admin menu!\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add an escape room\n7) Edit menu\n8) Delete an escape room\n9) Edit menu\n0) Logout\n=======================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("8", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("9", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("0", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (adminFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);

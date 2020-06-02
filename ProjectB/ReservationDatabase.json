@@ -1,6 +1,7 @@
 {
   "reservations": [
     {
+      "reservationNumber": 1,
       "uniqueID": "3db07bf2-6da7-4bf7-bb0d-6ea02f0b9925",
       "resRoomName": "Escape from Mordric Castle",
       "firstName": "Jan",
@@ -18,6 +19,7 @@
       "paymentMethod": "iDEAL"
     },
     {
+      "reservationNumber": 2,
       "uniqueID": "b3c22a42-5484-4eff-adb0-fffb89095745",
       "resRoomName": "Dracula's Castle",
       "firstName": "Jan",

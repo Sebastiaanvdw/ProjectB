@@ -11,7 +11,32 @@ namespace ProjectB
 	{
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+
+		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
+		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+
+		public static string input_message, error_message, userPostCode;
+
 		public static void Function()
+		{
+			bool LoopEditFunction = false;
+			while (!LoopEditFunction)
+			{
+				Console.Clear();
+				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("3", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Functions.Write("Your input - ", ConsoleColor.Yellow);
+				var input = Console.ReadKey();
+				if (input.Key == ConsoleKey.D1) { EditEscapeRoom(); }
+				else if (input.Key == ConsoleKey.D2) { EditUser(); }
+				else if (input.Key == ConsoleKey.D3) { return; }
+				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+			}
+		}
+		public static void EditEscapeRoom()
 		{
 			bool LoopEditRoom = true;
 			while (LoopEditRoom)
@@ -22,7 +47,7 @@ namespace ProjectB
 				bool RoomIndexSucces = false;
 
 				Console.Clear();
-				SpecialShow.Function();
+				SpecialShow.EscapeRoom();
 
 				if (escapeRoomsList.EscapeRooms.Count == 0)
 				{
@@ -59,7 +84,7 @@ namespace ProjectB
 							bool durationSuccess = false;
 							bool nameSuccess = false;
 							Console.Clear();
-							Console.WriteLine(escapeRoomsList.EscapeRooms[EditRoomIndex] + "\n");
+							Console.WriteLine(escapeRoomsList.EscapeRooms[EditRoomIndex].RoomName + "\n");
 							Console.WriteLine("Choose what you would like to change about the room: ");
 							Console.WriteLine("1) Change name\n2) Change minimum age\n3) Change amount of players\n4) Change price\n5) Change duration\n6) Change theme\n7) Stop editing this room");
 							while (!RoomEditSucces)
@@ -191,15 +216,14 @@ namespace ProjectB
 							{
 								Continue_RoomEdit = false;
 							}
+							string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
+							File.WriteAllText(PathEscapeRoom, json);
 						}
 					}
 				}
 				if (escapeRoomsList.EscapeRooms.Count > 1)
 				{
-					Console.Write("Would you like to edit another room, press");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
+					Console.Write("Would you like to edit another room?");
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopEditRoom = false; }
@@ -209,6 +233,205 @@ namespace ProjectB
 					return;
 				}
 			}
+		}
+		public static void EditUser()
+		{
+			bool LoopEditUser = true;
+			while (LoopEditUser)
+			{
+				string userInput;
+				int EditUserIndex = 0;
+				int EditUserChoice = 0;
+				bool UserIndexSucces = false;
+
+				Console.Clear();
+				SpecialShow.User();
+
+				if (usersList.Users.Count == 0)
+				{
+					return;
+				}
+
+				Console.WriteLine("Choose the user that you want to edit(1-" + usersList.Users.Count + ")");
+				while (!UserIndexSucces)
+				{
+					userInput = Console.ReadLine();
+					UserIndexSucces = int.TryParse(userInput, out int number);
+					if (number < 1 || number > usersList.Users.Count) { UserIndexSucces = false; }
+					if (UserIndexSucces) { EditUserIndex = number - 1; }
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a number between 1 and " + usersList.Users.Count);
+					}
+				}
+
+				for (int i = 0; i < usersList.Users.Count; i++)
+				{
+					if (i == EditUserIndex)
+					{
+						bool Continue_UserEdit = true;
+						while (Continue_UserEdit)
+						{
+							bool UserEditSucces = false;
+							bool roleSuccess = false;
+							Console.Clear();
+							Console.WriteLine(usersList.Users[EditUserIndex].UserFirstName + " " + usersList.Users[EditUserIndex].UserLastName + "\n");
+							Console.WriteLine("Choose what you would like to change about this user: ");
+							Console.WriteLine("1) Change username\n2) Change password\n3) Change first name\n4) Change last name\n5) Change address\n6) Change e-mail\n7) Change phone number\n8) Change role\n9) Stop editing this user\n=======================================");
+							while (!UserEditSucces)
+							{
+								userInput = Console.ReadLine();
+								UserEditSucces = int.TryParse(userInput, out int number);
+								if (number < 1 || number > 9) { UserEditSucces = false; }
+								if (UserEditSucces) { EditUserChoice = number; }
+								else
+								{
+									Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+									Console.WriteLine("Please enter a number between 1 and 9");
+								}
+							}
+
+							if (EditUserChoice == 1)
+							{
+								input_message = "Enter a new username:";
+								error_message = "Please enter a valid username";
+								usersList.Users[EditUserIndex].UserName = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+							}
+							else if (EditUserChoice == 2)
+							{
+								input_message = "Enter a new password:";
+								error_message = "Please enter a valid password";
+								usersList.Users[EditUserIndex].UserPassword = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+							}
+							else if (EditUserChoice == 3)
+							{
+								input_message = "Enter a new first name:";
+								error_message = "Please enter a valid first name";
+								usersList.Users[EditUserIndex].UserFirstName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+							}
+							else if (EditUserChoice == 4)
+							{
+								input_message = "Enter a new last name:";
+								error_message = "Please enter a valid last name";
+								usersList.Users[EditUserIndex].UserLastName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+							}
+							else if (EditUserChoice == 5)
+							{
+								input_message = "Enter a new street name:";
+								error_message = "Please enter a valid street name";
+								usersList.Users[EditUserIndex].UserStreetName = Error_Exception_String(input_message, error_message, false, false, 1, 100, true, "", "");
+
+								input_message = "Enter a new house number:";
+								error_message = "Please enter a number between 1 and 99999";
+								usersList.Users[EditUserIndex].UserHouseNumber = Error_Exception_Int(input_message, error_message, 1, 99999).ToString();
+
+								input_message = "Enter the first four digits of the new postal code:";
+								error_message = "Please enter a valid postal code";
+								userPostCode = Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
+
+								input_message = "Enter the last two letters of the new postal code: ";
+								error_message = "Please enter two letters";
+								userPostCode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
+								usersList.Users[EditUserIndex].UserPostalCode = userPostCode;
+
+								input_message = "Enter your new place of residence:";
+								error_message = "Please enter a valid place of residence";
+								usersList.Users[EditUserIndex].UserResidencyName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+							}
+							else if (EditUserChoice == 6)
+							{
+								input_message = "Enter your new e-mail address:";
+								error_message = "Please enter a valid e-mail address";
+								usersList.Users[EditUserIndex].UserEmail = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
+							}
+							else if (EditUserChoice == 7)
+							{
+								input_message = "Enter your new telephonenumber:";
+								error_message = "Please enter a valid telephonenumber";
+								usersList.Users[EditUserIndex].UserPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
+							}
+							else if (EditUserChoice == 8)
+							{
+								while (!roleSuccess)
+								{
+									Console.WriteLine("Enter a name for the escape room:");
+									userInput = Console.ReadLine();
+									if (string.IsNullOrEmpty(userInput)) { roleSuccess = false; }
+									else { roleSuccess = true; }
+									if (userInput == "customer" || userInput == "employee" || userInput == "admin" && roleSuccess) { usersList.Users[EditUserIndex].UserRole = userInput; }
+									else
+									{
+										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+										Console.WriteLine("Please enter a valid role");
+									}
+								}
+							}
+							else if (EditUserChoice == 9)
+							{
+								Continue_UserEdit = false;
+							}
+							string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
+							File.WriteAllText(PathUser, json);
+						}
+					}
+				}
+				if (usersList.Users.Count > 1)
+				{
+					Console.Write("Would you like to edit another user?");
+					bool Return = util.CheckYN();
+					if (Return == true) { }
+					if (Return == false) { LoopEditUser = false; }
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
+		public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
+		{
+			string userInput = "";
+			bool Succes = false;
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				if (string.IsNullOrEmpty(userInput)) { Succes = false; }
+				else if (!isanumber && userInput.Any(char.IsDigit)) { Succes = false; }
+				else if (isanumber && !userInput.Any(char.IsDigit)) { Succes = false; }
+				else if (lengthmatters && (userInput.Length < minlength || userInput.Length > maxlength)) { Succes = false; }
+				else if (specialcontain && !userInput.Contains(contains1) || !userInput.Contains(contains2)) { Succes = false; }
+				else if (userInput.Length < 5 && userInput.Contains(" ")) { Succes = false; }
+				else { Succes = true; }
+				if (Succes) { }
+				else
+				{
+					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine(errormessage);
+				}
+			}
+			return userInput;
+		}
+		public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
+		{
+			string userInput = "";
+			bool Succes = false;
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				Succes = int.TryParse(userInput, out int number);
+				if (number >= minlength && number <= maxlength) { Succes = true; }
+				else { Succes = false; }
+				if (Succes) { }
+				else
+				{
+					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
+					Console.WriteLine(errormessage);
+				}
+			}
+			return Int32.Parse(userInput);
 		}
 	}
 }

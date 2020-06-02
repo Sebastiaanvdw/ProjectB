@@ -13,7 +13,7 @@ namespace ProjectB
 	{
 		public static string input_message, error_message;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
-		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement;
+		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
 		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 		public static string userUniqueID;
 		public static bool LoopContactFunction = false;
@@ -34,6 +34,7 @@ namespace ProjectB
 
 			Reservation reservation = new Reservation
 			{
+				ReservationNumber = reservationNumber,
 				UniqueID = userUniqueID,
 				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
 				FirstName = userName,
@@ -131,6 +132,8 @@ namespace ProjectB
 				}
 				else
 				{
+					int NewIndex = reservationsList.Reservations.Count - 1;
+					reservationNumber = NewIndex + 1;
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Incase you want to return to the menu type: 'return'");
 					Console.WriteLine("-----------------------------");

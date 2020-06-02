@@ -23,7 +23,7 @@ namespace ProjectB
 				bool Roomchoicesucces = false;
 				bool Deleteroomsucces = false;
 				Console.Clear();
-				SpecialShow.Function();
+				SpecialShow.EscapeRoom();
 				if (escapeRoomsList.EscapeRooms.Count == 0) { return; } //MainProgramma.ReturnMenuFunction(); }
 				Console.WriteLine("Enter the room number of the room you want to delete");
 				while (!Roomchoicesucces)
@@ -78,6 +78,8 @@ namespace ProjectB
 							Functions.Write("not ", ConsoleColor.Red);
 							Console.Write("been deleted\n");
 						}
+						string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
+						File.WriteAllText(PathEscapeRoom, json);
 					}
 				}
 				if (escapeRoomsList.EscapeRooms.Count > 0)
