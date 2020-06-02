@@ -122,6 +122,7 @@ namespace ProjectB
 		}
 		public static void ReserveerFunction()
 		{
+			File.ReadAllText(PathReservation);
 			bool LoopAddReservation = true;
 			while (LoopAddReservation)
 			{
@@ -258,8 +259,8 @@ namespace ProjectB
 		}
 		public static void CustomerOverview()
 		{
+			File.ReadAllText(PathUser);
 			Console.Clear();
-
 			Console.WriteLine("User info:\n=======================================");
 			for (int i = 0; i < usersList.Users.Count; i++)
 			{
@@ -278,6 +279,7 @@ namespace ProjectB
 		}
 		public static void ReservationOverview()
 		{
+			File.ReadAllText(PathReservation);
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("Reservation info:\n=======================================");
@@ -338,6 +340,7 @@ namespace ProjectB
 		}
 		public static void ShowFunction()
 		{
+			File.ReadAllText(PathEscapeRoom);
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("Room info:\n==============================================================================");
@@ -355,6 +358,7 @@ namespace ProjectB
 		}
 		public static void CustomerShowFunction()
 		{
+			File.ReadAllText(PathEscapeRoom);
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			if (escapeRoomsList.EscapeRooms.Count <= 0)
@@ -391,14 +395,10 @@ namespace ProjectB
 			Error();
 			Console.WriteLine(obj);
 		}
-
 		public static void Error()
 		{
 			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
-
-
-
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)

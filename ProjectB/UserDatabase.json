@@ -41,6 +41,20 @@
       "userEmail": "w.vdM@gmail.com",
       "userPhoneNumber": "0622334455",
       "role": "customer"
+    },
+    {
+      "userID": 4,
+      "userName": "test",
+      "userPassword": "test",
+      "userFirstName": "Henk",
+      "userLastName": "Pieter",
+      "userPostalCode": "1234TY",
+      "userStreetName": "Longstreet",
+      "userHouseNumber": "34",
+      "userResidencyName": "Rotterdam",
+      "userEmail": "test@test.nl",
+      "userPhoneNumber": "0622334455",
+      "role": "employee"
     }
   ]
 }

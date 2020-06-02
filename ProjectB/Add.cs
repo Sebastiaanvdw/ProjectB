@@ -9,14 +9,17 @@ namespace ProjectB
 {
 	class Add
 	{
-		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize;
+		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID;
 		public static double roomPrice;
 		public static TimeSpan roomDuration;
-		public static string roomTheme, roomName, input_message, error_message;
+		public static string roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, postalCode, residencyName, email, phoneNumber;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
+		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
+		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+		
 		public static void EscapeRoomWriteToDatabase()
 		{
 			EscapeRoom escapeRoom = new EscapeRoom
@@ -34,6 +37,27 @@ namespace ProjectB
 			string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
 			File.WriteAllText(PathEscapeRoom, json);
 		}
+		public static void UserWriteToDatabase()
+		{
+			User user = new User
+			{
+				UserID = userID,
+				UserName = userName,
+				UserPassword = password,
+				UserFirstName = firstName,
+				UserLastName = lastName,
+				UserPostalCode = postalCode,
+				UserStreetName = streetName,
+				UserHouseNumber = houseNumber,
+				UserResidencyName = residencyName,
+				UserEmail = email,
+				UserPhoneNumber = phoneNumber,
+				UserRole = "customer"
+			};
+			usersList.Users.Add(user);
+			string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
+			File.WriteAllText(PathUser, json);
+		}
 		public static void Function()
 		{
 			bool LoopAddFunction = false;
@@ -45,7 +69,7 @@ namespace ProjectB
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { AddEscapeRoom(); }
-				else if (input.Key == ConsoleKey.D2) {  }
+				else if (input.Key == ConsoleKey.D2) { AddUser();  }
 				else if (input.Key == ConsoleKey.D3) { return; }
 				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 			}
@@ -79,11 +103,11 @@ namespace ProjectB
 
 				input_message = "Enter the price for the escape room (price is per participant):";
 				error_message = "Please enter a positive number.";
-				roomPrice = Error_Exception_Int(input_message, error_message, 1, 99999);
+				roomPrice = Error_Exception_Double(input_message, error_message, 1, 99999);
 
 				input_message = "Enter a theme for the escape room:";
 				error_message = "Please use alphabetic characters only";
-				roomTheme = Error_Exception_String(input_message, error_message, false, true, 0, 0, false, "", "");
+				roomTheme = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
 
 				while (!durationSuccess)
 				{
@@ -105,16 +129,77 @@ namespace ProjectB
 				error_message = "Please use alphabetic characters only";
 				roomName = Error_Exception_String(input_message, error_message, false, true, 0, 0, false, "", "");
 
+				EscapeRoomWriteToDatabase();
 				Console.Clear();
-				if (roomName != "")
-				{
-					EscapeRoomWriteToDatabase();
-					Console.Clear();
-					Console.Write("Would you like to add another escape room?");
-					bool Return = util.CheckYN();
-					if (Return == true) { }
-					if (Return == false) { LoopAddEscapeRoom = false; return; }
-				}
+				Console.Write("Would you like to add another escape room?");
+				bool Return = util.CheckYN();
+				if (Return == true) { }
+				if (Return == false) { LoopAddEscapeRoom = false; return; }
+			}
+		}
+		public static void AddUser()
+		{
+			bool LoopAddUser = true;
+			while (LoopAddUser)
+			{
+				int NewIndex = usersList.Users.Count;
+				if (usersList.Users.Count == 1) { NewIndex = 0; }
+				userID = NewIndex + 1;
+				Console.Clear();
+				Console.WriteLine("-----------------------------");
+				Console.WriteLine("Please the required information:");
+				Console.WriteLine("-----------------------------");
+
+				input_message = "Enter your username:";
+				error_message = "Please enter a valid username";
+				userName = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+
+				input_message = "Enter your password:";
+				error_message = "Please enter a valid password";
+				password = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+
+				input_message = "Enter your first name:";
+				error_message = "Please enter a valid first name";
+				firstName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+
+				input_message = "Enter your last name:";
+				error_message = "Please enter a valid last name";
+				lastName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+
+				input_message = "Enter your street name:";
+				error_message = "Please enter a valid street name";
+				streetName = Error_Exception_String(input_message, error_message, false, false, 1, 100, true, "", "");
+
+				input_message = "Enter your house number:";
+				error_message = "Please enter a number between 1 and 99999";
+				houseNumber = Error_Exception_Int(input_message, error_message, 1, 99999).ToString();
+
+				input_message = "Enter the first four digits of your postal code:";
+				error_message = "Please enter a valid postal code";
+				postalCode= Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
+
+				input_message = "Enter the last two letters of your postal code: ";
+				error_message = "Please enter two letters";
+				postalCode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
+
+				input_message = "Enter the name of your place of residence:";
+				error_message = "Please enter a valid place of residence";
+				residencyName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+
+				input_message = "Enter your e-mail address:";
+				error_message = "Please enter a valid e-mail address";
+				email = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
+
+				input_message = "Enter your telephonenumber:";
+				error_message = "Please enter a valid telephonenumber";
+				phoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
+
+				UserWriteToDatabase();
+				Console.Clear();
+				Console.Write("Would you like to add another user?");
+				bool Return = util.CheckYN();
+				if (Return == true) { }
+				if (Return == false) { LoopAddUser = false; return; }
 			}
 		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
@@ -135,8 +220,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					Functions.ErrorMessage(errormessage);
 				}
 			}
 			return userInput;
@@ -155,11 +239,29 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					Functions.ErrorMessage(errormessage);
 				}
 			}
 			return Int32.Parse(userInput);
+		}
+		public static double Error_Exception_Double(string message, string errormessage, int minlength, int maxlength)
+		{
+			string userInput = "";
+			bool Succes = false;
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				Succes = Double.TryParse(userInput, out double number);
+				if (number >= minlength && number <= maxlength) { Succes = true; }
+				else if (userInput.Contains(".")) { Succes = false; }
+				if (Succes) { }
+				else
+				{
+					Functions.ErrorMessage(errormessage);
+				}
+			}
+			return Double.Parse(userInput);
 		}
 	}
 }

@@ -23,8 +23,28 @@ namespace ProjectB
 				bool Roomchoicesucces = false;
 				bool Deleteroomsucces = false;
 				Console.Clear();
-				SpecialShow.EscapeRoom();
-				if (escapeRoomsList.EscapeRooms.Count == 0) { return; } //MainProgramma.ReturnMenuFunction(); }
+				if (escapeRoomsList.EscapeRooms.Count <= 0)
+				{
+					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
+					Console.Clear();
+					Console.WriteLine(json);
+					Console.OutputEncoding = Encoding.UTF8;
+					Console.WriteLine("Room info:\n==============================================================================");
+					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
+					{
+						Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+						Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+						Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+						Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+					}
+				}
 				Console.WriteLine("Enter the room number of the room you want to delete");
 				while (!Roomchoicesucces)
 				{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Y_or_N;
 using System.IO;
 using Newtonsoft.Json;
@@ -38,10 +39,12 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
 				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+				
 			}
 		}
 		public static void EditEscapeRoom()
 		{
+			File.ReadAllText(PathEscapeRoom);
 			bool LoopEditRoom = true;
 			while (LoopEditRoom)
 			{
@@ -51,7 +54,26 @@ namespace ProjectB
 				bool RoomIndexSucces = false;
 
 				Console.Clear();
-				SpecialShow.EscapeRoom();
+				if (escapeRoomsList.EscapeRooms.Count <= 0)
+				{
+					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					Console.Clear();
+					Console.OutputEncoding = Encoding.UTF8;
+					Console.WriteLine("Room info:\n==============================================================================");
+					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
+					{
+						Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
+						Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
+						Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
+						Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
+						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+					}
+				}
 
 				if (escapeRoomsList.EscapeRooms.Count == 0)
 				{
@@ -80,6 +102,7 @@ namespace ProjectB
 						bool Continue_RoomEdit = true;
 						while (Continue_RoomEdit)
 						{
+							string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
 							bool RoomEditSucces = false;
 							bool priceSuccess = false;
 							bool themeSuccess = false;
@@ -212,9 +235,9 @@ namespace ProjectB
 							}
 							else if (EditRoomChoice == 7)
 							{
+								File.WriteAllText(PathEscapeRoom, json);
 								Continue_RoomEdit = false;
 							}
-							string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
 							File.WriteAllText(PathEscapeRoom, json);
 						}
 					}
@@ -223,8 +246,8 @@ namespace ProjectB
 				{
 					Console.Write("Would you like to edit another room?");
 					bool Return = util.CheckYN();
-					if (Return == true) { }
-					if (Return == false) { LoopEditRoom = false; }
+					if (Return == true) { File.ReadAllText(PathEscapeRoom); }
+					if (Return == false) { File.ReadAllText(PathEscapeRoom); LoopEditRoom = false; }
 				}
 				else
 				{
@@ -234,6 +257,7 @@ namespace ProjectB
 		}
 		public static void EditUser()
 		{
+			File.ReadAllText(PathUser);
 			bool LoopEditUser = true;
 			while (LoopEditUser)
 			{
@@ -243,7 +267,27 @@ namespace ProjectB
 				bool UserIndexSucces = false;
 
 				Console.Clear();
-				SpecialShow.User();
+				if (usersList.Users.Count <= 0)
+				{
+					Console.WriteLine("No users have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					Console.WriteLine("User info:\n=======================================");
+					for (int i = 0; i < usersList.Users.Count; i++)
+					{
+						Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
+						Console.WriteLine("Username:	" + usersList.Users[i].UserName);
+						Console.WriteLine("First name:	" + usersList.Users[i].UserFirstName);
+						Console.WriteLine("Last name:	" + usersList.Users[i].UserLastName);
+						Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
+						Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
+						Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
+						Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+					}
+				}
 
 				if (usersList.Users.Count == 0)
 				{
@@ -271,6 +315,7 @@ namespace ProjectB
 						bool Continue_UserEdit = true;
 						while (Continue_UserEdit)
 						{
+							string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
 							bool UserEditSucces = false;
 							bool roleSuccess = false;
 							Console.Clear();
@@ -367,9 +412,9 @@ namespace ProjectB
 							}
 							else if (EditUserChoice == 9)
 							{
+								File.WriteAllText(PathUser, json);
 								Continue_UserEdit = false;
 							}
-							string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
 							File.WriteAllText(PathUser, json);
 						}
 					}
@@ -378,8 +423,8 @@ namespace ProjectB
 				{
 					Console.Write("Would you like to edit another user?");
 					bool Return = util.CheckYN();
-					if (Return == true) { }
-					if (Return == false) { LoopEditUser = false; }
+					if (Return == true) { File.ReadAllText(PathUser); }
+					if (Return == false) { File.ReadAllText(PathUser); LoopEditUser = false;}
 				}
 				else
 				{

@@ -39,14 +39,15 @@ class MainProgram
 			LoopAdminLogin = true;
 			Console.Clear();
 			util.Log("");
-			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Exit Application\n=======================================\n");
-			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
+			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Register\n5) Exit Application\n=======================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
 			Functions.Write("\nYour input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { CustomerLoginFunction(); customerFalse = false; }
 			else if (input.Key == ConsoleKey.D2) { EmployeeLoginFunction(); employeeFalse = false; }
 			else if (input.Key == ConsoleKey.D3) { AdminLoginFunction(); adminFalse = false; }
-			else if (input.Key == ConsoleKey.D4) { break; }
+			else if (input.Key == ConsoleKey.D4) { Add.AddUser(); }
+			else if (input.Key == ConsoleKey.D5) { break; }
 		}
 	}
 	public static void AdminLoginFunction()
@@ -138,7 +139,13 @@ class MainProgram
 			Console.WriteLine("Password:");
 			string EmployeePassWordLogin = Console.ReadLine();
 
-			if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole == "employee" || usersList.Users[ID - 1].UserRole == "admin")
+			if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole == "employee")
+			{
+				EmployeeSuccess += 1;
+				EmployeeMenu();
+				LoopEmployeeLogin = false;
+			}
+			else if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole == "admin")
 			{
 				EmployeeSuccess += 1;
 				EmployeeMenu();
@@ -203,7 +210,7 @@ class MainProgram
 		while (AdminSuccess == 1)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin menu!\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add an escape room\n7) Edit menu\n8) Delete menu \n9) Logout\n=======================================\n");
+			Console.WriteLine("Welcome to the admin menu!\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add menu\n7) Edit menu\n8) Delete menu \n9) Logout\n=======================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("8", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("9", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (adminFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
