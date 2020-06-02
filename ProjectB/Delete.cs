@@ -31,11 +31,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						Console.Write("Return to the main menu? press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
-						bool Return = util.CheckYN();
+						bool Return = util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -54,11 +50,7 @@ namespace ProjectB
 					{
 						Console.Write("You are about to delete room : ");
 						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
-						Console.Write(", are you sure? press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
-
+						Console.Write(", are you sure?");
 						while (!Deleteroomsucces)
 						{
 							Deleteroomsucces = util.CheckYN();
@@ -91,10 +83,7 @@ namespace ProjectB
 				}
 				if (escapeRoomsList.EscapeRooms.Count > 0)
 				{
-					Console.Write("Would you like to choose another room to delete, press ");
-					Functions.Write("y", ConsoleColor.Yellow);
-					Console.Write(" or ");
-					Functions.Write("n", ConsoleColor.Yellow);
+					Console.Write("Would you like to choose another room to delete?");
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteRoom = false; }

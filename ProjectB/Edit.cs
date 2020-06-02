@@ -67,6 +67,7 @@ namespace ProjectB
 					if (RoomIndexSucces) { EditRoomIndex = number - 1; }
 					else
 					{
+						Functions.ErrorMessage("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 						Console.WriteLine("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 					}
@@ -99,8 +100,7 @@ namespace ProjectB
 								if (RoomEditSucces) { EditRoomChoice = number; }
 								else
 								{
-									Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-									Console.WriteLine("Please enter a number between 1 and 7");
+									Functions.ErrorMessage("Please enter a number between 1 and 7");
 								}
 							}
 
@@ -115,8 +115,7 @@ namespace ProjectB
 									if (nameSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomName = userInput; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please use alphabetic characters only");
+										Functions.ErrorMessage("Please use alphabetic characters only");
 									}
 								}
 							}
@@ -131,8 +130,7 @@ namespace ProjectB
 									if (ageSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].AgeMinimum = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 12-100");
+										Functions.ErrorMessage("Please enter a number between 12-100");
 									}
 								}
 							}
@@ -147,8 +145,7 @@ namespace ProjectB
 									if (minSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 2-5");
+										Functions.ErrorMessage("Please enter a number between 2-5");
 									}
 								}
 
@@ -161,8 +158,7 @@ namespace ProjectB
 									if (maxSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMaxSize = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
+										Functions.ErrorMessage("Please enter a valid number inbetween " + (escapeRoomsList.EscapeRooms[EditRoomIndex].RoomMinSize + 1) + "-6");
 									}
 								}
 							}
@@ -178,8 +174,7 @@ namespace ProjectB
 									if (priceSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomPrice = number; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number above 0, if it's a decimal number use ','.");
+										Functions.ErrorMessage("Please enter a number above 0, if it's a decimal number use ','.");
 									}
 								}
 							}
@@ -195,8 +190,8 @@ namespace ProjectB
 									if (durationSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
+
+										Functions.ErrorMessage("Please enter a number between 0 and 5 (if it's a decimal number please use a ',')");
 									}
 								}
 							}
@@ -211,8 +206,7 @@ namespace ProjectB
 									if (themeSuccess) { escapeRoomsList.EscapeRooms[EditRoomIndex].RoomTheme = userInput; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please use alphabetic characters only");
+										Functions.ErrorMessage("Please enter alphabetic characters only");
 									}
 								}
 							}

@@ -7,6 +7,8 @@ using BetaalPagina_Jelmer;
 using System.IO;
 using Newtonsoft.Json;
 
+
+
 namespace ProjectB
 {
 	class Functions
@@ -135,7 +137,7 @@ namespace ProjectB
 					int NewIndex = reservationsList.Reservations.Count - 1;
 					reservationNumber = NewIndex + 1;
 					Console.WriteLine("-----------------------------");
-					Console.WriteLine("Incase you want to return to the menu type: 'return'");
+					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Please choose your room and fill in the information required:");
 					Console.WriteLine("-----------------------------");
@@ -200,11 +202,7 @@ namespace ProjectB
 					{
 						TotalPrice();
 						ReceiptFunction();
-						Console.Clear();
-						Console.Write("Would you like to add another reservation?, press ");
-						Functions.Write("y", ConsoleColor.Yellow);
-						Console.Write(" or ");
-						Functions.Write("n", ConsoleColor.Yellow);
+						Console.Write("Would you like to add another reservation?");
 						bool Return = util.CheckYN();
 						if (Return == true) { }
 						if (Return == false) { LoopAddReservation = false; return; }
@@ -388,10 +386,19 @@ namespace ProjectB
 			Console.WriteLine(obj);
 			Console.ResetColor();
 		}
+		public static void ErrorMessage(object obj)
+		{
+			Error();
+			Console.WriteLine(obj);
+		}
+
 		public static void Error()
 		{
 			Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
 		}
+
+
+
 		public static void Write(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -399,7 +406,6 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
-
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
 		{
 			string userInput = "";
@@ -418,13 +424,11 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return userInput;
 		}
-		
 		public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
 		{
 			string userInput = "";
@@ -439,11 +443,29 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					ErrorMessage(errormessage);
 				}
 			}
 			return Int32.Parse(userInput);
+		}
+		public static double Error_Exception_Double(string message, string errormessage, int minlength, int maxlength)
+		{
+			string userInput = "";
+			bool Succes = false;
+			while (!Succes)
+			{
+				Console.WriteLine(message);
+				userInput = Console.ReadLine();
+				Succes = Double.TryParse(userInput, out double number);
+				if (number >= minlength && number <= maxlength) { Succes = true; }
+				else if (userInput.Contains(".")) { Succes = false; }
+				if (Succes) { }
+				else
+				{
+					ErrorMessage(errormessage);
+				}
+			}
+			return Double.Parse(userInput);
 		}
 	}
 }
