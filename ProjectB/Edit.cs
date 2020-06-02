@@ -18,6 +18,9 @@ namespace ProjectB
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 
+		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
+		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+
 		public static string input_message, error_message, userPostCode;
 
 		public static void Function()
@@ -26,13 +29,14 @@ namespace ProjectB
 			while (!LoopEditFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Return to menu\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("3", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { EditEscapeRoom(); }
 				else if (input.Key == ConsoleKey.D2) { EditUser(); }
-				else if (input.Key == ConsoleKey.D3) { return; }
+				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
+				else if (input.Key == ConsoleKey.D4) { return; }
 				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 			}
 		}
@@ -388,6 +392,145 @@ namespace ProjectB
 					return;
 				}
 			}
+		}
+		public static void FoodEdit()
+		{
+			string userInput;
+			int EditFoodChoice = 0;
+			bool foodSuccess = false;
+			bool drinksSuccess = false;
+			bool foodAndDrinksSuccess = false;
+			bool menuEditSuccess = false;
+
+			Console.Clear();
+			Console.WriteLine("-----------------------------");
+			Console.WriteLine("Incase you want to return to the menu type: 'return'");
+			Console.WriteLine("-----------------------------\nThese are the current prices for our food arrangements.");
+			Console.WriteLine("1) Drinks $" + menusList.Menus[0].DrinksPrice);
+			Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
+			Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
+
+			Console.WriteLine("Choose the menu item that you want to edit(use 1-3)");
+			while (!menuEditSuccess)
+			{
+				userInput = Console.ReadLine();
+				if (userInput == "return")
+				{
+					Console.Write("Would you like to return to the menu");
+					bool Return = util.CheckYN();
+					if (Return == true) { menuEditSuccess = true; return; }
+					if (Return == false) { Console.WriteLine("");}
+				}
+				else
+				{
+					menuEditSuccess = int.TryParse(userInput, out int number);
+					if (number < 1 || number > 3) { menuEditSuccess = false; }
+					if (menuEditSuccess) { EditFoodChoice = number; }
+					else
+					{
+						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+						Console.WriteLine("Please enter a number between 1 and 3");
+					}
+				}
+			}
+			if (EditFoodChoice == 1)
+			{
+				while (!drinksSuccess)
+				{
+					Console.WriteLine("Enter a price for the drinks arrangement:");
+					userInput = Console.ReadLine();
+					if (userInput == "return")
+					{
+						Console.Write("Would you like to return to the menu");
+						bool Return = util.CheckYN();
+						if (Return == true) { drinksSuccess = true; return; }
+						if (Return == false) { Console.WriteLine(""); FoodEdit(); }
+					}
+					else
+					{
+						drinksSuccess = double.TryParse(userInput, out double number);
+						if (drinksSuccess) { menusList.Menus[0].DrinksPrice = number;
+							string json = JsonConvert.SerializeObject(menusList, Formatting.Indented);
+							File.WriteAllText(PathMenu, json);
+						}
+						else
+						{
+							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+							Console.WriteLine("Please use digits only");
+						}
+						Console.Write("Would you like to edit another menu item");
+						bool Return = util.CheckYN();
+						if (Return == true) { FoodEdit(); }
+						if (Return == false) { return; }
+					}
+				}
+			}
+			else if (EditFoodChoice == 2)
+			{
+				while (!foodSuccess)
+				{
+					Console.WriteLine("Enter a price for the food arrangement:");
+					userInput = Console.ReadLine();
+
+					if (userInput == "return")
+					{
+						Console.Write("Would you like to return to the menu");
+						bool Return = util.CheckYN();
+						if (Return == true) { foodSuccess = true; return; }
+						if (Return == false) { Console.WriteLine("");}
+					}
+					else
+					{
+						foodSuccess = double.TryParse(userInput, out double number);
+						if (foodSuccess) { menusList.Menus[0].FoodPrice = number;
+							string json = JsonConvert.SerializeObject(menusList, Formatting.Indented);
+							File.WriteAllText(PathMenu, json);
+						}
+						else
+						{
+							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+							Console.WriteLine("Please use digits only");
+						}
+						Console.Write("Would you like to edit another menu item");
+						bool Return = util.CheckYN();
+						if (Return == true) { FoodEdit(); }
+						if (Return == false) { return; }
+					}
+				}
+			}
+			else if (EditFoodChoice == 3)
+			{
+				while (!foodAndDrinksSuccess)
+				{
+					Console.WriteLine("Enter a price for the food and drinks arrangement:");
+					userInput = Console.ReadLine();
+					if (userInput == "return")
+					{
+						Console.Write("Would you like to return to the menu");
+						bool Return = util.CheckYN();
+						if (Return == true) { foodAndDrinksSuccess = true; return; }
+						if (Return == false) { Console.WriteLine(""); }
+					}
+					else
+					{
+						foodAndDrinksSuccess = double.TryParse(userInput, out double number);
+						if (foodAndDrinksSuccess) { menusList.Menus[0].FoodAndDrinksPrice = number;
+							string json = JsonConvert.SerializeObject(menusList, Formatting.Indented);
+							File.WriteAllText(PathMenu, json);
+						}
+						else
+						{
+							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
+							Console.WriteLine("Please use digits only");
+						}
+						Console.Write("Would you like to edit another menu item");
+						bool Return = util.CheckYN();
+						if (Return == true) { FoodEdit(); }
+						if (Return == false) { return; }
+					}
+				}
+			}
+
 		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
 		{
