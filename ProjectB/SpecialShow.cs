@@ -25,7 +25,9 @@ namespace ProjectB
 				}
 			else
 			{
+				string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
 				Console.Clear();
+				Console.WriteLine(json);
 				Console.OutputEncoding = Encoding.UTF8;
 				Console.WriteLine("Room info:\n==============================================================================");
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)

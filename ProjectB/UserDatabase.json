@@ -4,11 +4,11 @@
       "userID": 1,
       "userName": "admin",
       "userPassword": "admin",
-      "userFirstName": "ASR",
+      "userFirstName": "Sebastiaan",
       "userLastName": "van der Weel",
       "userPostalCode": "3192PA",
-      "userStreetName": "Viskaarweg",
-      "userHouseNumber": "164",
+      "userStreetName": "Boomkor",
+      "userHouseNumber": "49",
       "userResidencyName": "Rotterdam",
       "userEmail": "asr.vanderweel@gmail.com",
       "userPhoneNumber": "0687654321",
@@ -26,7 +26,7 @@
       "userResidencyName": "Rotterdam",
       "userEmail": "c.M@gmail.com",
       "userPhoneNumber": "0612345678",
-      "role": "employee"
+      "role": "admin"
     },
     {
       "userID": 3,

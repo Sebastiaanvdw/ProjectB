@@ -359,7 +359,7 @@ namespace ProjectB
 							{
 								while (!roleSuccess)
 								{
-									Console.WriteLine("Enter a name for the escape room:");
+									Console.WriteLine("Enter the new role name:");
 									userInput = Console.ReadLine();
 									if (string.IsNullOrEmpty(userInput)) { roleSuccess = false; }
 									else { roleSuccess = true; }
@@ -444,7 +444,7 @@ namespace ProjectB
 						Console.Write("Would you like to return to the menu");
 						bool Return = util.CheckYN();
 						if (Return == true) { drinksSuccess = true; return; }
-						if (Return == false) { Console.WriteLine(""); FoodEdit(); }
+						if (Return == false) { Console.WriteLine(""); }
 					}
 					else
 					{
