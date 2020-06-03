@@ -31,8 +31,7 @@ namespace ProjectB
 		{
 			Console.Clear();
 			Console.WriteLine("=======================================\nOpening hours:\nMonday through Friday:	9:00am - 5:00pm\n\nTelephone number:	01034235423\nE-mail:			EscapeMail@rooms.com\nAddress:		Janpieterstraat 49 3546WQ Rotterdam\n=======================================\n");
-			Console.WriteLine("Press any key to return to continue.\n");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void FAQ()
 		{
@@ -43,8 +42,7 @@ namespace ProjectB
 			Console.Clear();
 			Console.WriteLine("=======================================");
 			Console.WriteLine(FAQ1 + "\n" + FAQ2 + "\n" + FAQ3);
-			Console.WriteLine("Press any key to return to continue.\n");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void ReceiptFunction()
 		{
@@ -151,9 +149,7 @@ namespace ProjectB
 				Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
 				Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
 			}
-
-			Console.WriteLine("\nPress any key to continue...");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void ReservationOverview()
 		{
@@ -175,9 +171,7 @@ namespace ProjectB
 				Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
 				Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
 			}
-
-			Console.WriteLine("\nPress any key to continue...");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void ContactFunction()
 		{
@@ -191,7 +185,7 @@ namespace ProjectB
 				if (input.Key == ConsoleKey.D1) { Contact(); }
 				else if (input.Key == ConsoleKey.D2) { FAQ(); }
 				else if (input.Key == ConsoleKey.D3) { return; }
-				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
 			}
 		}
 		public static void InfoFunction()
@@ -213,8 +207,8 @@ namespace ProjectB
 			WriteLine("11) You play the game at your own risk. We are not responsible for any injuries.");
 			Write("TIP: We have special discount arrangements! Kids Party 40%, Ladies Night 50%, Work Outing 30%.\n", ConsoleColor.Green);
 			Write("DISCLAIMER: Please note that these discounts are on the base price of an escape room.\n", ConsoleColor.Yellow);
-			WriteLine("=======================================\nPress any key to return to continue.\n");
-			Console.ReadKey(true);
+			WriteLine("=======================================\n");
+			Functions.ETC();
 		}
 		public static void ShowFunction()
 		{
@@ -230,9 +224,7 @@ namespace ProjectB
 				Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
 				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
 			}
-
-			Console.WriteLine("Press any key to continue...");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void CustomerShowFunction()
 		{
@@ -241,9 +233,9 @@ namespace ProjectB
 			Console.OutputEncoding = Encoding.UTF8;
 			if (escapeRoomsList.EscapeRooms.Count <= 0)
 			{
-				Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
-				Console.ReadKey(true);
-				return; ;
+				Console.WriteLine("No rooms have been created yet, you will be returned to the menu");
+				Functions.ETC();
+				return; 
 			}
 			else
 			{
@@ -258,8 +250,7 @@ namespace ProjectB
 				}
 
 			}
-			Console.WriteLine("Press any key to return to continue.\n");
-			Console.ReadKey(true);
+			Functions.ETC();
 		}
 		public static void WriteLine(object obj, ConsoleColor? color = null)
 		{
@@ -283,6 +274,12 @@ namespace ProjectB
 				Console.ForegroundColor = color.Value;
 			Console.Write(obj);
 			Console.ResetColor();
+		}
+		
+		public static void ETC()
+		{
+			Console.WriteLine("Press any key to continue...");
+			Console.ReadKey(true);
 		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
 		{

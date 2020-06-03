@@ -36,7 +36,7 @@ namespace ProjectB
             Console.WriteLine("SubTotal:                " + "€" + Functions.userTotalPrice);
             Console.WriteLine("==============================" + "\n");
 
-            Console.Write("Would you like to continue with your payment? Press ");
+            Console.Write("Would you like to continue with your payment?");
             bool Return = util.CheckYN();
             if (Return == true)
             {
@@ -51,7 +51,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ETC();
                 }
                 else if (input.Key == ConsoleKey.D2)
                 {
@@ -59,7 +59,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ETC();
                 }
                 else if (input.Key == ConsoleKey.D3)
                 {
@@ -67,7 +67,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ETC(); 
                 }
                 else if (input.Key == ConsoleKey.D4)
                 {
@@ -75,13 +75,13 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ETC();
                 }
                 else if (input.Key == ConsoleKey.D5)
                 {
                     Console.Clear();
                     Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                    Console.ReadKey(true);
+                    Functions.ETC();
                     return;
                 }
             }
@@ -89,7 +89,7 @@ namespace ProjectB
             {
                 Console.Clear();
                 Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                Console.ReadKey(true);
+                Functions.ETC();
                 return;
             }
         }

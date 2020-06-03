@@ -102,7 +102,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { AddUser();  }
 				else if (input.Key == ConsoleKey.D3) { AddReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
 			}
 		}
 		public static void AddEscapeRoom()
@@ -150,8 +150,7 @@ namespace ProjectB
 					if (durationSuccess) { roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
 					else
 					{
-						Functions.Error();
-						Console.WriteLine("Please try again");
+						Functions.ErrorMessage("Please try again");
 					}
 					
 				}
@@ -246,7 +245,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count < 1)
 				{
 					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
-					Console.ReadKey(true);
+					Functions.ETC();
 					return;
 				}
 				else

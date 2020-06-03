@@ -38,7 +38,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { EditUser(); }
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ETC();}
 				
 			}
 		}
@@ -56,8 +56,8 @@ namespace ProjectB
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
-					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
-					Console.ReadKey(true);
+					Console.WriteLine("No rooms have been created yet, you will be returned to the menu");
+					Functions.ETC();
 					return;
 				}
 				else
@@ -80,7 +80,7 @@ namespace ProjectB
 					return;
 				} 
 
-				Console.WriteLine("Choose the room that you want to edit(use a roomnumber 1-" + escapeRoomsList.EscapeRooms.Count + ")");
+				Console.WriteLine("Choose which room you want to edit(use a roomnumber 1-" + escapeRoomsList.EscapeRooms.Count + ")");
 				while (!RoomIndexSucces)
 				{
 					userInput = Console.ReadLine();
@@ -295,8 +295,7 @@ namespace ProjectB
 					if (UserIndexSucces) { EditUserIndex = number - 1; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number between 1 and " + usersList.Users.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + usersList.Users.Count);
 					}
 				}
 				for (int i = 0; i < usersList.Users.Count; i++)
@@ -321,8 +320,7 @@ namespace ProjectB
 								if (UserEditSucces) { EditUserChoice = number; }
 								else
 								{
-									Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-									Console.WriteLine("Please enter a number between 1 and 9");
+									Functions.ErrorMessage("Please enter a number between 1 and 9");
 								}
 							}
 
@@ -396,8 +394,7 @@ namespace ProjectB
 									if (userInput == "customer" || userInput == "employee" || userInput == "admin" && roleSuccess) { usersList.Users[EditUserIndex].UserRole = userInput; }
 									else
 									{
-										Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-										Console.WriteLine("Please enter a valid role");
+										Functions.ErrorMessage("Please enter a valid role");
 									}
 								}
 							}
@@ -440,7 +437,7 @@ namespace ProjectB
 			Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
 			Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
 
-			Console.WriteLine("Choose the menu item that you want to edit(use 1-3)");
+			Console.WriteLine("Choose the menu item that you want to edit (use 1-3)");
 			while (!menuEditSuccess)
 			{
 				userInput = Console.ReadLine();
@@ -458,8 +455,7 @@ namespace ProjectB
 					if (menuEditSuccess) { EditFoodChoice = number; }
 					else
 					{
-						Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-						Console.WriteLine("Please enter a number between 1 and 3");
+						Functions.ErrorMessage("Please enter a number between 1 and 3");	
 					}
 				}
 			}
@@ -471,7 +467,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "return")
 					{
-						Console.Write("Would you like to return to the menu");
+						Console.Write("Would you like to return to the menu?");
 						bool Return = util.CheckYN();
 						if (Return == true) { drinksSuccess = true; return; }
 						if (Return == false) { Console.WriteLine(""); }
@@ -485,10 +481,9 @@ namespace ProjectB
 						}
 						else
 						{
-							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-							Console.WriteLine("Please use digits only");
+							Functions.ErrorMessage("please use digits only");
 						}
-						Console.Write("Would you like to edit another menu item");
+						Console.Write("Would you like to edit another menu item?");
 						bool Return = util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
@@ -504,7 +499,7 @@ namespace ProjectB
 
 					if (userInput == "return")
 					{
-						Console.Write("Would you like to return to the menu");
+						Console.Write("Would you like to return to the menu?");
 						bool Return = util.CheckYN();
 						if (Return == true) { foodSuccess = true; return; }
 						if (Return == false) { Console.WriteLine("");}
@@ -518,10 +513,9 @@ namespace ProjectB
 						}
 						else
 						{
-							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-							Console.WriteLine("Please use digits only");
+							Functions.ErrorMessage("Please use digits only");
 						}
-						Console.Write("Would you like to edit another menu item");
+						Console.Write("Would you like to edit another menu item?");
 						bool Return = util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
@@ -536,7 +530,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "return")
 					{
-						Console.Write("Would you like to return to the menu");
+						Console.Write("Would you like to return to the menu?");
 						bool Return = util.CheckYN();
 						if (Return == true) { foodAndDrinksSuccess = true; return; }
 						if (Return == false) { Console.WriteLine(""); }
@@ -550,10 +544,9 @@ namespace ProjectB
 						}
 						else
 						{
-							Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-							Console.WriteLine("Please use digits only");
+							Functions.ErrorMessage("Please use digits only");
 						}
-						Console.Write("Would you like to edit another menu item");
+						Console.Write("Would you like to edit another menu item?");
 						bool Return = util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
@@ -580,8 +573,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					Functions.ErrorMessage(errormessage);
 				}
 			}
 			return userInput;
@@ -600,8 +592,7 @@ namespace ProjectB
 				if (Succes) { }
 				else
 				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
+					Functions.ErrorMessage(errormessage);
 				}
 			}
 			return Int32.Parse(userInput);
