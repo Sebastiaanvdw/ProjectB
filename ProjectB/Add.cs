@@ -94,13 +94,14 @@ namespace ProjectB
 			while (!LoopAddFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Add page.\n=======================================\n1) Add an escape room\n2) Add an user\n3) Return to menu\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("3", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Console.WriteLine("=======================================\nWelcome to the Add page.\n=======================================\n1) Add an escape room\n2) Add an user\n3) Add a reservation\n4) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { AddEscapeRoom(); }
 				else if (input.Key == ConsoleKey.D2) { AddUser();  }
-				else if (input.Key == ConsoleKey.D3) { return; }
+				else if (input.Key == ConsoleKey.D3) { AddReservation(); }
+				else if (input.Key == ConsoleKey.D4) { return; }
 				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 			}
 		}
