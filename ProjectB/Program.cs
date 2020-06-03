@@ -13,8 +13,14 @@ class MainProgram
 {
 	public static List<string> IDList = new List<string>();
 
+	private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
+	private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
 	private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
-	private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+	private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+
+	private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+	private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
 	public static int ID;
 	public static int LoginTries = 4;
@@ -34,6 +40,9 @@ class MainProgram
 	{
 		while (Mainpage)
 		{
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 			LoopCustomerLogin = true;
 			LoopEmployeeLogin = true;
 			LoopAdminLogin = true;
@@ -60,7 +69,7 @@ class MainProgram
 			{
 				input_message = "ID:";
 				error_message = "Please enter a valid ID";
-				ID = Error_Exception_Int(input_message, error_message, 1, 99999);
+				ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 				Console.WriteLine("Username:");
 				string AdminNameLogin = Console.ReadLine();
 				Console.WriteLine("Password:");
@@ -101,7 +110,7 @@ class MainProgram
 			Console.WriteLine("Welcome to the customer login page, please enter your login credentials:\n===================================================================================");
 			input_message = "ID:";
 			error_message = "Please enter a valid ID";
-			ID = Error_Exception_Int(input_message, error_message, 1, 99999);
+			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 			Console.WriteLine("Username:");
 			string UserNameLogin = Console.ReadLine();
 			Console.WriteLine("Password:");
@@ -133,7 +142,7 @@ class MainProgram
 			Console.WriteLine("Welcome to the employee login page, please enter your login credentials:\n=========================================================================");
 			input_message = "ID:";
 			error_message = "Please enter a valid ID";
-			ID = Error_Exception_Int(input_message, error_message, 1, 99999);
+			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 			Console.WriteLine("Username:");
 			string EmployeeNameLogin = Console.ReadLine();
 			Console.WriteLine("Password:");
@@ -251,49 +260,5 @@ class MainProgram
 			Console.ForegroundColor = color.Value;
 		Console.Write(obj);
 		Console.ResetColor();
-	}
-	public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
-	{
-		string userInput = "";
-		bool Succes = false;
-		while (!Succes)
-		{
-			Console.WriteLine(message);
-			userInput = Console.ReadLine();
-			if (string.IsNullOrEmpty(userInput)) { Succes = false; }
-			else if (!isanumber && userInput.Any(char.IsDigit)) { Succes = false; }
-			else if (isanumber && !userInput.Any(char.IsDigit)) { Succes = false; }
-			else if (lengthmatters && (userInput.Length < minlength || userInput.Length > maxlength)) { Succes = false; }
-			else if (specialcontain && !userInput.Contains(contains1) || !userInput.Contains(contains2)) { Succes = false; }
-			else if (userInput.Length < 5 && userInput.Contains(" ")) { Succes = false; }
-			else { Succes = true; }
-			if (Succes) { }
-			else
-			{
-				Write("Oh no, your input did not fit!", ConsoleColor.Red);
-				Console.WriteLine(errormessage);
-			}
-		}
-		return userInput;
-	}
-	public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
-	{
-		string userInput = "";
-		bool Succes = false;
-		while (!Succes)
-		{
-			Console.WriteLine(message);
-			userInput = Console.ReadLine();
-			Succes = int.TryParse(userInput, out int number);
-			if (number >= minlength && number <= maxlength) { Succes = true; }
-			else { Succes = false; }
-			if (Succes) { }
-			else
-			{
-				Write("Oh no, your input did not fit!", ConsoleColor.Red);
-				Console.WriteLine(errormessage);
-			}
-		}
-		return Int32.Parse(userInput);
 	}
 }

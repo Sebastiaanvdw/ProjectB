@@ -17,16 +17,16 @@ namespace ProjectB
 		public static bool LoopContactFunction = false;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
-		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
-		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+		private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
 		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
-		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+		private static JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
-		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 		public static void Contact()
 		{
 			Console.Clear();
@@ -137,7 +137,7 @@ namespace ProjectB
 		}
 		public static void CustomerOverview()
 		{
-			File.ReadAllText(PathUser);
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
 			Console.WriteLine("User info:\n=======================================");
 			for (int i = 0; i < usersList.Users.Count; i++)
@@ -157,7 +157,7 @@ namespace ProjectB
 		}
 		public static void ReservationOverview()
 		{
-			File.ReadAllText(PathReservation);
+			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("Reservation info:\n=======================================");
@@ -218,7 +218,7 @@ namespace ProjectB
 		}
 		public static void ShowFunction()
 		{
-			File.ReadAllText(PathEscapeRoom);
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("Room info:\n==============================================================================");
@@ -236,7 +236,7 @@ namespace ProjectB
 		}
 		public static void CustomerShowFunction()
 		{
-			File.ReadAllText(PathEscapeRoom);
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			if (escapeRoomsList.EscapeRooms.Count <= 0)
@@ -284,7 +284,7 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
-		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
+		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2, bool isastringbutcancontainnumbers)
 		{
 			string userInput = "";
 			bool Succes = false;
@@ -293,10 +293,10 @@ namespace ProjectB
 				Console.WriteLine(message);
 				userInput = Console.ReadLine();
 				if (string.IsNullOrEmpty(userInput)) { Succes = false; }
-				else if (!isanumber && userInput.Any(char.IsDigit)) { Succes = false; }
-				else if (isanumber && !userInput.Any(char.IsDigit)) { Succes = false; }
+				else if ((!isanumber || isastringbutcancontainnumbers) && userInput.All(char.IsDigit)) { Succes = false; }
+				else if (isanumber && !userInput.All(char.IsDigit)) { Succes = false; }
 				else if (lengthmatters && (userInput.Length < minlength || userInput.Length > maxlength)) { Succes = false; }
-				else if (specialcontain && !userInput.Contains(contains1) || !userInput.Contains(contains2)) { Succes = false; }
+				else if (specialcontain && (!userInput.Contains(contains1) || !userInput.Contains(contains2))) { Succes = false; }
 				else if (userInput.Length < 5 && userInput.Contains(" ")) { Succes = false; }
 				else { Succes = true; }
 				if (Succes) { }

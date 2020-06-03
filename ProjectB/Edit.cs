@@ -11,16 +11,16 @@ namespace ProjectB
 	class Edit
 	{
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
-		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
-		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+		private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
-		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 
 		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
-		private static readonly JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+		private static JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 
 		public static string input_message, error_message, userPostCode;
 
@@ -44,7 +44,7 @@ namespace ProjectB
 		}
 		public static void EditEscapeRoom()
 		{
-			File.ReadAllText(PathEscapeRoom);
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			bool LoopEditRoom = true;
 			while (LoopEditRoom)
 			{
@@ -257,7 +257,7 @@ namespace ProjectB
 		}
 		public static void EditUser()
 		{
-			File.ReadAllText(PathUser);
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			bool LoopEditUser = true;
 			while (LoopEditUser)
 			{
@@ -332,60 +332,60 @@ namespace ProjectB
 							{
 								input_message = "Enter a new username:";
 								error_message = "Please enter a valid username";
-								usersList.Users[EditUserIndex].UserName = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+								usersList.Users[EditUserIndex].UserName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "", true);
 							}
 							else if (EditUserChoice == 2)
 							{
 								input_message = "Enter a new password:";
 								error_message = "Please enter a valid password";
-								usersList.Users[EditUserIndex].UserPassword = Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "");
+								usersList.Users[EditUserIndex].UserPassword = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 20, true, "", "", true);
 							}
 							else if (EditUserChoice == 3)
 							{
 								input_message = "Enter a new first name:";
 								error_message = "Please enter a valid first name";
-								usersList.Users[EditUserIndex].UserFirstName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+								usersList.Users[EditUserIndex].UserFirstName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "", false);
 							}
 							else if (EditUserChoice == 4)
 							{
 								input_message = "Enter a new last name:";
 								error_message = "Please enter a valid last name";
-								usersList.Users[EditUserIndex].UserLastName = Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "");
+								usersList.Users[EditUserIndex].UserLastName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "", false);
 							}
 							else if (EditUserChoice == 5)
 							{
 								input_message = "Enter a new street name:";
 								error_message = "Please enter a valid street name";
-								usersList.Users[EditUserIndex].UserStreetName = Error_Exception_String(input_message, error_message, false, false, 1, 100, true, "", "");
+								usersList.Users[EditUserIndex].UserStreetName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 100, true, "", "", false);
 
 								input_message = "Enter a new house number:";
 								error_message = "Please enter a number between 1 and 99999";
-								usersList.Users[EditUserIndex].UserHouseNumber = Error_Exception_Int(input_message, error_message, 1, 99999).ToString();
+								usersList.Users[EditUserIndex].UserHouseNumber = Functions.Error_Exception_Int(input_message, error_message, 1, 99999).ToString();
 
 								input_message = "Enter the first four digits of the new postal code:";
 								error_message = "Please enter a valid postal code";
-								userPostCode = Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
+								userPostCode = Functions.Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "", false);
 
 								input_message = "Enter the last two letters of the new postal code: ";
 								error_message = "Please enter two letters";
-								userPostCode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
+								userPostCode += Functions.Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "", false).ToUpper();
 								usersList.Users[EditUserIndex].UserPostalCode = userPostCode;
 
 								input_message = "Enter your new place of residence:";
 								error_message = "Please enter a valid place of residence";
-								usersList.Users[EditUserIndex].UserResidencyName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+								usersList.Users[EditUserIndex].UserResidencyName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 							}
 							else if (EditUserChoice == 6)
 							{
 								input_message = "Enter your new e-mail address:";
 								error_message = "Please enter a valid e-mail address";
-								usersList.Users[EditUserIndex].UserEmail = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
+								usersList.Users[EditUserIndex].UserEmail = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".", true);
 							}
 							else if (EditUserChoice == 7)
 							{
 								input_message = "Enter your new telephonenumber:";
 								error_message = "Please enter a valid telephonenumber";
-								usersList.Users[EditUserIndex].UserPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
+								usersList.Users[EditUserIndex].UserPhoneNumber = Functions.Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "", false);
 							}
 							else if (EditUserChoice == 8)
 							{
@@ -427,6 +427,7 @@ namespace ProjectB
 		}
 		public static void FoodEdit()
 		{
+			menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 			string userInput;
 			int EditFoodChoice = 0;
 			bool foodSuccess = false;
@@ -563,50 +564,6 @@ namespace ProjectB
 				}
 			}
 
-		}
-		public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
-		{
-			string userInput = "";
-			bool Succes = false;
-			while (!Succes)
-			{
-				Console.WriteLine(message);
-				userInput = Console.ReadLine();
-				if (string.IsNullOrEmpty(userInput)) { Succes = false; }
-				else if (!isanumber && userInput.Any(char.IsDigit)) { Succes = false; }
-				else if (isanumber && !userInput.Any(char.IsDigit)) { Succes = false; }
-				else if (lengthmatters && (userInput.Length < minlength || userInput.Length > maxlength)) { Succes = false; }
-				else if (specialcontain && !userInput.Contains(contains1) || !userInput.Contains(contains2)) { Succes = false; }
-				else if (userInput.Length < 5 && userInput.Contains(" ")) { Succes = false; }
-				else { Succes = true; }
-				if (Succes) { }
-				else
-				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
-				}
-			}
-			return userInput;
-		}
-		public static int Error_Exception_Int(string message, string errormessage, int minlength, int maxlength)
-		{
-			string userInput = "";
-			bool Succes = false;
-			while (!Succes)
-			{
-				Console.WriteLine(message);
-				userInput = Console.ReadLine();
-				Succes = int.TryParse(userInput, out int number);
-				if (number >= minlength && number <= maxlength) { Succes = true; }
-				else { Succes = false; }
-				if (Succes) { }
-				else
-				{
-					Functions.Write("Oh no, your input did not fit!", ConsoleColor.Red);
-					Console.WriteLine(errormessage);
-				}
-			}
-			return Int32.Parse(userInput);
 		}
 	}
 }
