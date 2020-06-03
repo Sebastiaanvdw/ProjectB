@@ -13,8 +13,14 @@ class MainProgram
 {
 	public static List<string> IDList = new List<string>();
 
+	private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
+	private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
 	private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
-	private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+	private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+
+	private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+	private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
 	public static int ID;
 	public static int LoginTries = 4;
@@ -34,6 +40,9 @@ class MainProgram
 	{
 		while (Mainpage)
 		{
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 			LoopCustomerLogin = true;
 			LoopEmployeeLogin = true;
 			LoopAdminLogin = true;

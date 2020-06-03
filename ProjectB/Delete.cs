@@ -11,13 +11,13 @@ namespace ProjectB
 	class Delete
 	{
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
-		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
-		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+		private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
-		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 		public static void Function()
 		{
 			bool LoopDeleteFunction = false;
@@ -39,6 +39,7 @@ namespace ProjectB
 
 		public static void DeleteRoom()
 		{
+			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			bool LoopDeleteRoom = true;
 			while (LoopDeleteRoom)
 			{
@@ -138,6 +139,7 @@ namespace ProjectB
 		}
 		public static void DeleteUser()
 		{
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			bool LoopDeleteUser = true;
 			while (LoopDeleteUser)
 			{
@@ -230,6 +232,7 @@ namespace ProjectB
 		}
 		public static void DeleteReservation()
 		{
+			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 			bool LoopDeleteReservation = true;
 			while (LoopDeleteReservation)
 			{
