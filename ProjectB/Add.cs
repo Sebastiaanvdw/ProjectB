@@ -196,7 +196,7 @@ namespace ProjectB
 
 				UserWriteToDatabase();
 				Console.Clear();
-				Console.Write("Would you like to add another user?");
+				Console.Write("Would you like to register another user?");
 				bool Return = util.CheckYN();
 				if (Return == true) { }
 				if (Return == false) { LoopAddUser = false; return; }

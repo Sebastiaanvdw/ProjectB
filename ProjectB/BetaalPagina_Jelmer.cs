@@ -37,9 +37,6 @@ namespace BetaalPagina_Jelmer
             Console.WriteLine("==============================" + "\n");
 
             Console.Write("Would you like to continue with your payment? Press ");
-            Functions.Write("y", ConsoleColor.Yellow);
-            Console.Write(" or ");
-            Functions.Write("n", ConsoleColor.Yellow);
             bool Return = util.CheckYN();
             if (Return == true)
             {
