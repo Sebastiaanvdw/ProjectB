@@ -24,13 +24,13 @@ namespace ProjectB
 			while (!LoopDeleteFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Delete an escape room\n2) Delete an user\n3) Delete a reservation\n4) Return to menu\n");
+				Console.WriteLine("=======================================\nWelcome to the Delete page.\n=======================================\n1) Delete an escape room\n2) Delete an user\n3) Delete a reservation\n4) Return to menu\n");
 				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { DeleteRoom(); }
 				else if (input.Key == ConsoleKey.D2) { DeleteUser(); }
-				else if (input.Key == ConsoleKey.D3) {  }
+				else if (input.Key == ConsoleKey.D3) { DeleteReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
 				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
 
@@ -137,7 +137,6 @@ namespace ProjectB
 				}
 			}
 		}
-
 		public static void DeleteUser()
 		{
 			bool LoopDeleteUser = true;
@@ -224,6 +223,112 @@ namespace ProjectB
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteUser = false; }
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
+		public static void DeleteReservation()
+		{
+			bool LoopDeleteReservation = true;
+			while (LoopDeleteReservation)
+			{
+				string userInput;
+				int DeleteIndex = 0;
+				bool DeleteInput = false;
+				bool ReservationChoiceSucces = false;
+				bool DeleteReservationSucces = false;
+				Console.Clear();
+				if (reservationsList.Reservations.Count <= 0)
+				{
+					Console.WriteLine("No reservations have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					Console.OutputEncoding = Encoding.UTF8;
+					Console.WriteLine("Reservation info:\n=======================================");
+					for (int i = 0; i < reservationsList.Reservations.Count; i++)
+					{
+						Console.WriteLine("Reservation Number:	" + reservationsList.Reservations[i].ReservationNumber);
+						Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
+						Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
+						Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
+						Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
+						Console.WriteLine("First name:	" + reservationsList.Reservations[i].FirstName);
+						Console.WriteLine("Last name:	" + reservationsList.Reservations[i].LastName);
+						Console.WriteLine("Address:	" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
+						Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
+						Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
+						Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
+						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+					}
+				}
+				Console.WriteLine("Enter the number of the reservation you want to delete");
+				while (!ReservationChoiceSucces)
+				{
+					userInput = Console.ReadLine();
+					if (userInput == "")
+					{
+						bool Return = util.ReturnToMenu();
+						if (Return == true) { return; }
+						if (Return == false) { }
+					}
+					ReservationChoiceSucces = int.TryParse(userInput, out int number);
+					if (number < 1 || number > reservationsList.Reservations.Count) { ReservationChoiceSucces = false; }
+					if (ReservationChoiceSucces) { DeleteIndex = number; }
+					else
+					{
+						Functions.Error();
+						Console.WriteLine("Please enter a number between 1 and " + reservationsList.Reservations.Count);
+					}
+				}
+				for (int i = 0; i < reservationsList.Reservations.Count; i++)
+				{
+					if (i == DeleteIndex - 1)
+					{
+						Console.Write("You are about to delete reservation: ");
+						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
+						Console.Write(", are you sure?");
+						while (!DeleteReservationSucces)
+						{
+							DeleteReservationSucces = util.CheckYN();
+							DeleteInput = DeleteReservationSucces;
+							DeleteReservationSucces = true;
+						}
+						if (DeleteInput == true)
+						{
+							reservationsList.Reservations.RemoveAt(DeleteIndex - 1);
+							Console.Write("\nThe reservation has ");
+							Functions.Write("succesfully ", ConsoleColor.Green);
+							Console.Write("been deleted\n");
+						}
+						if (DeleteInput == false)
+						{
+							Console.Write("\nThe reservation has ");
+							Functions.Write("not ", ConsoleColor.Red);
+							Console.Write("been deleted\n");
+						}
+						string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
+						File.WriteAllText(PathReservation, json);
+					}
+				}
+				if (reservationsList.Reservations.Count > 0)
+				{
+					for (int i = 0; i < reservationsList.Reservations.Count; i++)
+					{
+						reservationsList.Reservations[i].ReservationNumber = i + 1;
+					}
+				}
+				if (reservationsList.Reservations.Count > 0)
+				{
+					Console.Write("Would you like to choose another reservayion to delete?");
+					bool Return = util.CheckYN();
+					if (Return == true) { }
+					if (Return == false) { LoopDeleteReservation = false; }
 				}
 				else
 				{
