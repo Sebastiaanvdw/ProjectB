@@ -1,7 +1,7 @@
-﻿{
+{
   "users": [
     {
-      "userID": "0",
+      "userID": 1,
       "userName": "admin",
       "userPassword": "admin",
       "userFirstName": "Sebastiaan",
@@ -9,13 +9,13 @@
       "userPostalCode": "3192PA",
       "userStreetName": "Boomkor",
       "userHouseNumber": "49",
-      "userResidencyName": "Hoogvliet Rotterdam",
+      "userResidencyName": "Rotterdam",
       "userEmail": "asr.vanderweel@gmail.com",
       "userPhoneNumber": "0687654321",
-      "role": "admin",
+      "role": "admin"
     },
     {
-      "userID": "1",
+      "userID": 2,
       "userName": "employee",
       "userPassword": "employee",
       "userFirstName": "Chris",
@@ -26,7 +26,35 @@
       "userResidencyName": "Rotterdam",
       "userEmail": "c.M@gmail.com",
       "userPhoneNumber": "0612345678",
-      "role": "employee",
+      "role": "admin"
+    },
+    {
+      "userID": 3,
+      "userName": "user",
+      "userPassword": "user",
+      "userFirstName": "Wout",
+      "userLastName": "van der Meij",
+      "userPostalCode": "1234AB",
+      "userStreetName": "Hoogstraat",
+      "userHouseNumber": "1",
+      "userResidencyName": "Rotterdam",
+      "userEmail": "woutsietze2001@gmail.com",
+      "userPhoneNumber": "0622334455",
+      "role": "customer"
+    },
+    {
+      "userID": 4,
+      "userName": "test",
+      "userPassword": "test",
+      "userFirstName": "test",
+      "userLastName": "test",
+      "userPostalCode": "1234AB",
+      "userStreetName": "test",
+      "userHouseNumber": "1",
+      "userResidencyName": "test",
+      "userEmail": "@.",
+      "userPhoneNumber": "0612345678",
+      "role": "customer"
     }
   ]
 }

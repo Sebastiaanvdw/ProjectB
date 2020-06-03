@@ -7,6 +7,9 @@ namespace ProjectB
 {
     class Reservation
     {
+        [JsonProperty("reservationNumber")]
+        public int ReservationNumber { get; set; }
+
         [JsonProperty("uniqueID")]
         public string UniqueID { get; set; }
 

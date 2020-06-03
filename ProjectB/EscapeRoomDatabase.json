@@ -1,20 +1,10 @@
 {
   "escaperooms": [
     {
-      "roomNumber": 2,
-      "ageMinimum": 12,
+      "roomNumber": 1,
+      "ageMinimum": 14,
       "roomMinSize": 3,
       "roomMaxSize": 6,
-      "roomPrice": 22.5,
-      "roomTheme": "Fantasy",
-      "roomName": "Escape from Mordric Castle",
-      "roomDuration": "02:00:00"
-    },
-    {
-      "roomNumber": 1,
-      "ageMinimum": 16,
-      "roomMinSize": 2,
-      "roomMaxSize": 5,
       "roomPrice": 19.95,
       "roomTheme": "Horror",
       "roomName": "Dracula's Castle",
@@ -29,6 +19,16 @@
       "roomTheme": "Scifi",
       "roomName": "Star Wars",
       "roomDuration": "01:00:00"
+    },
+    {
+      "roomNumber": 3,
+      "ageMinimum": 12,
+      "roomMinSize": 2,
+      "roomMaxSize": 6,
+      "roomPrice": 15.0,
+      "roomTheme": "Aquatic",
+      "roomName": "Atlantis' Treasures",
+      "roomDuration": "02:00:00"
     }
   ]
 }

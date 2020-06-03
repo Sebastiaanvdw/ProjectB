@@ -19,16 +19,16 @@ namespace ProjectB
         public static bool PaymentSuccess = false;
         public static void payment()
         {
-            int roomChoice = Functions.RoomChoice;
+            int roomChoice = Add.RoomChoice;
             PaymentSuccess = false;
 
             Console.Clear();
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("==============================");
-            Console.WriteLine("Participants:            " + Functions.userParticipants);
+            Console.WriteLine("Participants:            " + Add.userParticipants);
             Console.WriteLine("==============================");
             Console.WriteLine("Room Price P.P.:         " + "€" + escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
-            Console.WriteLine("Total Participant Price: " + "€" + Functions.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
+            Console.WriteLine("Total Participant Price: " + "€" + Add.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
             Console.WriteLine("Food & Drinks:           " + "€" + Functions.userFoodArrangementPrice);
             Console.WriteLine("============================== +");
             Console.WriteLine("Arrangements:            " + "€" + Functions.userArrangementPrice);
@@ -37,9 +37,6 @@ namespace ProjectB
             Console.WriteLine("==============================" + "\n");
 
             Console.Write("Would you like to continue with your payment? Press ");
-            Functions.Write("y", ConsoleColor.Yellow);
-            Console.Write(" or ");
-            Functions.Write("n", ConsoleColor.Yellow);
             bool Return = util.CheckYN();
             if (Return == true)
             {
