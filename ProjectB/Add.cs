@@ -9,17 +9,20 @@ namespace ProjectB
 {
 	class Add
 	{
-		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID;
+		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID, RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
 		public static double roomPrice;
 		public static TimeSpan roomDuration;
-		public static string roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, postalCode, residencyName, email, phoneNumber;
+		public static string roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, userUniqueID, postalCode, residencyName, email, phoneNumber, resUserName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
-		
+
+		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+
 		public static void EscapeRoomWriteToDatabase()
 		{
 			EscapeRoom escapeRoom = new EscapeRoom
@@ -57,6 +60,33 @@ namespace ProjectB
 			usersList.Users.Add(user);
 			string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
 			File.WriteAllText(PathUser, json);
+		}
+		public static void ReservationWriteToDatabase()
+		{
+
+			Reservation reservation = new Reservation
+			{
+				ReservationNumber = reservationNumber,
+				UniqueID = userUniqueID,
+				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
+				FirstName = resUserName,
+				LastName = userLastName,
+				PostalCode = userPostcode,
+				StreetName = userStreet,
+				HouseNumber = userHouseNumber,
+				ResidencyName = userResidency,
+				Email = userEmail,
+				PhoneNumber = userPhoneNumber,
+				Participants = userParticipants,
+				FoodArrangement = userFoodString,
+				Arrangement = userArrangementString,
+				TotalPrice = Functions.userTotalPrice,
+				PaymentMethod = BetaalPagina.PaymentMethod
+			};
+
+			reservationsList.Reservations.Add(reservation);
+			string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
+			File.WriteAllText(PathReservation, json);
 		}
 		public static void Function()
 		{
@@ -200,6 +230,97 @@ namespace ProjectB
 				bool Return = util.CheckYN();
 				if (Return == true) { }
 				if (Return == false) { LoopAddUser = false; return; }
+			}
+		}
+		public static void AddReservation()
+		{
+			File.ReadAllText(PathReservation);
+			bool LoopAddReservation = true;
+			while (LoopAddReservation)
+			{
+				Console.Clear();
+				if (escapeRoomsList.EscapeRooms.Count < 1)
+				{
+					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					int NewIndex = reservationsList.Reservations.Count;
+					reservationNumber = NewIndex + 1;
+					Console.WriteLine("-----------------------------");
+					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
+					Console.WriteLine("-----------------------------");
+					Console.WriteLine("Please choose your room and fill in the information required:");
+					Console.WriteLine("-----------------------------");
+					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
+
+					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + ")"); }
+
+					input_message = "\nRoom:";
+					error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
+					RoomChoice = Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
+
+					input_message = "Fill in your first name(e.g. 'Piet'):";
+					error_message = "Please enter a valid name";
+					resUserName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", ""); //(message, errorMessage, is it a number, does the length matter, minimum length, maximum length
+
+					input_message = "Fill in your last name(e.g. 'de Koning'):";
+					error_message = "Please enter a valid name last";
+					userLastName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+
+					input_message = "Fill in the first four digits of your postcode:";
+					error_message = "Please enter a valid postcode";
+					userPostcode = Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
+
+					input_message = "Fill in the last two letters of your postcode: ";
+					error_message = "Please fill two letters";
+					userPostcode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
+
+					input_message = "Fill in your street(e.g. 'Tulpenlaan'):";
+					error_message = "Please enter a valid street name";
+					userStreet = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+
+					input_message = "Fill in your housenumber(e.g. '98'):";
+					error_message = "Please enter a valid housenumber";
+					userHouseNumber = Error_Exception_Int(input_message, error_message, 1, 2000).ToString();
+
+					input_message = "Fill in your place of residence(e.g. 'Pijnacker'):";
+					error_message = "Please enter a valid place of residence";
+					userResidency = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
+
+					input_message = "Fill in your email(e.g. 'voorbeeld@mail.com'):";
+					error_message = "Please enter a valid Email adress";
+					userEmail = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
+
+					input_message = "Fill in your telephonenumber(e.g. '0676319854'):";
+					error_message = "Please enter a valid Phonenumber";
+					userPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
+
+					input_message = "Fill in how many participants there will be (" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")";
+					error_message = "Please enter a valid number of participants";
+					userParticipants = Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize, escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize);
+
+					input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
+					error_message = "Please enter a number between 1 and 4";
+					userFoodArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
+
+					input_message = "Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):";
+					error_message = "Please enter a number between 1 and 4";
+					userArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
+
+					Console.Clear();
+					if (userArrangement != 0)
+					{
+						Functions.TotalPrice();
+						Functions.ReceiptFunction();
+						Console.Write("Would you like to add another reservation?");
+						bool Return = util.CheckYN();
+						if (Return == true) { }
+						if (Return == false) { LoopAddReservation = false; return; }
+					}
+				}
 			}
 		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber, bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)

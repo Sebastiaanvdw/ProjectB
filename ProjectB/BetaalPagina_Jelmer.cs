@@ -8,7 +8,7 @@ using Y_or_N;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace BetaalPagina_Jelmer
+namespace ProjectB
 {
     public class BetaalPagina
     {
@@ -19,16 +19,16 @@ namespace BetaalPagina_Jelmer
         public static bool PaymentSuccess = false;
         public static void payment()
         {
-            int roomChoice = Functions.RoomChoice;
+            int roomChoice = Add.RoomChoice;
             PaymentSuccess = false;
 
             Console.Clear();
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("==============================");
-            Console.WriteLine("Participants:            " + Functions.userParticipants);
+            Console.WriteLine("Participants:            " + Add.userParticipants);
             Console.WriteLine("==============================");
             Console.WriteLine("Room Price P.P.:         " + "€" + escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
-            Console.WriteLine("Total Participant Price: " + "€" + Functions.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
+            Console.WriteLine("Total Participant Price: " + "€" + Add.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
             Console.WriteLine("Food & Drinks:           " + "€" + Functions.userFoodArrangementPrice);
             Console.WriteLine("============================== +");
             Console.WriteLine("Arrangements:            " + "€" + Functions.userArrangementPrice);

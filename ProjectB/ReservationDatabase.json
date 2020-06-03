@@ -35,6 +35,24 @@
       "arrangement": "Work Outing",
       "totalPrice": 83.0,
       "paymentMethod": "iDEAL"
+    },
+    {
+      "reservationNumber": 3,
+      "uniqueID": "bfebcec7-1a01-4bae-b818-1766eb1d6a7a",
+      "resRoomName": "Atlantis' Treasures",
+      "firstName": "Jan",
+      "lastName": "Gert",
+      "postalCode": "1234AB",
+      "streetName": "Straat",
+      "houseNumber": "12",
+      "residencyName": "Rotterdam",
+      "email": "@.",
+      "phoneNumber": "0612345678",
+      "participants": 2,
+      "foodArrangement": "Food and Drinks",
+      "arrangement": "None",
+      "totalPrice": 46.0,
+      "paymentMethod": "iDEAL"
     }
   ]
 }

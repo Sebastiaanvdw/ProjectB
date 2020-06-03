@@ -3,7 +3,6 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using Y_or_N;
-using BetaalPagina_Jelmer;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -15,9 +14,6 @@ namespace ProjectB
 	{
 		public static string input_message, error_message;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
-		public static int RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
-		public static string userName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
-		public static string userUniqueID;
 		public static bool LoopContactFunction = false;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
@@ -31,33 +27,6 @@ namespace ProjectB
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
-		public static void ReservationWriteToDatabase()
-		{
-
-			Reservation reservation = new Reservation
-			{
-				ReservationNumber = reservationNumber,
-				UniqueID = userUniqueID,
-				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
-				FirstName = userName,
-				LastName = userLastName,
-				PostalCode = userPostcode,
-				StreetName = userStreet,
-				HouseNumber = userHouseNumber,
-				ResidencyName = userResidency,
-				Email = userEmail,
-				PhoneNumber = userPhoneNumber,
-				Participants = userParticipants,
-				FoodArrangement = userFoodString,
-				Arrangement = userArrangementString,
-				TotalPrice = userTotalPrice,
-				PaymentMethod = BetaalPagina.PaymentMethod
-			};
-
-			reservationsList.Reservations.Add(reservation);
-			string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
-			File.WriteAllText(PathReservation, json);
-		}
 		public static void Contact()
 		{
 			Console.Clear();
@@ -81,10 +50,10 @@ namespace ProjectB
 		{
 			while (true)
 			{
-				userUniqueID = Guid.NewGuid().ToString();
-				if (!MainProgram.IDList.Contains(userUniqueID))
+				Add.userUniqueID = Guid.NewGuid().ToString();
+				if (!MainProgram.IDList.Contains(Add.userUniqueID))
 				{
-					MainProgram.IDList.Add(userUniqueID);
+					MainProgram.IDList.Add(Add.userUniqueID);
 					break;
 				}
 			}
@@ -92,169 +61,78 @@ namespace ProjectB
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
 			Console.WriteLine("============================================");
-			Console.WriteLine("The following room has been chosen: " + escapeRoomsList.EscapeRooms[RoomChoice].RoomName);
-			Console.WriteLine("\nAmount of participants: " + userParticipants);
+			Console.WriteLine("The following room has been chosen: " + escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomName);
+			Console.WriteLine("\nAmount of participants: " + Add.userParticipants);
 			Console.WriteLine("============================================");
-			Console.WriteLine("Name:			" + userName + " " + userLastName);
-			Console.WriteLine("Street:			" + userStreet + " " + userHouseNumber);
-			Console.WriteLine("Postalcode:		" + userPostcode);
-			Console.WriteLine("Place of residence:	" + userResidency);
-			Console.WriteLine("Phonenumber:		" + userPhoneNumber);
-			Console.WriteLine("Food arrangement:	" + userFoodString);
-			Console.WriteLine("Arrangement:		" + userArrangementString);
+			Console.WriteLine("Name:			" + Add.resUserName + " " + Add.userLastName);
+			Console.WriteLine("Street:			" + Add.userStreet + " " + Add.userHouseNumber);
+			Console.WriteLine("Postalcode:		" + Add.userPostcode);
+			Console.WriteLine("Place of residence:	" + Add.userResidency);
+			Console.WriteLine("Phonenumber:		" + Add.userPhoneNumber);
+			Console.WriteLine("Food arrangement:	" + Add.userFoodString);
+			Console.WriteLine("Arrangement:		" + Add.userArrangementString);
 			Console.WriteLine("\nTotal Price:		€" + userTotalPrice);
 			Console.Write("\nClient UniqueID (Bring this to the desk): ");
-			Write(userUniqueID, ConsoleColor.Green);
-			Console.WriteLine("\nThis will be sent to the following email address: " + userEmail);
+			Write(Add.userUniqueID, ConsoleColor.Green);
+			Console.WriteLine("\nThis will be sent to the following email address: " + Add.userEmail);
 			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
 			Console.WriteLine("============================================");
 			Console.ReadKey(true);
 			BetaalPagina.payment();
 			if (BetaalPagina.PaymentSuccess == true) 
 			{
-				ReservationWriteToDatabase();
+				Add.ReservationWriteToDatabase();
 			}
 			userTotalPrice = 0;
-			userFoodArrangement = 0;
-			userFoodString = "";
-			userArrangementString = "";
-			userArrangement = 0;
-		}
-		public static void ReserveerFunction()
-		{
-			File.ReadAllText(PathReservation);
-			bool LoopAddReservation = true;
-			while (LoopAddReservation)
-			{
-				Console.Clear();
-				if (escapeRoomsList.EscapeRooms.Count < 1)
-				{
-					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
-					Console.ReadKey(true);
-					return;
-				}
-				else
-				{
-					int NewIndex = reservationsList.Reservations.Count;
-					reservationNumber = NewIndex + 1;
-					Console.WriteLine("-----------------------------");
-					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
-					Console.WriteLine("-----------------------------");
-					Console.WriteLine("Please choose your room and fill in the information required:");
-					Console.WriteLine("-----------------------------");
-					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
-
-					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + ")"); }
-
-					input_message = "\nRoom:";
-					error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
-					RoomChoice = Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
-
-					input_message = "Fill in your first name(e.g. 'Piet'):";
-					error_message = "Please enter a valid name";
-					userName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", ""); //(message, errorMessage, is it a number, does the length matter, minimum length, maximum length
-
-					input_message = "Fill in your last name(e.g. 'de Koning'):";
-					error_message = "Please enter a valid name last";
-					userLastName = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
-
-					input_message = "Fill in the first four digits of your postcode:";
-					error_message = "Please enter a valid postcode";
-					userPostcode = Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "");
-
-					input_message = "Fill in the last two letters of your postcode: ";
-					error_message = "Please fill two letters";
-					userPostcode += Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "").ToUpper();
-
-					input_message = "Fill in your street(e.g. 'Tulpenlaan'):";
-					error_message = "Please enter a valid street name";
-					userStreet = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
-
-					input_message = "Fill in your housenumber(e.g. '98'):";
-					error_message = "Please enter a valid housenumber";
-					userHouseNumber = Error_Exception_Int(input_message, error_message, 1, 2000).ToString();
-
-					input_message = "Fill in your place of residence(e.g. 'Pijnacker'):";
-					error_message = "Please enter a valid place of residence";
-					userResidency = Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "");
-
-					input_message = "Fill in your email(e.g. 'voorbeeld@mail.com'):";
-					error_message = "Please enter a valid Email adress";
-					userEmail = Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".");
-
-					input_message = "Fill in your telephonenumber(e.g. '0676319854'):";
-					error_message = "Please enter a valid Phonenumber";
-					userPhoneNumber = Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "");
-					
-					input_message = "Fill in how many participants there will be (" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")";
-					error_message = "Please enter a valid number of participants";
-					userParticipants = Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize, escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize);
-
-					input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
-					error_message = "Please enter a number between 1 and 4";
-					userFoodArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
-
-					input_message = "Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):";
-					error_message = "Please enter a number between 1 and 4";
-					userArrangement = Error_Exception_Int(input_message, error_message, 1, 4);
-
-					Console.Clear();
-					if (userArrangement != 0)
-					{
-						TotalPrice();
-						ReceiptFunction();
-						Console.Write("Would you like to add another reservation?");
-						bool Return = util.CheckYN();
-						if (Return == true) { }
-						if (Return == false) { LoopAddReservation = false; return; }
-					}
-				}
-			}
+			Add.userFoodArrangement = 0;
+			Add.userFoodString = "";
+			Add.userArrangementString = "";
+			Add.userArrangement = 0;
 		}
 		public static void TotalPrice()
 		{
-			if (userFoodArrangement == 1) //none
+			if (Add.userFoodArrangement == 1) //none
 			{
-				userFoodString = "None";
+				Add.userFoodString = "None";
 				userFoodArrangementPrice = 0;
 			}
-			if (userFoodArrangement == 2) //just food
+			if (Add.userFoodArrangement == 2) //just food
 			{
-				userFoodString = "Just Food";
-				userFoodArrangementPrice = menusList.Menus[0].FoodPrice * userParticipants;
+				Add.userFoodString = "Just Food";
+				userFoodArrangementPrice = menusList.Menus[0].FoodPrice * Add.userParticipants;
 			}
-			if (userFoodArrangement == 3) //just drinks
+			if (Add.userFoodArrangement == 3) //just drinks
 			{
-				userFoodString = "Just Drinks";
-				userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * userParticipants;
+				Add.userFoodString = "Just Drinks";
+				userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * Add.userParticipants;
 			}
-			if (userFoodArrangement == 4) //food and drinks
+			if (Add.userFoodArrangement == 4) //food and drinks
 			{
-				userFoodString = "Food and Drinks";
-				userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * userParticipants;
+				Add.userFoodString = "Food and Drinks";
+				userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * Add.userParticipants;
 			}
 
-			if (userArrangement == 1) //none
+			if (Add.userArrangement == 1) //none
 			{
-				userArrangementString = "None";
+				Add.userArrangementString = "None";
 				userArrangementPrice = 0;
 			}
-			if (userArrangement == 2) //kids party
+			if (Add.userArrangement == 2) //kids party
 			{
-				userArrangementString = "Kids Party";
-				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.4;
+				Add.userArrangementString = "Kids Party";
+				userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.4;
 			}
-			if (userArrangement == 3) //ladies night
+			if (Add.userArrangement == 3) //ladies night
 			{
-				userArrangementString = "Ladies Night";
-				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.5;
+				Add.userArrangementString = "Ladies Night";
+				userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.5;
 			}
-			if (userArrangement == 4) //work outing
+			if (Add.userArrangement == 4) //work outing
 			{
-				userArrangementString = "Work Outing";
-				userArrangementPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * 1.3;
+				Add.userArrangementString = "Work Outing";
+				userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.3;
 			}
-			userTotalPrice = escapeRoomsList.EscapeRooms[RoomChoice].RoomPrice * userParticipants + userFoodArrangementPrice - userArrangementPrice;
+			userTotalPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * Add.userParticipants + userFoodArrangementPrice - userArrangementPrice;
 			
 		}
 		public static void CustomerOverview()
