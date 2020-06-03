@@ -17,7 +17,7 @@ namespace ProjectB
 
         public static string PaymentMethod = "";
         public static bool PaymentSuccess = false;
-        public static void payment()
+        public static void Payment()
         {
             int roomChoice = Add.RoomChoice;
             PaymentSuccess = false;
@@ -37,7 +37,7 @@ namespace ProjectB
             Console.WriteLine("==============================" + "\n");
 
             Console.Write("Would you like to continue with your payment?");
-            bool Return = util.CheckYN();
+            bool Return = Util.CheckYN();
             if (Return == true)
             {
                 Console.Clear();

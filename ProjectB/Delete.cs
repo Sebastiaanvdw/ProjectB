@@ -75,7 +75,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -96,7 +96,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!Deleteroomsucces)
 						{
-							Deleteroomsucces = util.CheckYN();
+							Deleteroomsucces = Util.CheckYN();
 							DeleteInput = Deleteroomsucces;
 							Deleteroomsucces = true;
 						}
@@ -127,7 +127,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count > 0)
 				{
 					Console.Write("Would you like to choose another room to delete?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteRoom = false; }
 				}
@@ -168,7 +168,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -189,7 +189,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!DeleteUserSucces)
 						{
-							DeleteUserSucces = util.CheckYN();
+							DeleteUserSucces = Util.CheckYN();
 							DeleteInput = DeleteUserSucces;
 							DeleteUserSucces = true;
 						}
@@ -220,7 +220,7 @@ namespace ProjectB
 				if (usersList.Users.Count > 0)
 				{
 					Console.Write("Would you like to delete another user?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteUser = false; }
 				}
@@ -274,7 +274,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -295,7 +295,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!DeleteReservationSucces)
 						{
-							DeleteReservationSucces = util.CheckYN();
+							DeleteReservationSucces = Util.CheckYN();
 							DeleteInput = DeleteReservationSucces;
 							DeleteReservationSucces = true;
 						}
@@ -326,7 +326,7 @@ namespace ProjectB
 				if (reservationsList.Reservations.Count > 0)
 				{
 					Console.Write("Would you like to delete another reservation?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteReservation = false; }
 				}

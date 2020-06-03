@@ -76,7 +76,7 @@ namespace ProjectB
 			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
 			Console.WriteLine("============================================");
 			Console.ReadKey(true);
-			BetaalPagina.payment();
+			BetaalPagina.Payment();
 			if (BetaalPagina.PaymentSuccess == true) 
 			{
 				Add.ReservationWriteToDatabase();
@@ -281,7 +281,7 @@ namespace ProjectB
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
 		}
-		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2)
+		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2, bool isastringbutcancontainnumbers)
 		{
 			string userInput = "";
 			bool Succes = false;

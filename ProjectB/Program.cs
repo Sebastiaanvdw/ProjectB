@@ -21,7 +21,7 @@ class MainProgram
 
 	private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
 	private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
-
+	
 	public static int ID;
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -47,7 +47,7 @@ class MainProgram
 			LoopEmployeeLogin = true;
 			LoopAdminLogin = true;
 			Console.Clear();
-			util.Log("");
+			Util.Log("");
 			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Register\n5) Exit Application\n=======================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
 			Functions.Write("\nYour input - ", ConsoleColor.Yellow);
@@ -123,7 +123,7 @@ class MainProgram
 			}
 			else if (UserNameLogin == "" && UserPassWordLogin == "")
 			{
-				bool Return = util.ReturnToMenu();
+				bool Return = Util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}
@@ -167,7 +167,7 @@ class MainProgram
 			}
 			else if (EmployeeNameLogin == "" && EmployeePassWordLogin == "")
 			{
-				bool Return = util.ReturnToMenu();
+				bool Return = Util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}

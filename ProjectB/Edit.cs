@@ -243,7 +243,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count > 1)
 				{
 					Console.Write("Would you like to edit another room?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { File.ReadAllText(PathEscapeRoom); }
 					if (Return == false) { File.ReadAllText(PathEscapeRoom); LoopEditRoom = false; }
 				}
@@ -410,7 +410,7 @@ namespace ProjectB
 				if (usersList.Users.Count > 1)
 				{
 					Console.Write("Would you like to edit another user?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { File.ReadAllText(PathUser); }
 					if (Return == false) { File.ReadAllText(PathUser); LoopEditUser = false;}
 				}
@@ -445,8 +445,8 @@ namespace ProjectB
 				if (userInput == "return")
 				{
 					Console.Write("Would you like to return to the menu");
-					bool Return = util.CheckYN();
-					if (Return == true) { menuEditSuccess = true; return; }
+					bool Return = Util.CheckYN();
+					if (Return == true) { return; }
 					if (Return == false) { Console.WriteLine("");}
 				}
 				else
@@ -469,8 +469,8 @@ namespace ProjectB
 					if (userInput == "return")
 					{
 						Console.Write("Would you like to return to the menu?");
-						bool Return = util.CheckYN();
-						if (Return == true) { drinksSuccess = true; return; }
+						bool Return = Util.CheckYN();
+						if (Return == true) { return; }
 						if (Return == false) { Console.WriteLine(""); }
 					}
 					else
@@ -485,7 +485,7 @@ namespace ProjectB
 							Functions.ErrorMessage("please use digits only");
 						}
 						Console.Write("Would you like to edit another menu item?");
-						bool Return = util.CheckYN();
+						bool Return = Util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
 					}
@@ -501,8 +501,8 @@ namespace ProjectB
 					if (userInput == "return")
 					{
 						Console.Write("Would you like to return to the menu?");
-						bool Return = util.CheckYN();
-						if (Return == true) { foodSuccess = true; return; }
+						bool Return = Util.CheckYN();
+						if (Return == true) { return; }
 						if (Return == false) { Console.WriteLine("");}
 					}
 					else
@@ -517,7 +517,7 @@ namespace ProjectB
 							Functions.ErrorMessage("Please use digits only");
 						}
 						Console.Write("Would you like to edit another menu item?");
-						bool Return = util.CheckYN();
+						bool Return = Util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
 					}
@@ -532,8 +532,8 @@ namespace ProjectB
 					if (userInput == "return")
 					{
 						Console.Write("Would you like to return to the menu?");
-						bool Return = util.CheckYN();
-						if (Return == true) { foodAndDrinksSuccess = true; return; }
+						bool Return = Util.CheckYN();
+						if (Return == true) { return; }
 						if (Return == false) { Console.WriteLine(""); }
 					}
 					else
@@ -548,7 +548,7 @@ namespace ProjectB
 							Functions.ErrorMessage("Please use digits only");
 						}
 						Console.Write("Would you like to edit another menu item?");
-						bool Return = util.CheckYN();
+						bool Return = Util.CheckYN();
 						if (Return == true) { FoodEdit(); }
 						if (Return == false) { return; }
 					}

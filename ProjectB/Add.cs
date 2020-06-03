@@ -162,9 +162,9 @@ namespace ProjectB
 				EscapeRoomWriteToDatabase();
 				Console.Clear();
 				Console.Write("Would you like to add another escape room?");
-				bool Return = util.CheckYN();
+				bool Return = Util.CheckYN();
 				if (Return == true) { }
-				if (Return == false) { LoopAddEscapeRoom = false; return; }
+				if (Return == false) { return; }
 			}
 		}
 		public static void AddUser()
@@ -231,9 +231,9 @@ namespace ProjectB
 				Console.WriteLine("Your username: " + userName);
 				Console.WriteLine("Your password: " + password);
 				Console.Write("Would you like to register another user?");
-				bool Return = util.CheckYN();
+				bool Return = Util.CheckYN();
 				if (Return == true) { }
-				if (Return == false) { LoopAddUser = false; return; }
+				if (Return == false) { return; }
 			}
 		}
 		public static void AddReservation()
@@ -320,9 +320,9 @@ namespace ProjectB
 						Functions.TotalPrice();
 						Functions.ReceiptFunction();
 						Console.Write("Would you like to add another reservation?");
-						bool Return = util.CheckYN();
+						bool Return = Util.CheckYN();
 						if (Return == true) { }
-						if (Return == false) { LoopAddReservation = false; return; }
+						if (Return == false) { return; }
 					}
 				}
 			}
