@@ -12,7 +12,32 @@ namespace ProjectB
 	{
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
+		private static readonly JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+
+		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
+		private static readonly JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 		public static void Function()
+		{
+			bool LoopDeleteFunction = false;
+			while (!LoopDeleteFunction)
+			{
+				Console.Clear();
+				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Delete an escape room\n2) Delete an user\n3) Delete a reservation\n4) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Functions.Write("Your input - ", ConsoleColor.Yellow);
+				var input = Console.ReadKey();
+				if (input.Key == ConsoleKey.D1) { DeleteRoom(); }
+				else if (input.Key == ConsoleKey.D2) { DeleteUser(); }
+				else if (input.Key == ConsoleKey.D3) {  }
+				else if (input.Key == ConsoleKey.D4) { return; }
+				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+
+			}
+		}
+
+		public static void DeleteRoom()
 		{
 			bool LoopDeleteRoom = true;
 			while (LoopDeleteRoom)
@@ -31,9 +56,7 @@ namespace ProjectB
 				}
 				else
 				{
-					string json = JsonConvert.SerializeObject(escapeRoomsList, Formatting.Indented);
 					Console.Clear();
-					Console.WriteLine(json);
 					Console.OutputEncoding = Encoding.UTF8;
 					Console.WriteLine("Room info:\n==============================================================================");
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
@@ -107,6 +130,100 @@ namespace ProjectB
 					bool Return = util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteRoom = false; }
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
+
+		public static void DeleteUser()
+		{
+			bool LoopDeleteUser = true;
+			while (LoopDeleteUser)
+			{
+				string userInput;
+				int DeleteIndex = 0;
+				bool DeleteInput = false;
+				bool UserChoiceSucces = false;
+				bool DeleteUserSucces = false;
+				Console.Clear();
+				Console.OutputEncoding = Encoding.UTF8;
+				Console.WriteLine("User info:\n=======================================");
+				for (int i = 0; i < usersList.Users.Count; i++)
+				{
+					Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
+					Console.WriteLine("Username:	" + usersList.Users[i].UserName);
+					Console.WriteLine("First name:	" + usersList.Users[i].UserFirstName);
+					Console.WriteLine("Last name:	" + usersList.Users[i].UserLastName);
+					Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
+					Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
+					Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
+					Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+				}
+				Console.WriteLine("Enter the userID of the user you want to delete");
+				while (!UserChoiceSucces)
+				{
+					userInput = Console.ReadLine();
+					if (userInput == "")
+					{
+						bool Return = util.ReturnToMenu();
+						if (Return == true) { return; }
+						if (Return == false) { }
+					}
+					UserChoiceSucces = int.TryParse(userInput, out int number);
+					if (number < 1 || number > usersList.Users.Count) { UserChoiceSucces = false; }
+					if (UserChoiceSucces) { DeleteIndex = number; }
+					else
+					{
+						Functions.Error();
+						Console.WriteLine("Please enter a number between 1 and " + usersList.Users.Count);
+					}
+				}
+				for (int i = 0; i < usersList.Users.Count; i++)
+				{
+					if (i == DeleteIndex - 1)
+					{
+						Console.Write("You are about to delete user: ");
+						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
+						Console.Write(", are you sure?");
+						while (!DeleteUserSucces)
+						{
+							DeleteUserSucces = util.CheckYN();
+							DeleteInput = DeleteUserSucces;
+							DeleteUserSucces = true;
+						}
+						if (DeleteInput == true)
+						{
+							usersList.Users.RemoveAt(DeleteIndex - 1);
+							Console.Write("\nThe user has ");
+							Functions.Write("succesfully ", ConsoleColor.Green);
+							Console.Write("been deleted\n");
+						}
+						if (DeleteInput == false)
+						{
+							Console.Write("\nThe user has ");
+							Functions.Write("not ", ConsoleColor.Red);
+							Console.Write("been deleted\n");
+						}
+						string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
+						File.WriteAllText(PathUser, json);
+					}
+				}
+				if (usersList.Users.Count > 0)
+				{
+					for (int i = 0; i < usersList.Users.Count; i++)
+					{
+						usersList.Users[i].UserID = i + 1;
+					}
+				}
+				if (usersList.Users.Count > 0)
+				{
+					Console.Write("Would you like to choose another user to delete?");
+					bool Return = util.CheckYN();
+					if (Return == true) { }
+					if (Return == false) { LoopDeleteUser = false; }
 				}
 				else
 				{

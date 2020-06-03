@@ -288,12 +288,6 @@ namespace ProjectB
 						Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
 					}
 				}
-
-				if (usersList.Users.Count == 0)
-				{
-					return;
-				}
-
 				Console.WriteLine("Choose the user that you want to edit(1-" + usersList.Users.Count + ")");
 				while (!UserIndexSucces)
 				{
@@ -307,7 +301,6 @@ namespace ProjectB
 						Console.WriteLine("Please enter a number between 1 and " + usersList.Users.Count);
 					}
 				}
-
 				for (int i = 0; i < usersList.Users.Count; i++)
 				{
 					if (i == EditUserIndex)

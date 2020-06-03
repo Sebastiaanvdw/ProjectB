@@ -135,7 +135,7 @@ namespace ProjectB
 				}
 				else
 				{
-					int NewIndex = reservationsList.Reservations.Count - 1;
+					int NewIndex = reservationsList.Reservations.Count;
 					reservationNumber = NewIndex + 1;
 					Console.WriteLine("-----------------------------");
 					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???

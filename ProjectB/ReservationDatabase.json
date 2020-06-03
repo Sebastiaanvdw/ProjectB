@@ -33,7 +33,25 @@
       "participants": 4,
       "foodArrangement": "Food and Drinks",
       "arrangement": "Work Outing",
-      "totalPrice": 83.00,
+      "totalPrice": 83.0,
+      "paymentMethod": "iDEAL"
+    },
+    {
+      "reservationNumber": 3,
+      "uniqueID": "8ef0d1c0-9299-40dc-99db-88f3902f5114",
+      "resRoomName": "Atlantis' Treasures",
+      "firstName": "Kees",
+      "lastName": "Piet",
+      "postalCode": "1234AB",
+      "streetName": "Straat",
+      "houseNumber": "1",
+      "residencyName": "Stad",
+      "email": "@.",
+      "phoneNumber": "0612345678",
+      "participants": 2,
+      "foodArrangement": "Food and Drinks",
+      "arrangement": "None",
+      "totalPrice": 46.0,
       "paymentMethod": "iDEAL"
     }
   ]
