@@ -46,15 +46,15 @@
       "userID": 4,
       "userName": "test",
       "userPassword": "test",
-      "userFirstName": "Henk",
-      "userLastName": "Pieter",
-      "userPostalCode": "1234TY",
-      "userStreetName": "Longstreet",
-      "userHouseNumber": "34",
-      "userResidencyName": "Rotterdam",
-      "userEmail": "test@test.nl",
-      "userPhoneNumber": "0622334455",
-      "role": "employee"
+      "userFirstName": "test",
+      "userLastName": "test",
+      "userPostalCode": "1234AB",
+      "userStreetName": "test",
+      "userHouseNumber": "1",
+      "userResidencyName": "test",
+      "userEmail": "@.",
+      "userPhoneNumber": "0612345678",
+      "role": "customer"
     }
   ]
 }

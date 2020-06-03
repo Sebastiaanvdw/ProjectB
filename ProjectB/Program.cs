@@ -72,7 +72,7 @@ class MainProgram
 					AdminMenu();
 					LoopAdminLogin = false;
 				}
-				else if (ID == usersList.Users[ID].UserID && AdminNameLogin == usersList.Users[ID].UserName && AdminPassWordLogin == usersList.Users[ID].UserPassword && usersList.Users[ID].UserRole != "admin")
+				else if (ID == usersList.Users[ID - 1].UserID && AdminNameLogin == usersList.Users[ID - 1].UserName && AdminPassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "admin")
 				{
 					LoginTries -= 1;
 					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================================================\nPress any key to continue...\n");
@@ -213,6 +213,7 @@ class MainProgram
 	{
 		while (AdminSuccess == 1)
 		{
+			File.ReadAllText(PathUser);
 			Console.Clear();
 			Console.WriteLine("Welcome to the admin menu!\n=======================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);

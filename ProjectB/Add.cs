@@ -227,6 +227,9 @@ namespace ProjectB
 
 				UserWriteToDatabase();
 				Console.Clear();
+				Console.WriteLine("Your userID: " + userID );
+				Console.WriteLine("Your username: " + userName);
+				Console.WriteLine("Your password: " + password);
 				Console.Write("Would you like to register another user?");
 				bool Return = util.CheckYN();
 				if (Return == true) { }
