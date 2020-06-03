@@ -9,10 +9,10 @@ namespace ProjectB
 {
 	class Add
 	{
-		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize;
+		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID, RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
 		public static double roomPrice;
 		public static TimeSpan roomDuration;
-		public static string roomTheme, roomName;
+		public static string roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, userUniqueID, postalCode, residencyName, email, phoneNumber, resUserName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static readonly JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));

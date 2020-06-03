@@ -8,7 +8,7 @@ using Y_or_N;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace BetaalPagina_Jelmer
+namespace ProjectB
 {
     public class BetaalPagina
     {

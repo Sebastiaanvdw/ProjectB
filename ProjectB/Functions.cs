@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Y_or_N;
 using System.IO;
 using Newtonsoft.Json;
+using BetaalPagina_Jelmer;
 
 
 
@@ -12,7 +13,6 @@ namespace ProjectB
 {
 	class Functions
 	{
-		public static string input_message, error_message;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
 		public static bool LoopContactFunction = false;
 
