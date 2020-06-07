@@ -4,7 +4,7 @@
       "userID": 1,
       "userName": "admin",
       "userPassword": "admin",
-      "userFirstName": "Sebastiaan",
+      "userFirstName": "ASR",
       "userLastName": "van der Weel",
       "userPostalCode": "3192PA",
       "userStreetName": "Boomkor",
@@ -40,20 +40,6 @@
       "userResidencyName": "Rotterdam",
       "userEmail": "woutsietze2001@gmail.com",
       "userPhoneNumber": "0622334455",
-      "role": "customer"
-    },
-    {
-      "userID": 4,
-      "userName": "test",
-      "userPassword": "test",
-      "userFirstName": "test",
-      "userLastName": "test",
-      "userPostalCode": "1234AB",
-      "userStreetName": "test",
-      "userHouseNumber": "1",
-      "userResidencyName": "test",
-      "userEmail": "@.",
-      "userPhoneNumber": "0612345678",
       "role": "customer"
     }
   ]
