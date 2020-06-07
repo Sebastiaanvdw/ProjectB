@@ -101,7 +101,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { AddUser();  }
 				else if (input.Key == ConsoleKey.D3) { AddReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 			}
 		}
 		public static void AddEscapeRoom()
@@ -120,7 +120,7 @@ namespace ProjectB
 				Console.WriteLine("Please fill in the information required for an escape room:");
 				Console.WriteLine("-----------------------------");
 
-				input_message = "Enter the minimum age for the escape room(between 12 - 100):";
+				input_message = "Enter the minimum age for the escape room (between 12 - 100):";
 				error_message = "Please enter a number between 12 and 100.";
 				ageMinimum = Functions.Error_Exception_Int(input_message, error_message, 12, 100);
 
@@ -128,7 +128,7 @@ namespace ProjectB
 				error_message = "Please enter a number between 2-5";
 				roomMinSize = Functions.Error_Exception_Int(input_message, error_message, 2, 5);
 
-				input_message = "Enter the maximum amount of players for the escape room (between" + (roomMinSize + 1) + "-6):";
+				input_message = "Enter the maximum amount of players for the escape room (between " + (roomMinSize + 1) + "-6):";
 				error_message = "Please enter a valid number inbetween " + (roomMinSize + 1) + "-6";
 				roomMaxSize = Functions.Error_Exception_Int(input_message, error_message, (roomMinSize + 1), 6);
 
@@ -142,7 +142,7 @@ namespace ProjectB
 
 				while (!durationSuccess)
 				{
-					Console.WriteLine("Enter the duration for the escape room in hours(e.g. '2' or '1,5'):");
+					Console.WriteLine("Enter the duration for the escape room in hours (e.g. '2' or '1,5'):");
 					userInput = Console.ReadLine();
 					durationSuccess = double.TryParse(userInput, out double number);
 					if (number < 0 || number > 5) { durationSuccess = false; }
@@ -245,8 +245,8 @@ namespace ProjectB
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count < 1)
 				{
-					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
-					Functions.ETC();
+					Console.WriteLine("You cannot create a room just yet! You will be returned to the menu.");//oude string = "No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu."
+					Functions.ATC();
 					return;
 				}
 				else

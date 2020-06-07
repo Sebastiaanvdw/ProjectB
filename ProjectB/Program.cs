@@ -85,13 +85,13 @@ class MainProgram
 				{
 					LoginTries -= 1;
 					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================================================\n");
-					Functions.ETC();
+					Functions.ATC();
 				}
 				else
 				{
 					LoginTries -= 1;
 					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n=======================================================================\n");
-					Functions.ETC();
+					Functions.ATC();
 				}
 			}
 			else
@@ -130,7 +130,7 @@ class MainProgram
 			else
 			{
 				Console.WriteLine("Wrong login credentials, please try again.");
-				Functions.ETC();
+				Functions.ATC();
 			}
 		}
 	}
@@ -163,7 +163,7 @@ class MainProgram
 			else if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "employee" || usersList.Users[ID - 1].UserRole != "admin")
 			{
 				Console.WriteLine("You are not an employee, nice try.... Try again.\n===================================================================================\n");
-				Functions.ETC();
+				Functions.ATC();
 			}
 			else if (EmployeeNameLogin == "" && EmployeePassWordLogin == "")
 			{
@@ -174,7 +174,7 @@ class MainProgram
 			else
 			{
 				Console.WriteLine("These are not the correct login credentials! Try again.\n===================================================================================");
-				Functions.ETC();
+				Functions.ATC();
 			}
 		}
 	}
@@ -195,7 +195,7 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D4) { Add.AddReservation(); }
 			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1; }
-			else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
+			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
 	public static void EmployeeMenu()
@@ -215,7 +215,7 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D3) { Functions.ShowFunction(); }
 			else if (input.Key == ConsoleKey.D4){ Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D5) { EmployeeSuccess -= 1;}
-			else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
+			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
 	public static void AdminMenu()

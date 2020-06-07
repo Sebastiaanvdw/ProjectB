@@ -51,7 +51,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Functions.ETC();
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D2)
                 {
@@ -59,7 +59,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Functions.ETC();
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D3)
                 {
@@ -67,7 +67,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Functions.ETC(); 
+                    Functions.ATC(); 
                 }
                 else if (input.Key == ConsoleKey.D4)
                 {
@@ -75,13 +75,13 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Functions.ETC();
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D5)
                 {
                     Console.Clear();
                     Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                    Functions.ETC();
+                    Functions.ATC();
                     return;
                 }
             }
@@ -89,7 +89,7 @@ namespace ProjectB
             {
                 Console.Clear();
                 Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                Functions.ETC();
+                Functions.ATC();
                 return;
             }
         }

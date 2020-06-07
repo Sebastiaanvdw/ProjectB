@@ -38,7 +38,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { EditUser(); }
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ETC();}
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC();}
 				
 			}
 		}
@@ -57,7 +57,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
 					Console.WriteLine("No rooms have been created yet, you will be returned to the menu");
-					Functions.ETC();
+					Functions.ATC();
 					return;
 				}
 				else
