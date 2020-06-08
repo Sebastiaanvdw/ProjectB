@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProjectB": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\2003c\\source\\repos\\ProjectB\\ProjectB\\bin\\Debug\\netcoreapp3.1\\ProjectB.exe"
+    }
+  }
+}
