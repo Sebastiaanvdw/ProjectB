@@ -41,6 +41,34 @@
       "userEmail": "woutsietze2001@gmail.com",
       "userPhoneNumber": "0622334455",
       "role": "customer"
+    },
+    {
+      "userID": 4,
+      "userName": "test",
+      "userPassword": "test",
+      "userFirstName": "test",
+      "userLastName": "test",
+      "userPostalCode": "1231ER",
+      "userStreetName": "tes",
+      "userHouseNumber": "2",
+      "userResidencyName": "sare",
+      "userEmail": "@.",
+      "userPhoneNumber": "2304324082",
+      "role": "customer"
+    },
+    {
+      "userID": 5,
+      "userName": "aesdf",
+      "userPassword": "asdf",
+      "userFirstName": "asdf",
+      "userLastName": "asdf",
+      "userPostalCode": "3213AS",
+      "userStreetName": "asdf",
+      "userHouseNumber": "12",
+      "userResidencyName": "af",
+      "userEmail": "@.",
+      "userPhoneNumber": "1234567890",
+      "role": "customer"
     }
   ]
 }
