@@ -17,7 +17,7 @@ namespace ProjectB
 
         public static string PaymentMethod = "";
         public static bool PaymentSuccess = false;
-        public static void payment()
+        public static void Payment()
         {
             int roomChoice = Add.RoomChoice;
             PaymentSuccess = false;
@@ -36,8 +36,8 @@ namespace ProjectB
             Console.WriteLine("SubTotal:                " + "€" + Functions.userTotalPrice);
             Console.WriteLine("==============================" + "\n");
 
-            Console.Write("Would you like to continue with your payment? Press ");
-            bool Return = util.CheckYN();
+            Console.Write("Would you like to continue with your payment?");
+            bool Return = Util.CheckYN();
             if (Return == true)
             {
                 Console.Clear();
@@ -51,7 +51,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D2)
                 {
@@ -59,7 +59,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D3)
                 {
@@ -67,7 +67,7 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ATC(); 
                 }
                 else if (input.Key == ConsoleKey.D4)
                 {
@@ -75,13 +75,13 @@ namespace ProjectB
                     Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
                     Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
                     PaymentSuccess = true;
-                    Console.ReadKey(true);
+                    Functions.ATC();
                 }
                 else if (input.Key == ConsoleKey.D5)
                 {
                     Console.Clear();
                     Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                    Console.ReadKey(true);
+                    Functions.ATC();
                     return;
                 }
             }
@@ -89,7 +89,7 @@ namespace ProjectB
             {
                 Console.Clear();
                 Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
-                Console.ReadKey(true);
+                Functions.ATC();
                 return;
             }
         }

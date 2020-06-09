@@ -21,7 +21,7 @@ class MainProgram
 
 	private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
 	private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
-
+	
 	public static int ID;
 	public static int LoginTries = 4;
 	public static int AdminSuccess = 0;
@@ -47,7 +47,7 @@ class MainProgram
 			LoopEmployeeLogin = true;
 			LoopAdminLogin = true;
 			Console.Clear();
-			util.Log("");
+			Util.Log("");
 			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Register\n5) Exit Application\n=======================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
 			Functions.Write("\nYour input - ", ConsoleColor.Yellow);
@@ -84,14 +84,14 @@ class MainProgram
 				else if (ID == usersList.Users[ID - 1].UserID && AdminNameLogin == usersList.Users[ID - 1].UserName && AdminPassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "admin")
 				{
 					LoginTries -= 1;
-					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================================================\nPress any key to continue...\n");
-					Console.ReadKey(true);
+					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================================================\n");
+					Functions.ATC();
 				}
 				else
 				{
 					LoginTries -= 1;
-					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n=======================================================================\nPress any key to continue...\n");
-					Console.ReadKey(true);
+					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n=======================================================================\n");
+					Functions.ATC();
 				}
 			}
 			else
@@ -123,14 +123,14 @@ class MainProgram
 			}
 			else if (UserNameLogin == "" && UserPassWordLogin == "")
 			{
-				bool Return = util.ReturnToMenu();
+				bool Return = Util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}
 			else
 			{
-				Console.WriteLine("Wrong login credentials, press any key and try again.");
-				Console.ReadKey(true);
+				Console.WriteLine("Wrong login credentials, please try again.");
+				Functions.ATC();
 			}
 		}
 	}
@@ -162,19 +162,19 @@ class MainProgram
 			}
 			else if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "employee" || usersList.Users[ID - 1].UserRole != "admin")
 			{
-				Console.WriteLine("You are not an employee, nice try.... Try again.\n===================================================================================\nPress any key to continue...\n");
-				Console.ReadKey(true);
+				Console.WriteLine("You are not an employee, nice try.... Try again.\n===================================================================================\n");
+				Functions.ATC();
 			}
 			else if (EmployeeNameLogin == "" && EmployeePassWordLogin == "")
 			{
-				bool Return = util.ReturnToMenu();
+				bool Return = Util.ReturnToMenu();
 				if (Return == true) { return; }
 				if (Return == false) { }
 			}
 			else
 			{
-				Console.WriteLine("These are not the correct login credentials! Try again.\n===================================================================================\nPress any key to continue...\n");
-				Console.ReadKey(true);
+				Console.WriteLine("These are not the correct login credentials! Try again.\n===================================================================================");
+				Functions.ATC();
 			}
 		}
 	}
@@ -194,9 +194,9 @@ class MainProgram
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(); }
 			else if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
-			else if (input.Key == ConsoleKey.D4) { Add.AddReservation();  }
-			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1;}
-			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+			else if (input.Key == ConsoleKey.D4) { Add.AddReservation(); }
+			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1; }
+			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
 	public static void EmployeeMenu()
@@ -217,7 +217,7 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D3) { Functions.ShowFunction(); }
 			else if (input.Key == ConsoleKey.D4){ Functions.ContactFunction(); }
 			else if (input.Key == ConsoleKey.D5) { EmployeeSuccess -= 1;}
-			else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
 	public static void AdminMenu()
@@ -244,23 +244,5 @@ class MainProgram
 			else if (input.Key == ConsoleKey.D9) { LoginTries = 4; AdminSuccess -= 1;}
 			else { adminFalse = true;}
 		}
-	}
-	public static void WriteLine(object obj, ConsoleColor? color = null)
-	{
-		if (color != null)
-			Console.ForegroundColor = color.Value;
-		Console.WriteLine(obj);
-		Console.ResetColor();
-	}
-	public static void Error()
-	{
-		Functions.WriteLine("Oh no, your input did not fit!", ConsoleColor.Red);
-	}
-	public static void Write(object obj, ConsoleColor? color = null)
-	{
-		if (color != null)
-			Console.ForegroundColor = color.Value;
-		Console.Write(obj);
-		Console.ResetColor();
 	}
 }

@@ -11,7 +11,7 @@
       "roomDuration": "01:30:00"
     },
     {
-      "roomNumber": 2,
+      "roomNumber": 4,
       "ageMinimum": 16,
       "roomMinSize": 2,
       "roomMaxSize": 6,
@@ -25,7 +25,7 @@
       "ageMinimum": 12,
       "roomMinSize": 2,
       "roomMaxSize": 6,
-      "roomPrice": 15.0,
+      "roomPrice": 20.0,
       "roomTheme": "Aquatic",
       "roomName": "Atlantis' Treasures",
       "roomDuration": "02:00:00"

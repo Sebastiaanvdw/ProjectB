@@ -32,11 +32,10 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { DeleteUser(); }
 				else if (input.Key == ConsoleKey.D3) { DeleteReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Console.Write("\nPress any key to continue...\n"); Console.ReadLine(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 
 			}
 		}
-
 		public static void DeleteRoom()
 		{
 			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
@@ -51,8 +50,8 @@ namespace ProjectB
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
-					Console.WriteLine("No rooms have been created yet, you will be returned to the menu, press any key to continue");
-					Console.ReadKey(true);
+					Console.WriteLine("No rooms have been created yet, you will be returned to the menu");
+					Functions.ATC();
 					return;
 				}
 				else
@@ -75,7 +74,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -84,8 +83,7 @@ namespace ProjectB
 					if (Roomchoicesucces) { DeleteIndex = number; }
 					else
 					{
-						Functions.Error();
-						Console.WriteLine("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
 					}
 				}
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
@@ -97,7 +95,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!Deleteroomsucces)
 						{
-							Deleteroomsucces = util.CheckYN();
+							Deleteroomsucces = Util.CheckYN();
 							DeleteInput = Deleteroomsucces;
 							Deleteroomsucces = true;
 						}
@@ -128,7 +126,7 @@ namespace ProjectB
 				if (escapeRoomsList.EscapeRooms.Count > 0)
 				{
 					Console.Write("Would you like to choose another room to delete?");
-					bool Return = util.CheckYN();
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteRoom = false; }
 				}
@@ -169,7 +167,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -178,8 +176,7 @@ namespace ProjectB
 					if (UserChoiceSucces) { DeleteIndex = number; }
 					else
 					{
-						Functions.Error();
-						Console.WriteLine("Please enter a number between 1 and " + usersList.Users.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + usersList.Users.Count);
 					}
 				}
 				for (int i = 0; i < usersList.Users.Count; i++)
@@ -191,7 +188,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!DeleteUserSucces)
 						{
-							DeleteUserSucces = util.CheckYN();
+							DeleteUserSucces = Util.CheckYN();
 							DeleteInput = DeleteUserSucces;
 							DeleteUserSucces = true;
 						}
@@ -221,8 +218,8 @@ namespace ProjectB
 				}
 				if (usersList.Users.Count > 0)
 				{
-					Console.Write("Would you like to choose another user to delete?");
-					bool Return = util.CheckYN();
+					Console.Write("Would you like to delete another user?");
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteUser = false; }
 				}
@@ -246,8 +243,8 @@ namespace ProjectB
 				Console.Clear();
 				if (reservationsList.Reservations.Count <= 0)
 				{
-					Console.WriteLine("No reservations have been created yet, you will be returned to the menu, press any key to continue");
-					Console.ReadKey(true);
+					Console.WriteLine("No reservations have been created yet, you will be returned to the menu");
+					Functions.ATC();
 					return;
 				}
 				else
@@ -276,7 +273,7 @@ namespace ProjectB
 					userInput = Console.ReadLine();
 					if (userInput == "")
 					{
-						bool Return = util.ReturnToMenu();
+						bool Return = Util.ReturnToMenu();
 						if (Return == true) { return; }
 						if (Return == false) { }
 					}
@@ -285,8 +282,7 @@ namespace ProjectB
 					if (ReservationChoiceSucces) { DeleteIndex = number; }
 					else
 					{
-						Functions.Error();
-						Console.WriteLine("Please enter a number between 1 and " + reservationsList.Reservations.Count);
+						Functions.ErrorMessage("Please enter a number between 1 and " + reservationsList.Reservations.Count);
 					}
 				}
 				for (int i = 0; i < reservationsList.Reservations.Count; i++)
@@ -298,7 +294,7 @@ namespace ProjectB
 						Console.Write(", are you sure?");
 						while (!DeleteReservationSucces)
 						{
-							DeleteReservationSucces = util.CheckYN();
+							DeleteReservationSucces = Util.CheckYN();
 							DeleteInput = DeleteReservationSucces;
 							DeleteReservationSucces = true;
 						}
@@ -328,8 +324,8 @@ namespace ProjectB
 				}
 				if (reservationsList.Reservations.Count > 0)
 				{
-					Console.Write("Would you like to choose another reservayion to delete?");
-					bool Return = util.CheckYN();
+					Console.Write("Would you like to delete another reservation?");
+					bool Return = Util.CheckYN();
 					if (Return == true) { }
 					if (Return == false) { LoopDeleteReservation = false; }
 				}

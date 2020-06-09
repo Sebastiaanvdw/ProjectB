@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Y_or_N
 {
-    public class util
+    public class Util
     {
         public static void Write(object obj, ConsoleColor? color = null)
         {
