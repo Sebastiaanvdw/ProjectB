@@ -36,7 +36,6 @@ namespace ProjectB
 
 			}
 		}
-
 		public static void DeleteRoom()
 		{
 			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
