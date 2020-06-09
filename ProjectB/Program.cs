@@ -182,6 +182,7 @@ class MainProgram
 	{
 		while (CustomerSuccess == 1)
 		{
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
 			Console.WriteLine("Welcome to the customer menu!\n=======================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
@@ -202,6 +203,7 @@ class MainProgram
 	{
 		while (EmployeeSuccess == 1)
 		{
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
 			Console.WriteLine("Welcome to the employee menu!\n=======================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
@@ -222,7 +224,7 @@ class MainProgram
 	{
 		while (AdminSuccess == 1)
 		{
-			File.ReadAllText(PathUser);
+			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
 			Console.WriteLine("Welcome to the admin menu!\n=======================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
