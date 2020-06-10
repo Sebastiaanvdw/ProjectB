@@ -107,7 +107,13 @@ namespace ProjectB
 		public static void AddEscapeRoom()
 		{
 			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
-			bool LoopAddEscapeRoom = true;
+			bool LoopAddEscapeRoom = false;
+
+			if (escapeRoomsList.EscapeRooms.Count < 5 && escapeRoomsList.EscapeRooms.Count >= 0)
+			{
+				LoopAddEscapeRoom = true;
+			}
+
 			while (LoopAddEscapeRoom)
 			{
 				bool durationSuccess = false;

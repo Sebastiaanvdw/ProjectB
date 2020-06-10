@@ -39,7 +39,7 @@
     {
       "reservationNumber": 3,
       "uniqueID": "bfebcec7-1a01-4bae-b818-1766eb1d6a7a",
-      "resRoomName": "Atlantis' Treasures",
+      "resRoomName": "Dracula's Castle",
       "firstName": "Jan",
       "lastName": "Gert",
       "postalCode": "1234AB",
@@ -48,10 +48,10 @@
       "residencyName": "Rotterdam",
       "email": "@.",
       "phoneNumber": "0612345678",
-      "participants": 2,
-      "foodArrangement": "Food and Drinks",
+      "participants": 4,
+      "foodArrangement": "Just Food",
       "arrangement": "None",
-      "totalPrice": 46.0,
+      "totalPrice": 79.8,
       "paymentMethod": "iDEAL"
     }
   ]

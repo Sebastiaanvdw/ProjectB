@@ -22,22 +22,23 @@ namespace ProjectB
 		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
 		private static JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 
-		public static string input_message, error_message, userPostCode;
-
+		public static string input_message, error_message, userPostCode, resPostCode;
+		public static double userFoodArrangementPrice, userArrangementPrice, userFoodArrangement, userArrangement;
 		public static void Function()
 		{
 			bool LoopEditFunction = false;
 			while (!LoopEditFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Return to menu\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Edit reservation\n5) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { EditEscapeRoom(); }
 				else if (input.Key == ConsoleKey.D2) { EditUser(); }
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
-				else if (input.Key == ConsoleKey.D4) { return; }
+				else if (input.Key == ConsoleKey.D4) { EditReservation(); }
+				else if (input.Key == ConsoleKey.D5) { return; }
 				else { Console.Write("\n"); Functions.Error(); Functions.ETC();}
 				
 			}
@@ -413,6 +414,326 @@ namespace ProjectB
 					bool Return = Util.CheckYN();
 					if (Return == true) { File.ReadAllText(PathUser); }
 					if (Return == false) { File.ReadAllText(PathUser); LoopEditUser = false;}
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
+		public static void EditReservation()
+		{
+			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+			bool LoopEditReservation = true;
+			while (LoopEditReservation)
+			{
+				string userInput;
+				int EditReservationIndex = 0;
+				int EditReservationChoice = 0;
+				bool ReservationIndexSucces = false;
+
+				Console.Clear();
+				if (reservationsList.Reservations.Count <= 0)
+				{
+					Console.WriteLine("No reservations have been created yet, you will be returned to the menu, press any key to continue");
+					Console.ReadKey(true);
+					return;
+				}
+				else
+				{
+					Console.OutputEncoding = Encoding.UTF8;
+					Console.WriteLine("Reservation info:\n=======================================");
+					for (int i = 0; i < reservationsList.Reservations.Count; i++)
+					{
+						Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
+						Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
+						Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
+						Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
+						Console.WriteLine("First name:	" + reservationsList.Reservations[i].FirstName);
+						Console.WriteLine("Last name:	" + reservationsList.Reservations[i].LastName);
+						Console.WriteLine("Address:	" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
+						Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
+						Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
+						Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
+						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+					}
+				}
+				Console.WriteLine("Choose the reservation that you want to edit(1-" + reservationsList.Reservations.Count + ")");
+				while (!ReservationIndexSucces)
+				{
+					userInput = Console.ReadLine();
+					ReservationIndexSucces = int.TryParse(userInput, out int number);
+					if (number < 1 || number > reservationsList.Reservations.Count) { ReservationIndexSucces = false; }
+					if (ReservationIndexSucces) { EditReservationIndex = number - 1; }
+					else
+					{
+						Functions.ErrorMessage("Please enter a number between 1 and " + reservationsList.Reservations.Count);
+					}
+				}
+				for (int i = 0; i < reservationsList.Reservations.Count; i++)
+				{
+					if (i == EditReservationIndex)
+					{
+						bool Continue_ReservationEdit = true;
+						while (Continue_ReservationEdit)
+						{
+							string NewRoom; double NewPrice; int NewParticipants; int NewIndex;
+							string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
+							bool UserEditSucces = false;
+							Console.Clear();
+							Console.WriteLine(reservationsList.Reservations[EditReservationIndex].ResRoomName + " " + reservationsList.Reservations[EditReservationIndex].FirstName + " " + reservationsList.Reservations[EditReservationIndex].LastName + "\n");
+							Console.WriteLine("Choose what you would like to change about this reservation: ");
+							Console.WriteLine("1) Change room\n2) Change first name\n3) Change last name\n4) Change address\n5) Change e-mail\n6) Change phone number\n7) Change participants\n8) Change arrangments\n9) Stop editing this reservation\n=======================================");
+							while (!UserEditSucces)
+							{
+								userInput = Console.ReadLine();
+								UserEditSucces = int.TryParse(userInput, out int number);
+								if (number < 1 || number > 9) { UserEditSucces = false; }
+								if (UserEditSucces) { EditReservationChoice = number; }
+								else
+								{
+									Functions.ErrorMessage("Please enter a number between 1 and 9");
+								}
+							}
+
+							if (EditReservationChoice == 1)
+							{						
+								Console.Clear();
+								Console.OutputEncoding = Encoding.UTF8;
+								Console.WriteLine("Room info:\n==============================================================================");
+								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								{
+									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
+									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName);
+									Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[j].RoomTheme);
+									Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[j].RoomPrice);
+									Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[j].RoomMinSize);
+									Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[j].RoomMaxSize + "\n==============================================================================");
+								}
+								//Here you edit the room name
+								input_message = "Please select the number of which escape room you want:";
+								error_message = "Please enter a valid number";
+								NewIndex = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
+								NewRoom = escapeRoomsList.EscapeRooms[NewIndex].RoomName;
+								reservationsList.Reservations[EditReservationIndex].ResRoomName = NewRoom;
+								//Here you edit the room participants
+								input_message = "Please select the number of participants: " + "(" + escapeRoomsList.EscapeRooms[NewIndex].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[NewIndex].RoomMaxSize + ")";
+								error_message = "Please enter a valid number";
+								NewParticipants = Functions.Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[NewIndex].RoomMinSize, escapeRoomsList.EscapeRooms[NewIndex].RoomMaxSize);
+								reservationsList.Reservations[EditReservationIndex].Participants = NewParticipants;
+								//Here you edit the total price
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "None") //none
+								{
+									userFoodArrangementPrice = 0;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Just Food") //just food
+								{
+									userFoodArrangementPrice = menusList.Menus[0].FoodPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Just Drinks") //just drinks
+								{
+									userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Food and Drinks") //food and drinks
+								{
+									userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "None") //none
+								{
+									userArrangementPrice = 0;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Kids Party") //kids party
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.4;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Ladies Night") //ladies night
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.5;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Work Outing") //work outing
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.3;
+								}
+								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
+							}
+							else if (EditReservationChoice == 2)
+							{
+								input_message = "Enter a new first name:";
+								error_message = "Please enter a valid first name";
+								reservationsList.Reservations[EditReservationIndex].FirstName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "", false);
+							}
+							else if (EditReservationChoice == 3)
+							{
+								input_message = "Enter a new last name:";
+								error_message = "Please enter a valid last name";
+								reservationsList.Reservations[EditReservationIndex].LastName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 50, true, "", "", false);
+							}
+							else if (EditReservationChoice == 4)
+							{
+								input_message = "Enter a new street name:";
+								error_message = "Please enter a valid street name";
+								reservationsList.Reservations[EditReservationIndex].StreetName = Functions.Error_Exception_String(input_message, error_message, false, false, 1, 100, true, "", "", false);
+
+								input_message = "Enter a new house number:";
+								error_message = "Please enter a number between 1 and 99999";
+								reservationsList.Reservations[EditReservationIndex].HouseNumber = Functions.Error_Exception_Int(input_message, error_message, 1, 99999).ToString();
+
+								input_message = "Enter the first four digits of the new postal code:";
+								error_message = "Please enter a valid postal code";
+								resPostCode = Functions.Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "", false);
+
+								input_message = "Enter the last two letters of the new postal code: ";
+								error_message = "Please enter two letters";
+								resPostCode += Functions.Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "", false).ToUpper();
+								reservationsList.Reservations[EditReservationIndex].PostalCode = resPostCode;
+
+								input_message = "Enter your new place of residence:";
+								error_message = "Please enter a valid place of residence";
+								reservationsList.Reservations[EditReservationIndex].ResidencyName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
+							}
+							else if (EditReservationChoice == 5)
+							{
+								input_message = "Enter your new e-mail address:";
+								error_message = "Please enter a valid e-mail address";
+								reservationsList.Reservations[EditReservationIndex].Email = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".", true);
+							}
+							else if (EditReservationChoice == 6)
+							{
+								input_message = "Enter your new telephonenumber:";
+								error_message = "Please enter a valid telephonenumber";
+								reservationsList.Reservations[EditReservationIndex].PhoneNumber = Functions.Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "", false);
+							}
+							else if (EditReservationChoice == 7)
+							{
+								Console.Clear();
+								Console.WriteLine("Your current room name: " + reservationsList.Reservations[EditReservationIndex].ResRoomName + "\n==============================================================================");
+								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								{
+									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
+									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName + "\n==============================================================================");
+								}
+								input_message = "Please select the number of which escape room you have:";
+								error_message = "Please enter a valid number";
+								NewIndex = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
+								input_message = "Please select the number of participants: " + "(" + escapeRoomsList.EscapeRooms[NewIndex].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[NewIndex].RoomMaxSize + ")";
+								error_message = "Please enter a valid number";
+								NewParticipants = Functions.Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[NewIndex].RoomMinSize, escapeRoomsList.EscapeRooms[NewIndex].RoomMaxSize);
+								reservationsList.Reservations[EditReservationIndex].Participants = NewParticipants;
+
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "None") //none
+								{
+									userFoodArrangementPrice = 0;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Just Food") //just food
+								{
+									userFoodArrangementPrice = menusList.Menus[0].FoodPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Just Drinks") //just drinks
+								{
+									userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].FoodArrangement == "Food and Drinks") //food and drinks
+								{
+									userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "None") //none
+								{
+									userArrangementPrice = 0;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Kids Party") //kids party
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.4;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Ladies Night") //ladies night
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.5;
+								}
+								if (reservationsList.Reservations[EditReservationIndex].Arrangement == "Work Outing") //work outing
+								{
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.3;
+								}
+								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
+							}
+							else if (EditReservationChoice == 8)
+							{
+								Console.Clear();
+								Console.WriteLine("Your current room name: " + reservationsList.Reservations[EditReservationIndex].ResRoomName + "\n==============================================================================");
+								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								{
+									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
+									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName + "\n==============================================================================");
+								}
+								input_message = "Please select the number of which escape room you have:";
+								error_message = "Please enter a valid number";
+								NewIndex = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
+								input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
+								error_message = "Please enter a number between 1 and 4";
+								userFoodArrangement = Functions.Error_Exception_Int(input_message, error_message, 1, 4);
+
+								input_message = "Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):";
+								error_message = "Please enter a number between 1 and 4";
+								userArrangement = Functions.Error_Exception_Int(input_message, error_message, 1, 4);
+
+								if (userFoodArrangement == 1) //none
+								{
+									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "None";
+									userFoodArrangementPrice = 0;
+								}
+								if (userFoodArrangement == 2) //just food
+								{
+									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Just Food";
+									userFoodArrangementPrice = menusList.Menus[0].FoodPrice * Add.userParticipants;
+								}
+								if (userFoodArrangement == 3) //just drinks
+								{
+									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Just Drinks";
+									userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * Add.userParticipants;
+								}
+								if (userFoodArrangement == 4) //food and drinks
+								{
+									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Food and Drinks";
+									userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * Add.userParticipants;
+								}
+								if (userArrangement == 1) //none
+								{
+									reservationsList.Reservations[EditReservationIndex].Arrangement = "None";
+									userArrangementPrice = 0;
+								}
+								if (userArrangement == 2) //kids party
+								{
+									reservationsList.Reservations[EditReservationIndex].Arrangement = "Kids Party";
+									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.4;
+								}
+								if (userArrangement == 3) //ladies night
+								{
+									reservationsList.Reservations[EditReservationIndex].Arrangement = "Ladies Night";
+									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.5;
+								}
+								if (userArrangement == 4) //work outing
+								{
+									reservationsList.Reservations[EditReservationIndex].Arrangement = "Work Outing";
+									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.3;
+								}
+								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
+							}
+							else if (EditReservationChoice == 9)
+							{
+								File.WriteAllText(PathReservation, json);
+								Continue_ReservationEdit = false;
+							}
+							File.WriteAllText(PathReservation, json);
+						}
+					}
+				}
+				if (reservationsList.Reservations.Count > 1)
+				{
+					Console.Write("Would you like to edit another reservation?");
+					bool Return = Util.CheckYN();
+					if (Return == true) { File.ReadAllText(PathReservation); }
+					if (Return == false) { File.ReadAllText(PathReservation); LoopEditReservation = false; }
 				}
 				else
 				{
