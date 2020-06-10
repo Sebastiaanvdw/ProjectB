@@ -1,0 +1,29 @@
+{
+  "time": [
+    {
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    }
+  ]
+}

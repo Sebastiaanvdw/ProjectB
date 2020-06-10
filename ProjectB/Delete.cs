@@ -10,6 +10,8 @@ namespace ProjectB
 {
 	class Delete
 	{
+		public static string input_message, error_message;
+		public static int DeleteIndex;
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
@@ -32,7 +34,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { DeleteUser(); }
 				else if (input.Key == ConsoleKey.D3) { DeleteReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 
 			}
 		}
@@ -42,16 +44,13 @@ namespace ProjectB
 			bool LoopDeleteRoom = true;
 			while (LoopDeleteRoom)
 			{
-				string userInput;
-				int DeleteIndex = 0;
 				bool DeleteInput = false;
-				bool Roomchoicesucces = false;
 				bool Deleteroomsucces = false;
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
 					Console.WriteLine("No rooms have been created yet, you will be returned to the menu");
-					Functions.ETC();
+					Functions.ATC();
 					return;
 				}
 				else
@@ -61,6 +60,7 @@ namespace ProjectB
 					Console.WriteLine("Room info:\n==============================================================================");
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 					{
+						Console.WriteLine("Room Number:			" + escapeRoomsList.EscapeRooms[i].RoomNumber);
 						Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
 						Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
 						Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
@@ -68,24 +68,11 @@ namespace ProjectB
 						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
 					}
 				}
-				Console.WriteLine("Enter the room number of the room you want to delete");
-				while (!Roomchoicesucces)
-				{
-					userInput = Console.ReadLine();
-					if (userInput == "")
-					{
-						bool Return = Util.ReturnToMenu();
-						if (Return == true) { return; }
-						if (Return == false) { }
-					}
-					Roomchoicesucces = int.TryParse(userInput, out int number);
-					if (number < 1 || number > escapeRoomsList.EscapeRooms.Count) { Roomchoicesucces = false; }
-					if (Roomchoicesucces) { DeleteIndex = number; }
-					else
-					{
-						Functions.ErrorMessage("Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count);
-					}
-				}
+
+				input_message = "Enter the room number of the room you want to delete";
+				error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
+				DeleteIndex = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count);
+
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 				{
 					if (i == DeleteIndex - 1)
@@ -142,10 +129,7 @@ namespace ProjectB
 			bool LoopDeleteUser = true;
 			while (LoopDeleteUser)
 			{
-				string userInput;
-				int DeleteIndex = 0;
 				bool DeleteInput = false;
-				bool UserChoiceSucces = false;
 				bool DeleteUserSucces = false;
 				Console.Clear();
 				Console.OutputEncoding = Encoding.UTF8;
@@ -161,24 +145,11 @@ namespace ProjectB
 					Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
 					Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
 				}
-				Console.WriteLine("Enter the userID of the user you want to delete");
-				while (!UserChoiceSucces)
-				{
-					userInput = Console.ReadLine();
-					if (userInput == "")
-					{
-						bool Return = Util.ReturnToMenu();
-						if (Return == true) { return; }
-						if (Return == false) { }
-					}
-					UserChoiceSucces = int.TryParse(userInput, out int number);
-					if (number < 1 || number > usersList.Users.Count) { UserChoiceSucces = false; }
-					if (UserChoiceSucces) { DeleteIndex = number; }
-					else
-					{
-						Functions.ErrorMessage("Please enter a number between 1 and " + usersList.Users.Count);
-					}
-				}
+
+				input_message = "Enter the userID of the user you want to delete";
+				error_message = "Please enter a number between 1 and " + usersList.Users.Count;
+				DeleteIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count);
+
 				for (int i = 0; i < usersList.Users.Count; i++)
 				{
 					if (i == DeleteIndex - 1)
@@ -235,16 +206,13 @@ namespace ProjectB
 			bool LoopDeleteReservation = true;
 			while (LoopDeleteReservation)
 			{
-				string userInput;
-				int DeleteIndex = 0;
 				bool DeleteInput = false;
-				bool ReservationChoiceSucces = false;
 				bool DeleteReservationSucces = false;
 				Console.Clear();
 				if (reservationsList.Reservations.Count <= 0)
 				{
 					Console.WriteLine("No reservations have been created yet, you will be returned to the menu");
-					Functions.ETC();
+					Functions.ATC();
 					return;
 				}
 				else
@@ -267,24 +235,11 @@ namespace ProjectB
 						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
 					}
 				}
-				Console.WriteLine("Enter the number of the reservation you want to delete");
-				while (!ReservationChoiceSucces)
-				{
-					userInput = Console.ReadLine();
-					if (userInput == "")
-					{
-						bool Return = Util.ReturnToMenu();
-						if (Return == true) { return; }
-						if (Return == false) { }
-					}
-					ReservationChoiceSucces = int.TryParse(userInput, out int number);
-					if (number < 1 || number > reservationsList.Reservations.Count) { ReservationChoiceSucces = false; }
-					if (ReservationChoiceSucces) { DeleteIndex = number; }
-					else
-					{
-						Functions.ErrorMessage("Please enter a number between 1 and " + reservationsList.Reservations.Count);
-					}
-				}
+
+				input_message = "Enter the number of the reservation that you want to delete";
+				error_message = "Please enter a number between 1 and " + reservationsList.Reservations.Count;
+				DeleteIndex = Functions.Error_Exception_Int(input_message, error_message, 1, reservationsList.Reservations.Count);
+				
 				for (int i = 0; i < reservationsList.Reservations.Count; i++)
 				{
 					if (i == DeleteIndex - 1)

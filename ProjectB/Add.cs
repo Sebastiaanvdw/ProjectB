@@ -101,23 +101,15 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D2) { AddUser();  }
 				else if (input.Key == ConsoleKey.D3) { AddReservation(); }
 				else if (input.Key == ConsoleKey.D4) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ETC(); }
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 			}
 		}
 		public static void AddEscapeRoom()
 		{
-			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
-			bool LoopAddEscapeRoom = false;
-
-			if (escapeRoomsList.EscapeRooms.Count < 5 && escapeRoomsList.EscapeRooms.Count >= 0)
-			{
-				LoopAddEscapeRoom = true;
-			}
-
+			bool LoopAddEscapeRoom = true;
 			while (LoopAddEscapeRoom)
 			{
-				bool durationSuccess = false;
-				string userInput;
+				escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 				int NewIndex = escapeRoomsList.EscapeRooms.Count - 1;
 				if (escapeRoomsList.EscapeRooms.Count == 1) { NewIndex = 0; }
 				roomNumber = NewIndex + 1;
@@ -126,7 +118,7 @@ namespace ProjectB
 				Console.WriteLine("Please fill in the information required for an escape room:");
 				Console.WriteLine("-----------------------------");
 
-				input_message = "Enter the minimum age for the escape room(between 12 - 100):";
+				input_message = "Enter the minimum age for the escape room (between 12 - 100):";
 				error_message = "Please enter a number between 12 and 100.";
 				ageMinimum = Functions.Error_Exception_Int(input_message, error_message, 12, 100);
 
@@ -134,7 +126,7 @@ namespace ProjectB
 				error_message = "Please enter a number between 2-5";
 				roomMinSize = Functions.Error_Exception_Int(input_message, error_message, 2, 5);
 
-				input_message = "Enter the maximum amount of players for the escape room (between" + (roomMinSize + 1) + "-6):";
+				input_message = "Enter the maximum amount of players for the escape room (between " + (roomMinSize + 1) + "-6):";
 				error_message = "Please enter a valid number inbetween " + (roomMinSize + 1) + "-6";
 				roomMaxSize = Functions.Error_Exception_Int(input_message, error_message, (roomMinSize + 1), 6);
 
@@ -146,24 +138,14 @@ namespace ProjectB
 				error_message = "Please use alphabetic characters only";
 				roomTheme = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
-				while (!durationSuccess)
-				{
-					Console.WriteLine("Enter the duration for the escape room in hours(e.g. '2' or '1,5'):");
-					userInput = Console.ReadLine();
-					durationSuccess = double.TryParse(userInput, out double number);
-					if (number < 0 || number > 5) { durationSuccess = false; }
-					else if (userInput.Contains(".")) { durationSuccess = false; }
-					if (durationSuccess) { roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(number)), Convert.ToInt32(Math.Round((number - Math.Truncate(number)) * 60)), 0); }
-					else
-					{
-						Functions.ErrorMessage("Please try again");
-					}
-					
-				}
+				input_message = "Enter the duration for the esacpe room in hours (max 2 hours)";
+				error_message = "Please enter a positive number, if you want to enter a decimal number use a ','";
+				var temp = Functions.Error_Exception_Double(input_message, error_message, 0.1, 2);
+				roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(temp)), Convert.ToInt32(Math.Round((temp - Math.Truncate(temp)) * 60)), 0);
 
 				input_message = "Enter a name for the escape room:";
 				error_message = "Please use alphabetic characters only";
-				roomName = Functions.Error_Exception_String(input_message, error_message, false, true, 0, 0, false, "", "", false);
+				roomName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
 				EscapeRoomWriteToDatabase();
 				Console.Clear();
@@ -251,8 +233,8 @@ namespace ProjectB
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count < 1)
 				{
-					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu.");
-					Functions.ETC();
+					Console.WriteLine("You cannot create a room just yet! You will be returned to the menu.");//oude string = "No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu."
+					Functions.ATC();
 					return;
 				}
 				else
