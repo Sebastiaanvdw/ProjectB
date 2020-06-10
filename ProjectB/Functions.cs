@@ -312,8 +312,7 @@ namespace ProjectB
 				Console.WriteLine(message);
 				userInput = Console.ReadLine();
 				Succes = int.TryParse(userInput, out int number);
-				if (number >= minlength && number <= maxlength) { Succes = true; }
-				else { Succes = false; }
+				if (number < minlength || number > maxlength) { Succes = false; }
 				if (Succes) { }
 				else
 				{
@@ -322,7 +321,7 @@ namespace ProjectB
 			}
 			return Int32.Parse(userInput);
 		}
-		public static double Error_Exception_Double(string message, string errormessage, int minlength, int maxlength)
+		public static double Error_Exception_Double(string message, string errormessage, double minlength, double maxlength)
 		{
 			string userInput = "";
 			bool Succes = false;
@@ -331,7 +330,7 @@ namespace ProjectB
 				Console.WriteLine(message);
 				userInput = Console.ReadLine();
 				Succes = Double.TryParse(userInput, out double number);
-				if (number >= minlength && number <= maxlength) { Succes = true; }
+				if (number < minlength || number > maxlength) { Succes = false; }
 				else if (userInput.Contains(".")) { Succes = false; }
 				if (Succes) { }
 				else

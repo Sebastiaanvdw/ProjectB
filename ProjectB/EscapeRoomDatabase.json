@@ -11,14 +11,14 @@
       "roomDuration": "01:30:00"
     },
     {
-      "roomNumber": 4,
-      "ageMinimum": 16,
-      "roomMinSize": 2,
+      "roomNumber": 2,
+      "ageMinimum": 12,
+      "roomMinSize": 4,
       "roomMaxSize": 6,
-      "roomPrice": 16.95,
-      "roomTheme": "Scifi",
-      "roomName": "Star Wars",
-      "roomDuration": "01:00:00"
+      "roomPrice": 7.5,
+      "roomTheme": "Rainbows",
+      "roomName": "Rainbow Room",
+      "roomDuration": "01:27:00"
     },
     {
       "roomNumber": 3,
