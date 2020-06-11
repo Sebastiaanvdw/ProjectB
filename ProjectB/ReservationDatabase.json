@@ -46,12 +46,30 @@
       "streetName": "Straat",
       "houseNumber": "12",
       "residencyName": "Rotterdam",
-      "email": "@.",
+      "email": "JanGert@werk.nl",
       "phoneNumber": "0612345678",
       "participants": 4,
-      "foodArrangement": "Just Food",
+      "foodArrangement": "Food and Drinks",
       "arrangement": "None",
-      "totalPrice": 79.8,
+      "totalPrice": 103.8,
+      "paymentMethod": "iDEAL"
+    },
+    {
+      "reservationNumber": 4,
+      "uniqueID": "78ff0d32-ec53-486f-ad81-cc001a671a68",
+      "resRoomName": "Atlantis' Treasures",
+      "firstName": "Jan",
+      "lastName": "Henk",
+      "postalCode": "1234AB",
+      "streetName": "aafasfdaw",
+      "houseNumber": "13",
+      "residencyName": "segfsgs",
+      "email": "@.",
+      "phoneNumber": "0612345678",
+      "participants": 6,
+      "foodArrangement": "Just Drinks",
+      "arrangement": "Kids Party",
+      "totalPrice": 134.0,
       "paymentMethod": "iDEAL"
     }
   ]

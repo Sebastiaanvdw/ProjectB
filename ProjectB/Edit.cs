@@ -45,10 +45,10 @@ namespace ProjectB
 		}
 		public static void EditEscapeRoom()
 		{
-			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			bool LoopEditRoom = true;
 			while (LoopEditRoom)
 			{
+				escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
@@ -156,10 +156,10 @@ namespace ProjectB
 		}
 		public static void EditUser()
 		{
-			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			bool LoopEditUser = true;
 			while (LoopEditUser)
 			{
+				usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 				string userInput;
 				Console.Clear();
 				if (usersList.Users.Count <= 0)
@@ -186,7 +186,7 @@ namespace ProjectB
 
 				input_message = "Choose the user that you want to edit(1-" + usersList.Users.Count + ")";
 				error_message = "Please enter a number between 1 and " + usersList.Users.Count;
-				int EditUserIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count);
+				int EditUserIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count) - 1;
 
 				for (int i = 0; i < usersList.Users.Count; i++)
 				{
@@ -302,10 +302,11 @@ namespace ProjectB
 		}
 		public static void EditReservation()
 		{
-			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+			File.ReadAllText(PathReservation);
 			bool LoopEditReservation = true;
 			while (LoopEditReservation)
 			{
+				reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 				string userInput;
 				int EditReservationIndex = 0;
 				int EditReservationChoice = 0;
@@ -321,20 +322,19 @@ namespace ProjectB
 				else
 				{
 					Console.OutputEncoding = Encoding.UTF8;
-					Console.WriteLine("Reservation info:\n=======================================");
+					Console.WriteLine("Reservation info:\n==============================================================================");
 					for (int i = 0; i < reservationsList.Reservations.Count; i++)
 					{
-						Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
-						Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
-						Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
-						Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
-						Console.WriteLine("First name:	" + reservationsList.Reservations[i].FirstName);
-						Console.WriteLine("Last name:	" + reservationsList.Reservations[i].LastName);
-						Console.WriteLine("Address:	" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
-						Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
-						Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
-						Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
-						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+						Console.WriteLine("Reservation number:	" + reservationsList.Reservations[i].ReservationNumber);
+						Console.WriteLine("UniqueID:		" + reservationsList.Reservations[i].UniqueID);
+						Console.WriteLine("Room name:		" + reservationsList.Reservations[i].ResRoomName);
+						Console.WriteLine("Arrangements:		" + reservationsList.Reservations[i].Arrangement + ", " + reservationsList.Reservations[i].FoodArrangement);
+						Console.WriteLine("Full name:		" + reservationsList.Reservations[i].FirstName + " " + reservationsList.Reservations[i].LastName);
+						Console.WriteLine("Address:		" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
+						Console.WriteLine("Phone number:		" + reservationsList.Reservations[i].PhoneNumber);
+						Console.WriteLine("E-mail:			" + reservationsList.Reservations[i].Email);
+						Console.WriteLine("Total price:		" + "€" + reservationsList.Reservations[i].TotalPrice);
+						Console.WriteLine("Payment method:		" + reservationsList.Reservations[i].PaymentMethod + "\n==============================================================================");
 					}
 				}
 				Console.WriteLine("Choose the reservation that you want to edit(1-" + reservationsList.Reservations.Count + ")");
@@ -360,8 +360,17 @@ namespace ProjectB
 							string json = JsonConvert.SerializeObject(reservationsList, Formatting.Indented);
 							bool UserEditSucces = false;
 							Console.Clear();
-							Console.WriteLine(reservationsList.Reservations[EditReservationIndex].ResRoomName + " " + reservationsList.Reservations[EditReservationIndex].FirstName + " " + reservationsList.Reservations[EditReservationIndex].LastName + "\n");
-							Console.WriteLine("Choose what you would like to change about this reservation: ");
+							Console.WriteLine("Reservation info:\n=======================================");
+							Console.WriteLine("UniqueID:	" + reservationsList.Reservations[EditReservationIndex].UniqueID);
+							Console.WriteLine("Room name:	" + reservationsList.Reservations[EditReservationIndex].ResRoomName);
+							Console.WriteLine("Arrangements:	" + reservationsList.Reservations[EditReservationIndex].Arrangement + ", " + reservationsList.Reservations[EditReservationIndex].FoodArrangement);
+							Console.WriteLine("Full name:	" + reservationsList.Reservations[EditReservationIndex].FirstName + " " + reservationsList.Reservations[EditReservationIndex].LastName);
+							Console.WriteLine("Address:	" + reservationsList.Reservations[EditReservationIndex].StreetName + " " + reservationsList.Reservations[EditReservationIndex].HouseNumber + " " + reservationsList.Reservations[EditReservationIndex].PostalCode + " " + reservationsList.Reservations[EditReservationIndex].ResidencyName);
+							Console.WriteLine("Phone number:	" + reservationsList.Reservations[EditReservationIndex].PhoneNumber);
+							Console.WriteLine("E-mail:		" + reservationsList.Reservations[EditReservationIndex].Email);
+							Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[EditReservationIndex].TotalPrice);
+							Console.WriteLine("Payment method:	" + reservationsList.Reservations[EditReservationIndex].PaymentMethod + "\n=======================================");
+							Console.WriteLine("Choose what you would like to change about this reservation: \n=======================================");
 							Console.WriteLine("1) Change room\n2) Change first name\n3) Change last name\n4) Change address\n5) Change e-mail\n6) Change phone number\n7) Change participants\n8) Change arrangments\n9) Stop editing this reservation\n=======================================");
 							while (!UserEditSucces)
 							{
@@ -380,7 +389,7 @@ namespace ProjectB
 								Console.Clear();
 								Console.OutputEncoding = Encoding.UTF8;
 								Console.WriteLine("Room info:\n==============================================================================");
-								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								for (int j = 0; j < escapeRoomsList.EscapeRooms.Count; j++)
 								{
 									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
 									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName);
@@ -433,7 +442,7 @@ namespace ProjectB
 								{
 									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.3;
 								}
-								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								NewPrice = Math.Round(((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice, 2);
 								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
 							}
 							else if (EditReservationChoice == 2)
@@ -487,7 +496,7 @@ namespace ProjectB
 							{
 								Console.Clear();
 								Console.WriteLine("Your current room name: " + reservationsList.Reservations[EditReservationIndex].ResRoomName + "\n==============================================================================");
-								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								for (int j = 0; j < escapeRoomsList.EscapeRooms.Count; j++)
 								{
 									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
 									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName + "\n==============================================================================");
@@ -532,7 +541,7 @@ namespace ProjectB
 								{
 									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.3;
 								}
-								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								NewPrice = Math.Round(((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice, 2);
 								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
 							}
 							else if (EditReservationChoice == 8)
@@ -563,17 +572,17 @@ namespace ProjectB
 								if (userFoodArrangement == 2) //just food
 								{
 									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Just Food";
-									userFoodArrangementPrice = menusList.Menus[0].FoodPrice * Add.userParticipants;
+									userFoodArrangementPrice = menusList.Menus[0].FoodPrice * reservationsList.Reservations[EditReservationIndex].Participants;
 								}
 								if (userFoodArrangement == 3) //just drinks
 								{
 									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Just Drinks";
-									userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * Add.userParticipants;
+									userFoodArrangementPrice = menusList.Menus[0].DrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
 								}
 								if (userFoodArrangement == 4) //food and drinks
 								{
 									reservationsList.Reservations[EditReservationIndex].FoodArrangement = "Food and Drinks";
-									userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * Add.userParticipants;
+									userFoodArrangementPrice = menusList.Menus[0].FoodAndDrinksPrice * reservationsList.Reservations[EditReservationIndex].Participants;
 								}
 								if (userArrangement == 1) //none
 								{
@@ -583,19 +592,19 @@ namespace ProjectB
 								if (userArrangement == 2) //kids party
 								{
 									reservationsList.Reservations[EditReservationIndex].Arrangement = "Kids Party";
-									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.4;
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.4;
 								}
 								if (userArrangement == 3) //ladies night
 								{
 									reservationsList.Reservations[EditReservationIndex].Arrangement = "Ladies Night";
-									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.5;
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.5;
 								}
 								if (userArrangement == 4) //work outing
 								{
 									reservationsList.Reservations[EditReservationIndex].Arrangement = "Work Outing";
-									userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.3;
+									userArrangementPrice = escapeRoomsList.EscapeRooms[NewIndex].RoomPrice * 1.3;
 								}
-								NewPrice = ((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice;
+								NewPrice = Math.Round(((reservationsList.Reservations[EditReservationIndex].Participants * escapeRoomsList.EscapeRooms[NewIndex].RoomPrice) + userFoodArrangementPrice) - userArrangementPrice, 2);
 								reservationsList.Reservations[EditReservationIndex].TotalPrice = NewPrice;
 							}
 							else if (EditReservationChoice == 9)
@@ -616,7 +625,7 @@ namespace ProjectB
 				}
 				else
 				{
-					return;
+					Function();
 				}
 			}
 		}
@@ -626,13 +635,14 @@ namespace ProjectB
 			while (LoopFoodEdit)
 			{
 				menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+				Console.OutputEncoding = Encoding.UTF8;
 				Console.Clear();
 				Console.WriteLine("===========================================================");
 				Console.WriteLine("Incase you want to return to the menu type: 'return'");
-				Console.WriteLine("===========================================================\nThese are the current prices for our food arrangements.");
-				Console.WriteLine("1) Drinks $" + menusList.Menus[0].DrinksPrice);
-				Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
-				Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n===========================================================\n");
+				Console.WriteLine("-----------------------------\nThese are the current prices for our food arrangements.");
+				Console.WriteLine("1) Drinks " + "€" + menusList.Menus[0].DrinksPrice);
+				Console.WriteLine("2) Food " + "€" + menusList.Menus[0].FoodPrice);
+				Console.WriteLine("3) Food and Drinks " + "€" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
 
 				input_message = "Choose the menu item that you want to edit (use 1-3)";
 				error_message = "Please enter a number between 1 and 3";
