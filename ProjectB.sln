@@ -3,18 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectB", "ProjectB\ProjectB.csproj", "{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectB", "ProjectB\ProjectB.csproj", "{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		ProjectBTeam7|Any CPU = ProjectBTeam7|Any CPU
+		ProjectBTeam7|x64 = ProjectBTeam7|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Debug|x64.ActiveCfg = Debug|x64
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Debug|x64.Build.0 = Debug|x64
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.ProjectBTeam7|Any CPU.ActiveCfg = ProjectBTeam7|Any CPU
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.ProjectBTeam7|Any CPU.Build.0 = ProjectBTeam7|Any CPU
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.ProjectBTeam7|x64.ActiveCfg = Debug|Any CPU
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.ProjectBTeam7|x64.Build.0 = Debug|Any CPU
 		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Release|x64.ActiveCfg = Release|x64
+		{EA7C9426-B7BE-44A7-AB1A-8490A02BDD64}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

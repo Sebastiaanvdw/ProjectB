@@ -32,13 +32,13 @@
     },
     {
       "roomNumber": 4,
-      "ageMinimum": 13,
-      "roomMinSize": 2,
-      "roomMaxSize": 3,
-      "roomPrice": 23.0,
-      "roomTheme": "awdawd",
-      "roomName": "awdawd",
-      "roomDuration": "02:00:00"
+      "ageMinimum": 12,
+      "roomMinSize": 3,
+      "roomMaxSize": 4,
+      "roomPrice": 15.95,
+      "roomTheme": "Fantasy",
+      "roomName": "Lord of the Rings",
+      "roomDuration": "01:30:00"
     }
   ]
 }
