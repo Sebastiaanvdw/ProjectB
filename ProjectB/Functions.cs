@@ -285,9 +285,16 @@ namespace ProjectB
 		public static void EscapeRoomMenu()
 		{
 			Console.Clear();
-			Console.WriteLine("===========================================================");
+			Console.WriteLine("=============================================================");
 			Console.WriteLine("Please fill in the information required for an escape room:");
-			Console.WriteLine("===========================================================");
+			Console.WriteLine("=============================================================");
+		}
+		public static void ReservationMenu()
+		{
+			Console.Clear();
+			Console.WriteLine("=============================================================");
+			Console.WriteLine("Please fill in the information required for your reservation:");
+			Console.WriteLine("=============================================================");
 		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2, bool isastringbutcancontainnumbers)
 		{

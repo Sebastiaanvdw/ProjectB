@@ -8,13 +8,16 @@ namespace ProjectB
 {
 	class Add
 	{
-		public static int roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID, RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
+		public static int selectedAvailability,selectedDay, roomNumber, ageMinimum, roomMinSize, roomMaxSize, userID, RoomChoice, userParticipants, userFoodArrangement, userArrangement, reservationNumber;
 		public static double roomPrice;
 		public static TimeSpan roomDuration;
-		public static string roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, userUniqueID, postalCode, residencyName, email, phoneNumber, resUserName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString;
+		public static string availability, day, roomTheme, roomName, input_message, error_message, userName, firstName, lastName, password, streetName, houseNumber, userUniqueID, postalCode, residencyName, email, phoneNumber, resUserName, userLastName, userPostcode, userStreet, userResidency, userHouseNumber, userEmail, userPhoneNumber, userFoodString, userArrangementString, Availability1, Availability2, Availability3;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
+
+		private static readonly string PathTime = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"TimeDatabase.json");
+		private static JSONTimeList timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
@@ -67,6 +70,8 @@ namespace ProjectB
 			{
 				ReservationNumber = reservationNumber,
 				UniqueID = userUniqueID,
+				Day = day,
+				Availability = availability,
 				ResRoomName = escapeRoomsList.EscapeRooms[RoomChoice].RoomName,
 				FirstName = resUserName,
 				LastName = userLastName,
@@ -109,6 +114,7 @@ namespace ProjectB
 			bool LoopAddEscapeRoom = true;
 			while (LoopAddEscapeRoom)
 			{
+				escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 				if (escapeRoomsList.EscapeRooms.Count >= 5)
 				{
 					Console.Clear();
@@ -117,15 +123,14 @@ namespace ProjectB
 					return;
 				}
 				else {
-					escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 					int NewIndex = escapeRoomsList.EscapeRooms.Count - 1;
 					if (escapeRoomsList.EscapeRooms.Count == 1) { NewIndex = 0; }
 					roomNumber = NewIndex + 2;
 					Console.Clear();
-					Console.WriteLine("-----------------------------");
+					Console.WriteLine("===========================================================");
 					Console.WriteLine("Please fill in the information required for an escape room:");
-					Console.WriteLine("-----------------------------");
-
+					Console.WriteLine("===========================================================");
+				
 				Functions.EscapeRoomMenu();
 				input_message = "Enter the minimum age for the escape room (between 12 - 100):";
 				error_message = "Please enter a number between 12 and 100";
@@ -152,7 +157,7 @@ namespace ProjectB
 				roomTheme = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
 				Functions.EscapeRoomMenu();
-				input_message = "Enter the duration for the esacpe room in hours (max 2 hours)";
+				input_message = "Enter the duration for the escape room in hours (max 2 hours)";
 				error_message = "Please enter a positive number, if you want to enter a decimal number use a ','";
 				var temp = Functions.Error_Exception_Double(input_message, error_message, 0.1, 2);
 				roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(temp)), Convert.ToInt32(Math.Round((temp - Math.Truncate(temp)) * 60)), 0);
@@ -251,7 +256,8 @@ namespace ProjectB
 		}
 		public static void AddReservation()
 		{
-			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+			string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
+			timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
 			bool LoopAddReservation = true;
 			while (LoopAddReservation)
 			{
@@ -264,65 +270,213 @@ namespace ProjectB
 				}
 				else
 				{
+					bool selectedAvailabilityLoop = true;
 					int NewIndex = reservationsList.Reservations.Count;
 					reservationNumber = NewIndex + 1;
-					Console.WriteLine("===========================================================");
-					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
-					Console.WriteLine("===========================================================");
 					Console.WriteLine("Please choose your room and fill in the information required:");
 					Console.WriteLine("===========================================================");
 					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
 
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + ")"); }
-
+					
 					input_message = "\nRoom:";
 					error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
 					RoomChoice = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
 
+					Functions.ReservationMenu();
+
+
+					Console.WriteLine("Availability info:\n===========================================================");
+					for (int i = 0; i < timesList.Time.Count; i++)
+					{
+						Console.WriteLine("Day:		" + timesList.Time[i].Day);
+						if (timesList.Time[i].Availability1)
+						{
+							Availability1 = "Available";
+						}
+						else
+						{
+							Availability1 = "Unavailable";
+						}
+						Console.WriteLine("09:15 - 11:15 " + Availability1);
+						if (timesList.Time[i].Availability2)
+						{
+							Availability2 = "Available";
+						}
+						else
+						{
+							Availability2 = "Unavailable";
+						}
+						Console.WriteLine("12:15 - 14:15 " + Availability2);
+						if (timesList.Time[i].Availability3)
+						{
+							Availability3 = "Available";
+						}
+						else
+						{
+							Availability3 = "Unavailable";
+						}
+						Console.WriteLine("14:45 - 16:45 " + Availability3);
+					}
+					Console.WriteLine("\n===========================================================");
+					input_message = "Select which day(use 1-5):";
+					error_message = "Please enter a valid number";
+					selectedDay = Functions.Error_Exception_Int(input_message, error_message, 1, 5);
+
+					if (selectedDay == 1)
+					{
+						day = "Monday";
+					}
+					else if(selectedDay == 2){
+						day = "Tuesday";
+					}
+					else if (selectedDay == 3)
+					{
+						day = "Wednesday";
+					}
+					else if (selectedDay == 4)
+					{
+						day = "Thursday";
+					}
+					else if (selectedDay == 5)
+					{
+						day = "Friday";
+					}
+
+					while (selectedAvailabilityLoop)
+					{
+						Console.WriteLine("Availability info:\n===========================================================");
+						if (timesList.Time[selectedDay - 1].Availability1)
+						{
+							Availability1 = "Available";
+						}
+						else
+						{
+							Availability1 = "Unavailable";
+						}
+						Console.WriteLine("09:15 - 11:15 " + Availability1);
+						if (timesList.Time[selectedDay - 1].Availability2)
+						{
+							Availability2 = "Available";
+						}
+						else
+						{
+							Availability2 = "Unavailable";
+						}
+						Console.WriteLine("12:15 - 14:15 " + Availability2);
+						if (timesList.Time[selectedDay - 1].Availability3)
+						{
+							Availability3 = "Available";
+						}
+						else
+						{
+							Availability3 = "Unavailable";
+						}
+						Console.WriteLine("14:45 - 16:45 " + Availability3);
+
+						input_message = "Select which time you want to play(use 1-3):";
+						error_message = "Please enter a valid number";
+						selectedAvailability = Functions.Error_Exception_Int(input_message, error_message, 1, 3);
+						if(selectedAvailability == 1)
+						{
+							if (timesList.Time[selectedDay - 1].Availability1)
+							{
+								availability = "09:15 - 11:15";
+								selectedAvailabilityLoop = false;
+								timesList.Time[selectedDay - 1].Availability1 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							else
+							{
+								error_message = "Please enter a valid number";
+							}
+						}
+						if (selectedAvailability == 2)
+						{
+							if (timesList.Time[selectedDay - 1].Availability2)
+							{
+								availability = "12:15 - 14:15";
+								selectedAvailabilityLoop = false;
+								timesList.Time[selectedDay - 1].Availability2 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							else
+							{
+								error_message = "Please enter a valid number";
+							}
+						}
+						if (selectedAvailability == 3)
+						{
+							if (timesList.Time[selectedDay - 1].Availability3)
+							{
+								availability = "14:45 - 16:45";
+								selectedAvailabilityLoop = false;
+								timesList.Time[selectedDay - 1].Availability3 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							else
+							{
+								error_message = "Please enter a valid number";
+							}
+						}
+					}
+				
+					Functions.ReservationMenu();
 					input_message = "Fill in your first name(e.g. 'Piet'):";
 					error_message = "Please enter a valid name";
 					resUserName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", true);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your last name(e.g. 'de Koning'):";
 					error_message = "Please enter a valid name last";
 					userLastName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in the first four digits of your postcode:";
 					error_message = "Please enter a valid postcode";
 					userPostcode = Functions.Error_Exception_String(input_message, error_message, true, true, 4, 4, false, "", "", false);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in the last two letters of your postcode: ";
 					error_message = "Please fill two letters";
 					userPostcode += Functions.Error_Exception_String(input_message, error_message, false, true, 2, 2, false, "", "", false).ToUpper();
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your street(e.g. 'Tulpenlaan'):";
 					error_message = "Please enter a valid street name";
 					userStreet = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your housenumber(e.g. '98'):";
 					error_message = "Please enter a valid housenumber";
 					userHouseNumber = Functions.Error_Exception_Int(input_message, error_message, 1, 2000).ToString();
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your place of residence(e.g. 'Pijnacker'):";
 					error_message = "Please enter a valid place of residence";
 					userResidency = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your email(e.g. 'voorbeeld@mail.com'):";
 					error_message = "Please enter a valid Email adress";
 					userEmail = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, true, "@", ".", true);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in your telephonenumber(e.g. '0676319854'):";
 					error_message = "Please enter a valid Phonenumber";
 					userPhoneNumber = Functions.Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "", false);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in how many participants there will be (" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")";
 					error_message = "Please enter a valid number of participants";
 					userParticipants = Functions.Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize, escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in which food arrangment you want (1. none, 2. just food, 3. just drinks or 4. food and drinks):";
 					error_message = "Please enter a number between 1 and 4";
 					userFoodArrangement = Functions.Error_Exception_Int(input_message, error_message, 1, 4);
 
+					Functions.ReservationMenu();
 					input_message = "Fill in the number of the arrangment that you want( 1. none, 2. kids party, 3. ladies night or 4. work outing):";
 					error_message = "Please enter a number between 1 and 4";
 					userArrangement = Functions.Error_Exception_Int(input_message, error_message, 1, 4);

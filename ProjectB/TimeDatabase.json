@@ -1,26 +1,31 @@
 {
-  "time": [
+  "times": [
     {
+      "day": "monday",
+      "availability1": false,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "day": "tuesday",
       "availability1": true,
       "availability2": true,
       "availability3": true
     },
     {
+      "day": "wednesday",
       "availability1": true,
       "availability2": true,
       "availability3": true
     },
     {
+      "day": "thursday",
       "availability1": true,
       "availability2": true,
       "availability3": true
     },
     {
-      "availability1": true,
-      "availability2": true,
-      "availability3": true
-    },
-    {
+      "day": "friday",
       "availability1": true,
       "availability2": true,
       "availability3": true

@@ -13,6 +13,12 @@ namespace ProjectB
         [JsonProperty("uniqueID")]
         public string UniqueID { get; set; }
 
+        [JsonProperty("day")]
+        public string Day { get; set; }
+
+        [JsonProperty("availability")]
+        public string Availability { get; set; }
+
         [JsonProperty("resRoomName")]
         public string ResRoomName { get; set; }
 
