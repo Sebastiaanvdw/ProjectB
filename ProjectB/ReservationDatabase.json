@@ -259,6 +259,26 @@
       "arrangement": "Work Outing",
       "totalPrice": 51.91,
       "paymentMethod": "Creditcard"
+    },
+    {
+      "reservationNumber": 14,
+      "uniqueID": "60076d86-2fe7-4290-b11c-8845751a52e9",
+      "day": "Tuesday",
+      "availability": "09:15 - 11:15",
+      "resRoomName": "Dracula's Castle",
+      "firstName": "wot",
+      "lastName": "vdm",
+      "postalCode": "1234XD",
+      "streetName": "rosenlaan",
+      "houseNumber": "2",
+      "residencyName": "wer",
+      "email": "@.",
+      "phoneNumber": "1234567890",
+      "participants": 4,
+      "foodArrangement": "Food and Drinks",
+      "arrangement": "Work Outing",
+      "totalPrice": 77.86,
+      "paymentMethod": "iDEAL"
     }
   ]
 }

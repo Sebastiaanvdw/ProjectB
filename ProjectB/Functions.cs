@@ -18,6 +18,9 @@ namespace ProjectB
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 
+		private static readonly string PathTime = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"TimeDatabase.json");
+		private static JSONTimeList timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
+
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
 		private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
@@ -72,8 +75,34 @@ namespace ProjectB
 			Console.Write("\nClient UniqueID (Bring this to the desk): ");
 			WriteLine(Add.userUniqueID, ConsoleColor.Yellow);
 			Console.WriteLine("This will be sent to the following email address: " + Add.userEmail);
-			ATC();
-			Console.WriteLine("===========================================================");
+			BetaalPagina.Payment();
+			if (BetaalPagina.PaymentSuccess == true)
+			{
+				if (Add.selectedAvailability == 1)
+				{
+					timesList.Time[Add.selectedDay - 1].Availability1 = false;
+				}
+				if (Add.selectedAvailability == 2)
+				{
+					timesList.Time[Add.selectedDay - 1].Availability2 = false;
+				}
+				if (Add.selectedAvailability == 3)
+				{
+					timesList.Time[Add.selectedDay - 1].Availability3 = false;
+				}
+				string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
+				File.WriteAllText(PathTime, json);
+				Add.ReservationWriteToDatabase();
+			}
+			userTotalPrice = 0; 
+			Add.userFoodArrangement = 0; 
+			Add.userFoodString = ""; 
+			Add.userArrangementString = ""; 
+			Add.userArrangement = 0;
+			Console.Write("Would you like to add another reservation?");
+			bool Return = Util.CheckYN();
+			if (Return == true) { }
+			if (Return == false) { return; }
 		}
 		public static void TotalPrice()
 		{

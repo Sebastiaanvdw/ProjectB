@@ -16,13 +16,16 @@ namespace ProjectB
 		private static readonly string PathReservation = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"ReservationDatabase.json");
 		private static JSONReservationList reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 
+		private static readonly string PathTime = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"TimeDatabase.json");
+		private static JSONTimeList timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
+
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 
 		private static readonly string PathMenu = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"MenuDatabase.json");
 		private static JSONMenuList menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 
-		public static string input_message, error_message, userPostCode, resPostCode;
+		public static string input_message, error_message, userPostCode, resPostCode, Availability1, Availability2, Availability3;
 		public static double userFoodArrangementPrice, userArrangementPrice, userFoodArrangement, userArrangement;
 		public static void Function()
 		{
@@ -30,17 +33,18 @@ namespace ProjectB
 			while (!LoopEditFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("===========================================================\nWelcome to the Edit page.\n===========================================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Edit reservation\n5) Return to menu\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Console.WriteLine("===========================================================\nWelcome to the Edit page.\n===========================================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Edit reservation\n5) Edit Availability\n6) Return to menu\n");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("]or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { EditEscapeRoom(); }
 				else if (input.Key == ConsoleKey.D2) { EditUser(); }
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
 				else if (input.Key == ConsoleKey.D4) { EditReservation(); }
-				else if (input.Key == ConsoleKey.D5) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ATC();}
-				
+				else if (input.Key == ConsoleKey.D5) { EditAvailability(); }
+				else if (input.Key == ConsoleKey.D6) { return; }
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
+
 			}
 		}
 		public static void EditEscapeRoom()
@@ -292,7 +296,7 @@ namespace ProjectB
 					Console.Write("Would you like to edit another user?");
 					bool Return = Util.CheckYN();
 					if (Return == true) { File.ReadAllText(PathUser); }
-					if (Return == false) { File.ReadAllText(PathUser); LoopEditUser = false;}
+					if (Return == false) { File.ReadAllText(PathUser); LoopEditUser = false; }
 				}
 				else
 				{
@@ -385,7 +389,7 @@ namespace ProjectB
 							}
 
 							if (EditReservationChoice == 1)
-							{						
+							{
 								Console.Clear();
 								Console.OutputEncoding = Encoding.UTF8;
 								Console.WriteLine("Room info:\n==============================================================================");
@@ -627,6 +631,113 @@ namespace ProjectB
 				{
 					Function();
 				}
+			}
+		}
+		public static void EditAvailability()
+		{
+			bool LoopAvailabilityEdit = true;
+			while (LoopAvailabilityEdit)
+			{
+				timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
+				Console.WriteLine("\n===========================================================");
+				Console.WriteLine("Choose what you want to do:");
+				Console.WriteLine("1) Reset the Availability of 1 day");
+				Console.WriteLine("2) Reset the Availability of all days");
+				Console.WriteLine("===========================================================");
+				input_message = "Choose what you want to do (use 1-2)";
+				error_message = "Please enter a number between 1 and 2";
+				int EditAvailabilityChoice = Functions.Error_Exception_Int(input_message, error_message, 1, 2);
+
+				if (EditAvailabilityChoice == 1)
+				{
+					Console.WriteLine("Availability info:\n===========================================================");
+					for (int i = 0; i < timesList.Time.Count; i++)
+					{
+						Console.WriteLine("Day:		" + timesList.Time[i].Day);
+						if (timesList.Time[i].Availability1)
+						{
+							Availability1 = "Available";
+						}
+						else
+						{
+							Availability1 = "Unavailable";
+						}
+						Console.WriteLine("09:15 - 11:15 " + Availability1);
+						if (timesList.Time[i].Availability2)
+						{
+							Availability2 = "Available";
+						}
+						else
+						{
+							Availability2 = "Unavailable";
+						}
+						Console.WriteLine("12:15 - 14:15 " + Availability2);
+						if (timesList.Time[i].Availability3)
+						{
+							Availability3 = "Available";
+						}
+						else
+						{
+							Availability3 = "Unavailable";
+						}
+						Console.WriteLine("14:45 - 16:45 " + Availability3);
+					}
+					input_message = "Please choose the day that you want to reset";
+					error_message = "Please enter a number between 1-5";
+					int AvailabilityDayChoice = Functions.Error_Exception_Int(input_message, error_message, 1, 5);
+
+					Console.WriteLine("You are about to reset the Availability of ");
+					Functions.Write(timesList.Time[AvailabilityDayChoice].Day, ConsoleColor.Yellow);
+					Console.Write(" Are you sure?");
+					bool ResetInput = Util.CheckYN();
+					if (ResetInput)
+					{
+						timesList.Time[AvailabilityDayChoice].Availability1 = true;
+						timesList.Time[AvailabilityDayChoice].Availability2 = true;
+						timesList.Time[AvailabilityDayChoice].Availability3 = true;
+						Console.WriteLine("The availability for ");
+						Functions.Write(timesList.Time[AvailabilityDayChoice].Day, ConsoleColor.Yellow);
+						Console.Write(" has been reset."!);
+						/*for (int i = 0; i < reservationsList.Reservations.Count; i++)
+						{
+							if (reservationsList.Reservations[i].Day.Contains(timesList.Time[AvailabilityDayChoice].Day))
+							{
+								reservationsList.Reservations.RemoveAt(i);
+							}
+						}*/
+					}
+					if (!ResetInput)
+					{
+						Console.WriteLine("The Availability reset has been canceled.");
+					}
+				}
+				if (EditAvailabilityChoice == 2)
+				{
+					Console.Write("You are about to reset the Availability of ");
+					Functions.Write("all days", ConsoleColor.Yellow);
+					Console.Write("Are you sure?\n");
+					bool ResetInput = Util.CheckYN();
+					if (ResetInput)
+					{
+						for (int i = 0; i < timesList.Time.Count; i++)
+						{
+							timesList.Time[i].Availability1 = true;
+							timesList.Time[i].Availability2 = true;
+							timesList.Time[i].Availability3 = true;
+						}
+						Console.WriteLine("The availability for all days has been reset!");
+					}
+					if (!ResetInput)
+					{
+						Console.WriteLine("The Availability reset has been canceled.");
+					}
+				}
+				string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
+				File.WriteAllText(PathTime, json);
+				Console.Write("Would you like to continue resetting availability?");
+				bool Return = Util.CheckYN();
+				if (Return == true) { }
+				if (Return == false) { LoopAvailabilityEdit = false; }
 			}
 		}
 		public static void FoodEdit()
