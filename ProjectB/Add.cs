@@ -113,36 +113,39 @@ namespace ProjectB
 				int NewIndex = escapeRoomsList.EscapeRooms.Count - 1;
 				if (escapeRoomsList.EscapeRooms.Count == 1) { NewIndex = 0; }
 				roomNumber = NewIndex + 1;
-				Console.Clear();
-				Console.WriteLine("-----------------------------");
-				Console.WriteLine("Please fill in the information required for an escape room:");
-				Console.WriteLine("-----------------------------");
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter the minimum age for the escape room (between 12 - 100):";
-				error_message = "Please enter a number between 12 and 100.";
+				error_message = "Please enter a number between 12 and 100";
 				ageMinimum = Functions.Error_Exception_Int(input_message, error_message, 12, 100);
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter the minimum amount of players for the escape room (between 2-5):";
 				error_message = "Please enter a number between 2-5";
 				roomMinSize = Functions.Error_Exception_Int(input_message, error_message, 2, 5);
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter the maximum amount of players for the escape room (between " + (roomMinSize + 1) + "-6):";
 				error_message = "Please enter a valid number inbetween " + (roomMinSize + 1) + "-6";
 				roomMaxSize = Functions.Error_Exception_Int(input_message, error_message, (roomMinSize + 1), 6);
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter the price for the escape room (price is per participant):";
 				error_message = "Please enter a positive number.";
 				roomPrice = Functions.Error_Exception_Double(input_message, error_message, 1, 99999);
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter a theme for the escape room:";
 				error_message = "Please use alphabetic characters only";
 				roomTheme = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);
 
+				Functions.EscapeRoomMenu();
 				input_message = "Enter the duration for the esacpe room in hours (max 2 hours)";
 				error_message = "Please enter a positive number, if you want to enter a decimal number use a ','";
 				var temp = Functions.Error_Exception_Double(input_message, error_message, 0.1, 2);
 				roomDuration = new TimeSpan(Convert.ToInt32(Math.Truncate(temp)), Convert.ToInt32(Math.Round((temp - Math.Truncate(temp)) * 60)), 0);
-
+				
+				Functions.EscapeRoomMenu();
 				input_message = "Enter a name for the escape room:";
 				error_message = "Please use alphabetic characters only";
 				roomName = Functions.Error_Exception_String(input_message, error_message, false, false, 0, 0, false, "", "", false);

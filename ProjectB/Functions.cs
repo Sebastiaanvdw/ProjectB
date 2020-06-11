@@ -261,7 +261,8 @@ namespace ProjectB
 		public static void ErrorMessage(object obj)
 		{
 			Error();
-			Console.WriteLine(obj);
+			Functions.WriteLine(obj, ConsoleColor.Red);
+			Console.WriteLine("===========================================================");
 		}
 		public static void Error()
 		{
@@ -280,6 +281,14 @@ namespace ProjectB
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
 		}
+
+		public static void EscapeRoomMenu()
+		{
+			Console.Clear();
+			Console.WriteLine("===========================================================");
+			Console.WriteLine("Please fill in the information required for an escape room:");
+			Console.WriteLine("===========================================================");
+		}
 		public static string Error_Exception_String(string message, string errormessage, bool isanumber , bool lengthmatters, int minlength, int maxlength, bool specialcontain, string contains1, string contains2, bool isastringbutcancontainnumbers)
 		{
 			string userInput = "";
@@ -287,6 +296,7 @@ namespace ProjectB
 			while (!Succes)
 			{
 				Console.WriteLine(message);
+				Functions.Write("Your input: ", ConsoleColor.Yellow);
 				userInput = Console.ReadLine();
 				if (string.IsNullOrEmpty(userInput)) { Succes = false; }
 				else if ((!isanumber || isastringbutcancontainnumbers) && userInput.All(char.IsDigit)) { Succes = false; }
@@ -310,6 +320,7 @@ namespace ProjectB
 			while (!Succes)
 			{
 				Console.WriteLine(message);
+				Functions.Write("Your input: ", ConsoleColor.Yellow);
 				userInput = Console.ReadLine();
 				Succes = int.TryParse(userInput, out int number);
 				if (number < minlength || number > maxlength) { Succes = false; }
@@ -328,6 +339,7 @@ namespace ProjectB
 			while (!Succes)
 			{
 				Console.WriteLine(message);
+				Functions.Write("Your input: ", ConsoleColor.Yellow);
 				userInput = Console.ReadLine();
 				Succes = Double.TryParse(userInput, out double number);
 				if (number < minlength || number > maxlength) { Succes = false; }

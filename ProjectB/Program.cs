@@ -71,8 +71,10 @@ class MainProgram
 				error_message = "Please enter a valid ID";
 				ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 				Console.WriteLine("Username:");
+				Functions.Write("Your input: ", ConsoleColor.Yellow);
 				string AdminNameLogin = Console.ReadLine();
 				Console.WriteLine("Password:");
+				Functions.Write("Your input: ", ConsoleColor.Yellow);
 				string AdminPassWordLogin = Console.ReadLine();
 
 				if (ID == usersList.Users[ID-1].UserID && AdminNameLogin == usersList.Users[ID - 1].UserName && AdminPassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole == "admin")
