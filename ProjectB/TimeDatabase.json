@@ -1,0 +1,34 @@
+{
+  "times": [
+    {
+      "day": "Monday",
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "day": "Tuesday",
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "day": "Wednesday",
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "day": "Thursday",
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    },
+    {
+      "day": "Friday",
+      "availability1": true,
+      "availability2": true,
+      "availability3": true
+    }
+  ]
+}

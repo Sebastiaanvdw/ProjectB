@@ -1,0 +1,9 @@
+{
+  "menus": [
+    {
+      "foodPrice": 4.0,
+      "drinksPrice": 7.0,
+      "foodAndDrinksPrice": 6.0
+    }
+  ]
+}
