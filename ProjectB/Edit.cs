@@ -45,10 +45,10 @@ namespace ProjectB
 		}
 		public static void EditEscapeRoom()
 		{
-			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			bool LoopEditRoom = true;
 			while (LoopEditRoom)
 			{
+				escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count <= 0)
 				{
@@ -156,10 +156,10 @@ namespace ProjectB
 		}
 		public static void EditUser()
 		{
-			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			bool LoopEditUser = true;
 			while (LoopEditUser)
 			{
+				usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 				string userInput;
 				Console.Clear();
 				if (usersList.Users.Count <= 0)
@@ -186,7 +186,7 @@ namespace ProjectB
 
 				input_message = "Choose the user that you want to edit(1-" + usersList.Users.Count + ")";
 				error_message = "Please enter a number between 1 and " + usersList.Users.Count;
-				int EditUserIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count);
+				int EditUserIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count) - 1;
 
 				for (int i = 0; i < usersList.Users.Count; i++)
 				{
@@ -302,10 +302,11 @@ namespace ProjectB
 		}
 		public static void EditReservation()
 		{
-			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
+			File.ReadAllText(PathReservation);
 			bool LoopEditReservation = true;
 			while (LoopEditReservation)
 			{
+				reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 				string userInput;
 				int EditReservationIndex = 0;
 				int EditReservationChoice = 0;
@@ -388,7 +389,7 @@ namespace ProjectB
 								Console.Clear();
 								Console.OutputEncoding = Encoding.UTF8;
 								Console.WriteLine("Room info:\n==============================================================================");
-								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								for (int j = 0; j < escapeRoomsList.EscapeRooms.Count; j++)
 								{
 									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
 									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName);
@@ -495,7 +496,7 @@ namespace ProjectB
 							{
 								Console.Clear();
 								Console.WriteLine("Your current room name: " + reservationsList.Reservations[EditReservationIndex].ResRoomName + "\n==============================================================================");
-								for (int j = 0; j < reservationsList.Reservations.Count; j++)
+								for (int j = 0; j < escapeRoomsList.EscapeRooms.Count; j++)
 								{
 									Console.WriteLine("Room number:			" + escapeRoomsList.EscapeRooms[j].RoomNumber);
 									Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[j].RoomName + "\n==============================================================================");
@@ -624,7 +625,7 @@ namespace ProjectB
 				}
 				else
 				{
-					return;
+					Function();
 				}
 			}
 		}
@@ -634,13 +635,14 @@ namespace ProjectB
 			while (LoopFoodEdit)
 			{
 				menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
+				Console.OutputEncoding = Encoding.UTF8;
 				Console.Clear();
 				Console.WriteLine("-----------------------------");
 				Console.WriteLine("Incase you want to return to the menu type: 'return'");
 				Console.WriteLine("-----------------------------\nThese are the current prices for our food arrangements.");
-				Console.WriteLine("1) Drinks $" + menusList.Menus[0].DrinksPrice);
-				Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
-				Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
+				Console.WriteLine("1) Drinks " + "€" + menusList.Menus[0].DrinksPrice);
+				Console.WriteLine("2) Food " + "€" + menusList.Menus[0].FoodPrice);
+				Console.WriteLine("3) Food and Drinks " + "€" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
 
 				input_message = "Choose the menu item that you want to edit (use 1-3)";
 				error_message = "Please enter a number between 1 and 3";

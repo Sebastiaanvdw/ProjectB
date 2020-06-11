@@ -29,6 +29,26 @@
       "roomTheme": "Aquatic",
       "roomName": "Atlantis' Treasures",
       "roomDuration": "02:00:00"
+    },
+    {
+      "roomNumber": 4,
+      "ageMinimum": 13,
+      "roomMinSize": 2,
+      "roomMaxSize": 3,
+      "roomPrice": 23.0,
+      "roomTheme": "awdawd",
+      "roomName": "awdawd",
+      "roomDuration": "02:00:00"
+    },
+    {
+      "roomNumber": 5,
+      "ageMinimum": 34,
+      "roomMinSize": 3,
+      "roomMaxSize": 4,
+      "roomPrice": 23.0,
+      "roomTheme": "awdawdad",
+      "roomName": "awdawdawd",
+      "roomDuration": "02:00:00"
     }
   ]
 }

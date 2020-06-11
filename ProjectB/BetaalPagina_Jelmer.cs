@@ -26,14 +26,14 @@ namespace ProjectB
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("==============================");
             Console.WriteLine("Participants:            " + Add.userParticipants);
+            Console.WriteLine("Room Price P.P.:         " + "€" + Math.Round(escapeRoomsList.EscapeRooms[roomChoice].RoomPrice, 2));
             Console.WriteLine("==============================");
-            Console.WriteLine("Room Price P.P.:         " + "€" + escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
-            Console.WriteLine("Total Participant Price: " + "€" + Add.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice);
-            Console.WriteLine("Food & Drinks:           " + "€" + Functions.userFoodArrangementPrice);
+            Console.WriteLine("Total Participant Price: " + "€" + Math.Round((Add.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice), 2));
+            Console.WriteLine("Food & Drinks:           " + "€" + Math.Round(Functions.userFoodArrangementPrice, 2));
             Console.WriteLine("============================== +");
-            Console.WriteLine("Arrangements:            " + "€" + Functions.userArrangementPrice);
+            Console.WriteLine("Arrangements:            " + "€" + Math.Round(Functions.userArrangementPrice, 2));
             Console.WriteLine("============================== -");
-            Console.WriteLine("SubTotal:                " + "€" + Functions.userTotalPrice);
+            Console.WriteLine("SubTotal:                " + "€" + Math.Round(Functions.userTotalPrice, 2));
             Console.WriteLine("==============================" + "\n");
 
             Console.Write("Would you like to continue with your payment?");

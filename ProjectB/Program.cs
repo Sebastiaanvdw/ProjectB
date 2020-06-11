@@ -186,7 +186,7 @@ class MainProgram
 			Console.Clear();
 			Console.WriteLine("Welcome to the customer menu!\n=======================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n=======================================\n1) Escape room overview\n2) Info \n3) Contact and F.A.Q.\n4) Reserveren\n5) Logout\n=======================================\n");
+			Console.WriteLine("\n=======================================\n1) Escape room overview\n2) Info \n3) Contact and F.A.Q.\n4) Reserve an escape room\n5) Logout\n=======================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (customerFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
