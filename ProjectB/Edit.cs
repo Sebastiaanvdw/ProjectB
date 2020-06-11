@@ -39,7 +39,7 @@ namespace ProjectB
 				else if (input.Key == ConsoleKey.D3) { FoodEdit(); }
 				else if (input.Key == ConsoleKey.D4) { EditReservation(); }
 				else if (input.Key == ConsoleKey.D5) { return; }
-				else { Console.Write("\n"); Functions.Error(); Functions.ETC();}
+				else { Console.Write("\n"); Functions.Error(); Functions.ATC();}
 				
 			}
 		}
