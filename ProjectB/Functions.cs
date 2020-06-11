@@ -129,7 +129,7 @@ namespace ProjectB
 				Add.userArrangementString = "Work Outing";
 				userArrangementPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * 1.3;
 			}
-			userTotalPrice = escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * Add.userParticipants + userFoodArrangementPrice - userArrangementPrice;
+			userTotalPrice = Math.Round(((escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomPrice * Add.userParticipants) + userFoodArrangementPrice) - userArrangementPrice, 2);
 			
 		}
 		public static void CustomerOverview()

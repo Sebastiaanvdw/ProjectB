@@ -41,6 +41,20 @@
       "userEmail": "woutsietze2001@gmail.com",
       "userPhoneNumber": "0622334455",
       "role": "customer"
+    },
+    {
+      "userID": 4,
+      "userName": "asrvdw",
+      "userPassword": "asrvdw",
+      "userFirstName": "Sebastiaan",
+      "userLastName": "van der Weel",
+      "userPostalCode": "3192PA",
+      "userStreetName": "Boomkor",
+      "userHouseNumber": "49",
+      "userResidencyName": "Hoogvliet",
+      "userEmail": "asr.vanderweel@gmail.com",
+      "userPhoneNumber": "0623203073",
+      "role": "customer"
     }
   ]
 }

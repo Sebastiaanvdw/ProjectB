@@ -46,12 +46,12 @@
       "streetName": "Straat",
       "houseNumber": "12",
       "residencyName": "Rotterdam",
-      "email": "@.",
+      "email": "JanGert@werk.nl",
       "phoneNumber": "0612345678",
       "participants": 4,
-      "foodArrangement": "Just Food",
+      "foodArrangement": "Food and Drinks",
       "arrangement": "None",
-      "totalPrice": 79.8,
+      "totalPrice": 103.8,
       "paymentMethod": "iDEAL"
     }
   ]
