@@ -70,21 +70,10 @@ namespace ProjectB
 			Console.WriteLine("Arrangement:		" + Add.userArrangementString);
 			Console.WriteLine("\nTotal Price:		€" + userTotalPrice);
 			Console.Write("\nClient UniqueID (Bring this to the desk): ");
-			Write(Add.userUniqueID, ConsoleColor.Green);
-			Console.WriteLine("\nThis will be sent to the following email address: " + Add.userEmail);
-			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
+			WriteLine(Add.userUniqueID, ConsoleColor.Yellow);
+			Console.WriteLine("This will be sent to the following email address: " + Add.userEmail);
+			ATC();
 			Console.WriteLine("===========================================================");
-			Console.ReadKey(true);
-			BetaalPagina.Payment();
-			if (BetaalPagina.PaymentSuccess == true) 
-			{
-				Add.ReservationWriteToDatabase();
-			}
-			userTotalPrice = 0;
-			Add.userFoodArrangement = 0;
-			Add.userFoodString = "";
-			Add.userArrangementString = "";
-			Add.userArrangement = 0;
 		}
 		public static void TotalPrice()
 		{

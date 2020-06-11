@@ -196,7 +196,7 @@ namespace ProjectB
 				userID = NewIndex + 1;
 				Console.Clear();
 				Console.WriteLine("===========================================================");
-				Console.WriteLine("Please the required information:");
+				Console.WriteLine("Please fill in the required information:");
 				Console.WriteLine("===========================================================");
 
 				input_message = "Enter your username:";
@@ -256,15 +256,15 @@ namespace ProjectB
 		}
 		public static void AddReservation()
 		{
-			string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
-			timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
 			bool LoopAddReservation = true;
 			while (LoopAddReservation)
 			{
+				string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
+				timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
 				Console.Clear();
 				if (escapeRoomsList.EscapeRooms.Count < 1)
 				{
-					Console.WriteLine("You cannot create a room just yet! You will be returned to the menu.");//oude string = "No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu."
+					Console.WriteLine("No escaperooms have been added yet so you can't make a reservation yet, you will be returned to the menu."); 
 					Functions.ATC();
 					return;
 				}
@@ -274,106 +274,55 @@ namespace ProjectB
 					int NewIndex = reservationsList.Reservations.Count;
 					reservationNumber = NewIndex + 1;
 					Console.WriteLine("Please choose your room and fill in the information required:");
-					Console.WriteLine("===========================================================");
+					Console.WriteLine("=============================================================");
 					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
 
-					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + ")"); }
-					
-					input_message = "\nRoom:";
+					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + " [" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + " participants]"); }
+					Console.WriteLine("=============================================================");
+					input_message = "Room choice:";
 					error_message = "Please enter a number between 1 and " + escapeRoomsList.EscapeRooms.Count;
 					RoomChoice = Functions.Error_Exception_Int(input_message, error_message, 1, escapeRoomsList.EscapeRooms.Count) - 1;
 
 					Functions.ReservationMenu();
 
 
-					Console.WriteLine("Availability info:\n===========================================================");
+					Console.WriteLine("Availability info:\n=============================================================");
 					for (int i = 0; i < timesList.Time.Count; i++)
 					{
-						Console.WriteLine("Day:		" + timesList.Time[i].Day);
-						if (timesList.Time[i].Availability1)
-						{
-							Availability1 = "Available";
-						}
-						else
-						{
-							Availability1 = "Unavailable";
-						}
-						Console.WriteLine("09:15 - 11:15 " + Availability1);
-						if (timesList.Time[i].Availability2)
-						{
-							Availability2 = "Available";
-						}
-						else
-						{
-							Availability2 = "Unavailable";
-						}
-						Console.WriteLine("12:15 - 14:15 " + Availability2);
-						if (timesList.Time[i].Availability3)
-						{
-							Availability3 = "Available";
-						}
-						else
-						{
-							Availability3 = "Unavailable";
-						}
-						Console.WriteLine("14:45 - 16:45 " + Availability3);
+						Console.Write("Day:	"); Functions.WriteLine(timesList.Time[i].Day, ConsoleColor.Yellow);
+						if (timesList.Time[i].Availability1){ Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+						else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
+
+						if (timesList.Time[i].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+						else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+						if (timesList.Time[i].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Green); }
+						else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Red); }
 					}
-					Console.WriteLine("\n===========================================================");
-					input_message = "Select which day(use 1-5):";
+					Console.WriteLine("=============================================================");
+					input_message = "Select which day you would like to reserve(use 1-5):";
 					error_message = "Please enter a valid number";
 					selectedDay = Functions.Error_Exception_Int(input_message, error_message, 1, 5);
 
-					if (selectedDay == 1)
-					{
-						day = "Monday";
-					}
-					else if(selectedDay == 2){
-						day = "Tuesday";
-					}
-					else if (selectedDay == 3)
-					{
-						day = "Wednesday";
-					}
-					else if (selectedDay == 4)
-					{
-						day = "Thursday";
-					}
-					else if (selectedDay == 5)
-					{
-						day = "Friday";
-					}
+					if (selectedDay == 1){day = "Monday";}
+					else if(selectedDay == 2){day = "Tuesday";}
+					else if (selectedDay == 3){day = "Wednesday";}
+					else if (selectedDay == 4){day = "Thursday";}
+					else if (selectedDay == 5){day = "Friday";}
 
 					while (selectedAvailabilityLoop)
 					{
+						Console.Clear();
 						Console.WriteLine("Availability info:\n===========================================================");
-						if (timesList.Time[selectedDay - 1].Availability1)
-						{
-							Availability1 = "Available";
-						}
-						else
-						{
-							Availability1 = "Unavailable";
-						}
-						Console.WriteLine("09:15 - 11:15 " + Availability1);
-						if (timesList.Time[selectedDay - 1].Availability2)
-						{
-							Availability2 = "Available";
-						}
-						else
-						{
-							Availability2 = "Unavailable";
-						}
-						Console.WriteLine("12:15 - 14:15 " + Availability2);
-						if (timesList.Time[selectedDay - 1].Availability3)
-						{
-							Availability3 = "Available";
-						}
-						else
-						{
-							Availability3 = "Unavailable";
-						}
-						Console.WriteLine("14:45 - 16:45 " + Availability3);
+						if (timesList.Time[selectedDay - 1].Availability1){ Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+						else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
 
+						if (timesList.Time[selectedDay - 1].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+						else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+						if (timesList.Time[selectedDay - 1].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3, ConsoleColor.Green); }
+						else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3, ConsoleColor.Red); }
+						Console.WriteLine("===========================================================");
 						input_message = "Select which time you want to play(use 1-3):";
 						error_message = "Please enter a valid number";
 						selectedAvailability = Functions.Error_Exception_Int(input_message, error_message, 1, 3);
@@ -383,13 +332,8 @@ namespace ProjectB
 							{
 								availability = "09:15 - 11:15";
 								selectedAvailabilityLoop = false;
-								timesList.Time[selectedDay - 1].Availability1 = false;
-								File.WriteAllText(PathTime, json);
 							}
-							else
-							{
-								error_message = "Please enter a valid number";
-							}
+							else { error_message = "Please enter a valid number"; }
 						}
 						if (selectedAvailability == 2)
 						{
@@ -397,13 +341,8 @@ namespace ProjectB
 							{
 								availability = "12:15 - 14:15";
 								selectedAvailabilityLoop = false;
-								timesList.Time[selectedDay - 1].Availability2 = false;
-								File.WriteAllText(PathTime, json);
 							}
-							else
-							{
-								error_message = "Please enter a valid number";
-							}
+							else { error_message = "Please enter a valid number"; }
 						}
 						if (selectedAvailability == 3)
 						{
@@ -411,13 +350,8 @@ namespace ProjectB
 							{
 								availability = "14:45 - 16:45";
 								selectedAvailabilityLoop = false;
-								timesList.Time[selectedDay - 1].Availability3 = false;
-								File.WriteAllText(PathTime, json);
 							}
-							else
-							{
-								error_message = "Please enter a valid number";
-							}
+							else { error_message = "Please enter a valid number"; }
 						}
 					}
 				
@@ -467,7 +401,7 @@ namespace ProjectB
 					userPhoneNumber = Functions.Error_Exception_String(input_message, error_message, true, true, 10, 10, false, "", "", false);
 
 					Functions.ReservationMenu();
-					input_message = "Fill in how many participants there will be (" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + ")";
+					input_message = "Fill in how many participants there will be [" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize + "]";
 					error_message = "Please enter a valid number of participants";
 					userParticipants = Functions.Error_Exception_Int(input_message, error_message, escapeRoomsList.EscapeRooms[RoomChoice].RoomMinSize, escapeRoomsList.EscapeRooms[RoomChoice].RoomMaxSize);
 
@@ -484,8 +418,26 @@ namespace ProjectB
 					Console.Clear();
 					if (userArrangement != 0)
 					{
-						Functions.TotalPrice();
-						Functions.ReceiptFunction();
+						Functions.TotalPrice(); Functions.ReceiptFunction(); BetaalPagina.Payment();
+						if (BetaalPagina.PaymentSuccess == true){
+							if (selectedAvailability == 1)
+							{
+								timesList.Time[selectedDay - 1].Availability1 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							if (selectedAvailability == 2)
+							{
+								timesList.Time[selectedDay - 1].Availability2 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							if (selectedAvailability == 3)
+							{
+								timesList.Time[selectedDay - 1].Availability3 = false;
+								File.WriteAllText(PathTime, json);
+							}
+							ReservationWriteToDatabase();
+						}
+						Functions.userTotalPrice = 0; userFoodArrangement = 0; userFoodString = ""; userArrangementString = ""; userArrangement = 0;
 						Console.Write("Would you like to add another reservation?");
 						bool Return = Util.CheckYN();
 						if (Return == true) { }

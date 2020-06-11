@@ -1,33 +1,33 @@
 {
   "times": [
     {
-      "day": "monday",
+      "day": "Monday",
       "availability1": false,
-      "availability2": true,
-      "availability3": true
+      "availability2": false,
+      "availability3": false
     },
     {
-      "day": "tuesday",
+      "day": "Tuesday",
       "availability1": true,
       "availability2": true,
       "availability3": true
     },
     {
-      "day": "wednesday",
+      "day": "Wednesday",
       "availability1": true,
-      "availability2": true,
+      "availability2": false,
       "availability3": true
     },
     {
-      "day": "thursday",
+      "day": "Thursday",
       "availability1": true,
       "availability2": true,
-      "availability3": true
+      "availability3": false
     },
     {
-      "day": "friday",
+      "day": "Friday",
       "availability1": true,
-      "availability2": true,
+      "availability2": false,
       "availability3": true
     }
   ]
