@@ -30,7 +30,7 @@ namespace ProjectB
 			while (!LoopEditFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Edit page.\n=======================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Return to menu\n");
+				Console.WriteLine("===========================================================\nWelcome to the Edit page.\n===========================================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Return to menu\n");
 				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
@@ -59,7 +59,7 @@ namespace ProjectB
 				{
 					Console.Clear();
 					Console.OutputEncoding = Encoding.UTF8;
-					Console.WriteLine("Room info:\n==============================================================================");
+					Console.WriteLine("Room info:\n===========================================================");
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 					{
 						Console.WriteLine("Room number			" + escapeRoomsList.EscapeRooms[i].RoomNumber);
@@ -67,7 +67,7 @@ namespace ProjectB
 						Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
 						Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 						Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n===========================================================");
 					}
 				}
 
@@ -169,7 +169,7 @@ namespace ProjectB
 				}
 				else
 				{
-					Console.WriteLine("User info:\n=======================================");
+					Console.WriteLine("User info:\n===========================================================");
 					for (int i = 0; i < usersList.Users.Count; i++)
 					{
 						Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
@@ -179,7 +179,7 @@ namespace ProjectB
 						Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
 						Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
 						Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
-						Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+						Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n===========================================================");
 					}
 				}
 
@@ -306,12 +306,12 @@ namespace ProjectB
 			{
 				menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 				Console.Clear();
-				Console.WriteLine("-----------------------------");
+				Console.WriteLine("===========================================================");
 				Console.WriteLine("Incase you want to return to the menu type: 'return'");
-				Console.WriteLine("-----------------------------\nThese are the current prices for our food arrangements.");
+				Console.WriteLine("===========================================================\nThese are the current prices for our food arrangements.");
 				Console.WriteLine("1) Drinks $" + menusList.Menus[0].DrinksPrice);
 				Console.WriteLine("2) Food $" + menusList.Menus[0].FoodPrice);
-				Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n-----------------------------\n");
+				Console.WriteLine("3) Food and Drinks $" + menusList.Menus[0].FoodAndDrinksPrice + "\n===========================================================\n");
 
 				input_message = "Choose the menu item that you want to edit (use 1-3)";
 				error_message = "Please enter a number between 1 and 3";

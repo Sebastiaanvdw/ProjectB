@@ -48,7 +48,7 @@ class MainProgram
 			LoopAdminLogin = true;
 			Console.Clear();
 			Util.Log("");
-			Console.WriteLine("Welcome to our Escape Room application!\n=======================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Register\n5) Exit Application\n=======================================\n");
+			Console.WriteLine("Welcome to our Escape Room application!\n===========================================================\n1) Customer login\n2) Employee login\n3) Admin login\n4) Register\n5) Exit Application\n===========================================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");	
 			Functions.Write("\nYour input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
@@ -64,7 +64,7 @@ class MainProgram
 		while (LoopAdminLogin)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin login page, please enter your login credentials:\n=======================================================================");
+			Console.WriteLine("Welcome to the admin login page, please enter your login credentials:\n===========================================================");
 			if (LoginTries > 0)
 			{
 				input_message = "ID:";
@@ -86,13 +86,13 @@ class MainProgram
 				else if (ID == usersList.Users[ID - 1].UserID && AdminNameLogin == usersList.Users[ID - 1].UserName && AdminPassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "admin")
 				{
 					LoginTries -= 1;
-					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n=======================================================================\n");
+					Console.WriteLine("You are not an admin, nice try.... You have " + LoginTries + " attempts left.\n===========================================================\n");
 					Functions.ATC();
 				}
 				else
 				{
 					LoginTries -= 1;
-					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n=======================================================================\n");
+					Console.WriteLine("These are not the correct login credentials! Try again, you have " + LoginTries + " attempts left.\n===========================================================\n");
 					Functions.ATC();
 				}
 			}
@@ -109,7 +109,7 @@ class MainProgram
 		while (LoopCustomerLogin)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the customer login page, please enter your login credentials:\n===================================================================================");
+			Console.WriteLine("Welcome to the customer login page, please enter your login credentials:\n===========================================================");
 			input_message = "ID:";
 			error_message = "Please enter a valid ID";
 			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
@@ -141,7 +141,7 @@ class MainProgram
 		while (LoopEmployeeLogin)
 		{
 			Console.Clear();
-			Console.WriteLine("Welcome to the employee login page, please enter your login credentials:\n=========================================================================");
+			Console.WriteLine("Welcome to the employee login page, please enter your login credentials:\n===========================================================");
 			input_message = "ID:";
 			error_message = "Please enter a valid ID";
 			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
@@ -164,7 +164,7 @@ class MainProgram
 			}
 			else if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole != "employee" || usersList.Users[ID - 1].UserRole != "admin")
 			{
-				Console.WriteLine("You are not an employee, nice try.... Try again.\n===================================================================================\n");
+				Console.WriteLine("You are not an employee, nice try.... Try again.\n===========================================================\n");
 				Functions.ATC();
 			}
 			else if (EmployeeNameLogin == "" && EmployeePassWordLogin == "")
@@ -175,7 +175,7 @@ class MainProgram
 			}
 			else
 			{
-				Console.WriteLine("These are not the correct login credentials! Try again.\n===================================================================================");
+				Console.WriteLine("These are not the correct login credentials! Try again.\n===========================================================");
 				Functions.ATC();
 			}
 		}
@@ -186,9 +186,9 @@ class MainProgram
 		{
 			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
-			Console.WriteLine("Welcome to the customer menu!\n=======================================");
+			Console.WriteLine("Welcome to the customer menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n=======================================\n1) Escape room overview\n2) Info \n3) Contact and F.A.Q.\n4) Reserveren\n5) Logout\n=======================================\n");
+			Console.WriteLine("\n===========================================================\n1) Escape room overview\n2) Info \n3) Contact and F.A.Q.\n4) Reserveren\n5) Logout\n===========================================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (customerFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
@@ -207,9 +207,9 @@ class MainProgram
 		{
 			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
-			Console.WriteLine("Welcome to the employee menu!\n=======================================");
+			Console.WriteLine("Welcome to the employee menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Contact and F.A.Q.\n5) Logout\n=======================================\n");
+			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Contact and F.A.Q.\n5) Logout\n===========================================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (employeeFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
@@ -228,9 +228,9 @@ class MainProgram
 		{
 			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
-			Console.WriteLine("Welcome to the admin menu!\n=======================================");
+			Console.WriteLine("Welcome to the admin menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n=======================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add menu\n7) Edit menu\n8) Delete menu \n9) Logout\n=======================================\n");
+			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add menu\n7) Edit menu\n8) Delete menu \n9) Logout\n===========================================================\n");
 			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("8", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("9", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (adminFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);

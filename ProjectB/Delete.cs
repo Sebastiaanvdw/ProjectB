@@ -26,7 +26,7 @@ namespace ProjectB
 			while (!LoopDeleteFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Delete page.\n=======================================\n1) Delete an escape room\n2) Delete an user\n3) Delete a reservation\n4) Return to menu\n");
+				Console.WriteLine("===========================================================\nWelcome to the Delete page.\n===========================================================\n1) Delete an escape room\n2) Delete an user\n3) Delete a reservation\n4) Return to menu\n");
 				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
@@ -57,7 +57,7 @@ namespace ProjectB
 				{
 					Console.Clear();
 					Console.OutputEncoding = Encoding.UTF8;
-					Console.WriteLine("Room info:\n==============================================================================");
+					Console.WriteLine("Room info:\n===========================================================");
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 					{
 						Console.WriteLine("Room Number:			" + escapeRoomsList.EscapeRooms[i].RoomNumber);
@@ -65,7 +65,7 @@ namespace ProjectB
 						Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
 						Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 						Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+						Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n===========================================================");
 					}
 				}
 
@@ -133,7 +133,7 @@ namespace ProjectB
 				bool DeleteUserSucces = false;
 				Console.Clear();
 				Console.OutputEncoding = Encoding.UTF8;
-				Console.WriteLine("User info:\n=======================================");
+				Console.WriteLine("User info:\n===========================================================");
 				for (int i = 0; i < usersList.Users.Count; i++)
 				{
 					Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
@@ -143,7 +143,7 @@ namespace ProjectB
 					Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
 					Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
 					Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
-					Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+					Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n===========================================================");
 				}
 
 				input_message = "Enter the userID of the user you want to delete";
@@ -218,7 +218,7 @@ namespace ProjectB
 				else
 				{
 					Console.OutputEncoding = Encoding.UTF8;
-					Console.WriteLine("Reservation info:\n=======================================");
+					Console.WriteLine("Reservation info:\n===========================================================");
 					for (int i = 0; i < reservationsList.Reservations.Count; i++)
 					{
 						Console.WriteLine("Reservation Number:	" + reservationsList.Reservations[i].ReservationNumber);
@@ -232,7 +232,7 @@ namespace ProjectB
 						Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
 						Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
 						Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
-						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n===========================================================");
 					}
 				}
 

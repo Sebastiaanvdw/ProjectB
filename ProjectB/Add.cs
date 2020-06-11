@@ -93,7 +93,7 @@ namespace ProjectB
 			while (!LoopAddFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Add page.\n=======================================\n1) Add an escape room\n2) Add an user\n3) Add a reservation\n4) Return to menu\n");
+				Console.WriteLine("===========================================================\nWelcome to the Add page.\n===========================================================\n1) Add an escape room\n2) Add an user\n3) Add a reservation\n4) Return to menu\n");
 				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("4", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
@@ -168,9 +168,9 @@ namespace ProjectB
 				if (usersList.Users.Count == 1) { NewIndex = 0; }
 				userID = NewIndex + 1;
 				Console.Clear();
-				Console.WriteLine("-----------------------------");
+				Console.WriteLine("===========================================================");
 				Console.WriteLine("Please the required information:");
-				Console.WriteLine("-----------------------------");
+				Console.WriteLine("===========================================================");
 
 				input_message = "Enter your username:";
 				error_message = "Please enter a valid username";
@@ -244,11 +244,11 @@ namespace ProjectB
 				{
 					int NewIndex = reservationsList.Reservations.Count;
 					reservationNumber = NewIndex + 1;
-					Console.WriteLine("-----------------------------");
+					Console.WriteLine("===========================================================");
 					Console.WriteLine("Incase you want to return to the menu type: 'return'"); //MOEt DIT WORDEN TOEGEVOEGD???
-					Console.WriteLine("-----------------------------");
+					Console.WriteLine("===========================================================");
 					Console.WriteLine("Please choose your room and fill in the information required:");
-					Console.WriteLine("-----------------------------");
+					Console.WriteLine("===========================================================");
 					Console.WriteLine("For which of the following rooms would you like to make a reservation? (choose a number between 1" + "-" + escapeRoomsList.EscapeRooms.Count + ")"); // Tussen 1-5
 
 					for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++) { Console.WriteLine(escapeRoomsList.EscapeRooms[i].RoomNumber + " - " + escapeRoomsList.EscapeRooms[i].RoomName + "(" + escapeRoomsList.EscapeRooms[i].RoomMinSize + "-" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + ")"); }

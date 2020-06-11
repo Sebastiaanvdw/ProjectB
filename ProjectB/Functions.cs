@@ -29,17 +29,17 @@ namespace ProjectB
 		public static void Contact()
 		{
 			Console.Clear();
-			Console.WriteLine("=======================================\nOpening hours:\nMonday through Friday:	9:00am - 5:00pm\n\nTelephone number:	01034235423\nE-mail:			EscapeMail@rooms.com\nAddress:		Janpieterstraat 49 3546WQ Rotterdam\n=======================================\n");
+			Console.WriteLine("===========================================================\nOpening hours:\nMonday through Friday:	9:00am - 5:00pm\n\nTelephone number:	01034235423\nE-mail:			EscapeMail@rooms.com\nAddress:		Janpieterstraat 49 3546WQ Rotterdam\n===========================================================\n");
 			Functions.ATC();
 		}
 		public static void FAQ()
 		{
 			string FAQ1 = "Q: Do you provide food during or after the Escape Room?\nA: We can provide food and drinks after the Escape Room is done via a special arrangement you can order.\n";
 			string FAQ2 = "Q: Do I have to bring 5 people if the Escape Room specifically says its for 5 people?\nA: No you don't have to bring 5 people, but we recommend bringing as many people as possible up to the maximum amount.\n";
-			string FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n=======================================\n";
+			string FAQ3 = "Q: Do you have Escape Rooms capable for someone inside a wheelchair?\nA: We try to make as many rooms available to everyone, even for people with certain disabilities.\n===========================================================\n";
 
 			Console.Clear();
-			Console.WriteLine("=======================================");
+			Console.WriteLine("===========================================================");
 			Console.WriteLine(FAQ1 + "\n" + FAQ2 + "\n" + FAQ3);
 			Functions.ATC();
 		}
@@ -57,10 +57,10 @@ namespace ProjectB
 
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
-			Console.WriteLine("============================================");
+			Console.WriteLine("===========================================================");
 			Console.WriteLine("The following room has been chosen: " + escapeRoomsList.EscapeRooms[Add.RoomChoice].RoomName);
 			Console.WriteLine("\nAmount of participants: " + Add.userParticipants);
-			Console.WriteLine("============================================");
+			Console.WriteLine("===========================================================");
 			Console.WriteLine("Name:			" + Add.resUserName + " " + Add.userLastName);
 			Console.WriteLine("Street:			" + Add.userStreet + " " + Add.userHouseNumber);
 			Console.WriteLine("Postalcode:		" + Add.userPostcode);
@@ -73,7 +73,7 @@ namespace ProjectB
 			Write(Add.userUniqueID, ConsoleColor.Green);
 			Console.WriteLine("\nThis will be sent to the following email address: " + Add.userEmail);
 			Write("\nPress any key to continue to the payment page...\n", ConsoleColor.Green);
-			Console.WriteLine("============================================");
+			Console.WriteLine("===========================================================");
 			Console.ReadKey(true);
 			BetaalPagina.Payment();
 			if (BetaalPagina.PaymentSuccess == true) 
@@ -136,7 +136,7 @@ namespace ProjectB
 		{
 			usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
 			Console.Clear();
-			Console.WriteLine("User info:\n=======================================");
+			Console.WriteLine("User info:\n===========================================================");
 			for (int i = 0; i < usersList.Users.Count; i++)
 			{
 				Console.WriteLine("UserID:		" + usersList.Users[i].UserID);
@@ -146,7 +146,7 @@ namespace ProjectB
 				Console.WriteLine("Address:	" + usersList.Users[i].UserStreetName + " " + usersList.Users[i].UserHouseNumber + " " + usersList.Users[i].UserPostalCode + " " + usersList.Users[i].UserResidencyName);
 				Console.WriteLine("Phone number:	" + usersList.Users[i].UserPhoneNumber);
 				Console.WriteLine("E-mail:		" + usersList.Users[i].UserEmail);
-				Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n=======================================");
+				Console.WriteLine("Role:		" + usersList.Users[i].UserRole + "\n===========================================================");
 			}
 			Functions.ATC();
 		}
@@ -155,7 +155,7 @@ namespace ProjectB
 			reservationsList = JsonConvert.DeserializeObject<JSONReservationList>(File.ReadAllText(PathReservation));
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
-			Console.WriteLine("Reservation info:\n=======================================");
+			Console.WriteLine("Reservation info:\n===========================================================");
 			for (int i = 0; i < reservationsList.Reservations.Count; i++)
 			{
 				Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
@@ -168,7 +168,7 @@ namespace ProjectB
 				Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
 				Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
 				Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
-				Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n=======================================");
+				Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n===========================================================");
 			}
 			Functions.ATC();
 		}
@@ -177,7 +177,7 @@ namespace ProjectB
 			while (!LoopContactFunction)
 			{
 				Console.Clear();
-				Console.WriteLine("=======================================\nWelcome to the Contact and F.A.Q. page.\n=======================================\n1) Contact information\n2) F.A.Q.\n3) Return to menu\n");
+				Console.WriteLine("===========================================================\nWelcome to the Contact and F.A.Q. page.\n===========================================================\n1) Contact information\n2) F.A.Q.\n3) Return to menu\n");
 				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow);Console.Write("] or ["); Functions.Write("3", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
@@ -191,9 +191,9 @@ namespace ProjectB
 		{
 			Console.Clear();
 			Write("What is an escape room?", ConsoleColor.Green);
-			WriteLine("\n=======================================\nIn an escape room the door wil be closed and locked and it is up to you to escape the room as quickly as possible.\nUsually you wil have around 60 minutes to escape.\nWhile you are inside you wil have to solve puzzles that wil bring you close to the 'key' or code that wil help you open the door.\nIf you manage to open the door within the given time, you win.\n=======================================");
+			WriteLine("\n===========================================================\nIn an escape room the door wil be closed and locked and it is up to you to escape the room as quickly as possible.\nUsually you wil have around 60 minutes to escape.\nWhile you are inside you wil have to solve puzzles that wil bring you close to the 'key' or code that wil help you open the door.\nIf you manage to open the door within the given time, you win.\n=======================================");
 			Write("Houserules:", ConsoleColor.Green);
-			WriteLine("\n=======================================\n1) It is not allowed to enter the escape rooms under the influence of drugs and/or alcohol.");
+			WriteLine("\n===========================================================\n1) It is not allowed to enter the escape rooms under the influence of drugs and/or alcohol.");
 			WriteLine("2) Inside the escape room you won't have to use force to open something.");
 			WriteLine("3) The only way to advance in the game is with a key or by correctly executing an assignment. Don't move any furniture!");
 			WriteLine("4) Smoking is not allowed inside the whole building");
@@ -206,7 +206,7 @@ namespace ProjectB
 			WriteLine("11) You play the game at your own risk. We are not responsible for any injuries.");
 			Write("TIP: We have special discount arrangements! Kids Party 40%, Ladies Night 50%, Work Outing 30%.\n", ConsoleColor.Green);
 			Write("DISCLAIMER: Please note that these discounts are on the base price of an escape room.\n", ConsoleColor.Yellow);
-			WriteLine("=======================================\n");
+			WriteLine("===========================================================\n");
 			Functions.ATC();
 		}
 		public static void ShowFunction()
@@ -214,14 +214,14 @@ namespace ProjectB
 			escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
 			Console.Clear();
 			Console.OutputEncoding = Encoding.UTF8;
-			Console.WriteLine("Room info:\n==============================================================================");
+			Console.WriteLine("Room info:\n===========================================================");
 			for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 			{
 				Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
 				Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
 				Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 				Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+				Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n===========================================================");
 			}
 			Functions.ATC();
 		}
@@ -238,14 +238,14 @@ namespace ProjectB
 			}
 			else
 			{
-				Console.WriteLine("Room info:\n==============================================================================");
+				Console.WriteLine("Room info:\n===========================================================");
 				for (int i = 0; i < escapeRoomsList.EscapeRooms.Count; i++)
 				{
 					Console.WriteLine("Room:				" + escapeRoomsList.EscapeRooms[i].RoomName);
 					Console.WriteLine("Theme:				" + escapeRoomsList.EscapeRooms[i].RoomTheme);
 					Console.WriteLine("Price per participant:		" + "€" + escapeRoomsList.EscapeRooms[i].RoomPrice);
 					Console.WriteLine("Minimum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMinSize);
-					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n==============================================================================");
+					Console.WriteLine("Maximum amount of players:	" + escapeRoomsList.EscapeRooms[i].RoomMaxSize + "\n===========================================================");
 				}
 
 			}
