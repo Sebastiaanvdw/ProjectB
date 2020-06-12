@@ -1,0 +1,57 @@
+{
+  "Monday": [
+    {
+      "Availability1": "Available"
+    },
+    {
+      "Availability2": "Available"
+    },
+    {
+      "Availability3": "Available"
+    }
+  ],
+  "Tuesday": [
+    {
+      "Availability1": "Available"
+    },
+    {
+      "Availability2": "Available"
+    },
+    {
+      "Availability3": "Available"
+    }
+  ],
+  "Wednesday": [
+    {
+      "Availability1": "Available"
+    },
+    {
+      "Availability2": "Available"
+    },
+    {
+      "Availability3": "Available"
+    }
+  ],
+  "Thursday": [
+    {
+      "Availability1": "Available"
+    },
+    {
+      "Availability2": "Available"
+    },
+    {
+      "Availability3": "Available"
+    }
+  ],
+  "Friday": [
+    {
+      "Availability1": "Available"
+    },
+    {
+      "Availability2": "Available"
+    },
+    {
+      "Availability3": "Available"
+    }
+  ]
+}
