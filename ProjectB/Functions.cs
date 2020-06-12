@@ -12,8 +12,12 @@ namespace ProjectB
 {
 	class Functions
 	{
+		public static int selectedAvailability, selectedDay;
 		public static double userTotalPrice, userFoodArrangementPrice, userArrangementPrice;
 		public static bool LoopContactFunction = false;
+		public static string availability, day, Availability1, Availability2, Availability3,input_message, error_message;
+		public static string PaymentMethod = "";
+		public static bool PaymentSuccess = false;
 
 		private static readonly string PathEscapeRoom = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"EscapeRoomDatabase.json");
 		private static JSONEscapeRoomList escapeRoomsList = JsonConvert.DeserializeObject<JSONEscapeRoomList>(File.ReadAllText(PathEscapeRoom));
@@ -29,6 +33,120 @@ namespace ProjectB
 
 		private static readonly string PathUser = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..", @"UserDatabase.json");
 		private static JSONUserList usersList = JsonConvert.DeserializeObject<JSONUserList>(File.ReadAllText(PathUser));
+
+		public static void AvailabilityOverview()
+		{
+			Console.Clear();
+			Console.WriteLine("Availability info:\n=============================================================");
+			for (int i = 0; i < timesList.Time.Count; i++)
+			{
+				Console.Write("Day:	"); Functions.WriteLine(timesList.Time[i].Day, ConsoleColor.Yellow);
+				if (timesList.Time[i].Availability1) { Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+				else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
+
+				if (timesList.Time[i].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+				else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+				if (timesList.Time[i].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Green); }
+				else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Red); }
+			}
+			Console.WriteLine("=============================================================");
+			ATC();
+		}
+		public static void AvailabilityFunction()
+		{
+			bool selectedDayLoop = true;
+			while (selectedDayLoop)
+			{
+				Console.WriteLine("Availability info:\n=============================================================");
+				for (int i = 0; i < timesList.Time.Count; i++)
+				{
+					Console.Write("Day:	"); Functions.WriteLine(timesList.Time[i].Day, ConsoleColor.Yellow);
+					if (timesList.Time[i].Availability1) { Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+					else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
+
+					if (timesList.Time[i].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+					else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+					if (timesList.Time[i].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Green); }
+					else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Red); }
+				}
+				Console.WriteLine("=============================================================");
+				input_message = "Select which day you would like to reserve(use 1-5):";
+				error_message = "Please enter a valid number";
+				selectedDay = Functions.Error_Exception_Int(input_message, error_message, 1, 5);
+
+				if (selectedDay == 1) { day = "Monday"; }
+				else if (selectedDay == 2) { day = "Tuesday"; }
+				else if (selectedDay == 3) { day = "Wednesday"; }
+				else if (selectedDay == 4) { day = "Thursday"; }
+				else if (selectedDay == 5) { day = "Friday"; }
+
+				bool selectedAvailabilityLoop = true;
+				while (selectedAvailabilityLoop)
+				{
+					if (!timesList.Time[selectedDay - 1].Availability1 && !timesList.Time[selectedDay - 1].Availability2 && !timesList.Time[selectedDay - 1].Availability3)
+					{
+						Console.WriteLine("All rooms on this day have already been booked, you wil have to choose another day!");
+						Functions.ATC();
+						Console.Clear();
+						selectedAvailabilityLoop = false;
+					}
+					else
+					{
+						Console.Clear();
+						Console.WriteLine("Availability info:\n===========================================================");
+						if (timesList.Time[selectedDay - 1].Availability1) { Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+						else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
+
+						if (timesList.Time[selectedDay - 1].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+						else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+						if (timesList.Time[selectedDay - 1].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3, ConsoleColor.Green); }
+						else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3, ConsoleColor.Red); }
+						Console.WriteLine("===========================================================");
+						input_message = "Select which time you want to play(use 1-3) press 4 to go back and choose another day:";
+						error_message = "Please enter a valid number";
+						selectedAvailability = Functions.Error_Exception_Int(input_message, error_message, 1, 4);
+						if (selectedAvailability == 1)
+						{
+							if (timesList.Time[selectedDay - 1].Availability1)
+							{
+								availability = "09:15 - 11:15";
+								selectedAvailabilityLoop = false;
+								selectedDayLoop = false;
+							}
+							else { Functions.ErrorMessage("This timeslot has already been booked!"); Functions.ATC(); }
+						}
+						if (selectedAvailability == 2)
+						{
+							if (timesList.Time[selectedDay - 1].Availability2)
+							{
+								availability = "12:15 - 14:15";
+								selectedAvailabilityLoop = false;
+								selectedDayLoop = false;
+							}
+							else { Functions.ErrorMessage("This timeslot has already been booked!"); Functions.ATC(); }
+						}
+						if (selectedAvailability == 3)
+						{
+							if (timesList.Time[selectedDay - 1].Availability3)
+							{
+								availability = "14:45 - 16:45";
+								selectedAvailabilityLoop = false;
+								selectedDayLoop = false;
+							}
+							else { Functions.ErrorMessage("This timeslot has already been booked!"); Functions.ATC(); }
+						}
+						if (selectedAvailability == 4)
+						{
+							Console.Clear();
+							selectedAvailabilityLoop = false;
+						}
+					}
+				}
+			}
+		}
 		public static void Contact()
 		{
 			Console.Clear();
@@ -75,20 +193,20 @@ namespace ProjectB
 			Console.Write("\nClient UniqueID (Bring this to the desk): ");
 			WriteLine(Add.userUniqueID, ConsoleColor.Yellow);
 			Console.WriteLine("This will be sent to the following email address: " + Add.userEmail);
-			BetaalPagina.Payment();
-			if (BetaalPagina.PaymentSuccess == true)
+			Payment();
+			if (PaymentSuccess == true)
 			{
-				if (Add.selectedAvailability == 1)
+				if (selectedAvailability == 1)
 				{
-					timesList.Time[Add.selectedDay - 1].Availability1 = false;
+					timesList.Time[selectedDay - 1].Availability1 = false;
 				}
-				if (Add.selectedAvailability == 2)
+				if (selectedAvailability == 2)
 				{
-					timesList.Time[Add.selectedDay - 1].Availability2 = false;
+					timesList.Time[selectedDay - 1].Availability2 = false;
 				}
-				if (Add.selectedAvailability == 3)
+				if (selectedAvailability == 3)
 				{
-					timesList.Time[Add.selectedDay - 1].Availability3 = false;
+					timesList.Time[selectedDay - 1].Availability3 = false;
 				}
 				string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
 				File.WriteAllText(PathTime, json);
@@ -99,10 +217,7 @@ namespace ProjectB
 			Add.userFoodString = ""; 
 			Add.userArrangementString = ""; 
 			Add.userArrangement = 0;
-			Console.Write("Would you like to add another reservation?");
-			bool Return = Util.CheckYN();
-			if (Return == true) { }
-			if (Return == false) { return; }
+			
 		}
 		public static void TotalPrice()
 		{
@@ -177,6 +292,8 @@ namespace ProjectB
 			for (int i = 0; i < reservationsList.Reservations.Count; i++)
 			{
 				Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
+				Console.WriteLine("Day:		" + reservationsList.Reservations[i].Day);
+				Console.WriteLine("Time:		" + reservationsList.Reservations[i].Availability);
 				Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
 				Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
 				Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
@@ -269,6 +386,82 @@ namespace ProjectB
 			}
 			Functions.ATC();
 		}
+		public static void Payment()
+		{
+			int roomChoice = Add.RoomChoice;
+			PaymentSuccess = false;
+
+			Console.Clear();
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.WriteLine("==============================");
+			Console.WriteLine("Participants:            " + Add.userParticipants);
+			Console.WriteLine("Room Price P.P.:         " + "€" + Math.Round(escapeRoomsList.EscapeRooms[roomChoice].RoomPrice, 2));
+			Console.WriteLine("==============================");
+			Console.WriteLine("Total Participant Price: " + "€" + Math.Round((Add.userParticipants * escapeRoomsList.EscapeRooms[roomChoice].RoomPrice), 2));
+			Console.WriteLine("Food & Drinks:           " + "€" + Math.Round(Functions.userFoodArrangementPrice, 2));
+			Console.WriteLine("============================== +");
+			Console.WriteLine("Arrangements:            " + "€" + Math.Round(Functions.userArrangementPrice, 2));
+			Console.WriteLine("============================== -");
+			Console.WriteLine("SubTotal:                " + "€" + Math.Round(Functions.userTotalPrice, 2));
+			Console.WriteLine("==============================" + "\n");
+
+			Console.Write("Would you like to continue with your payment?");
+			bool Return = Util.CheckYN();
+			if (Return == true)
+			{
+				Console.Clear();
+				Console.WriteLine("Choose your payment method of choice:" + "\n" + "1) iDEAL" + "\n" + "2) Paypal" + "\n" + "3) Creditcard" + "\n" + "4) Tikkie" + "\n" + "5) Return to previous menu");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] on the keyboard");
+				Functions.Write("\nYour input - ", ConsoleColor.Yellow);
+				var input = Console.ReadKey();
+				if (input.Key == ConsoleKey.D1)
+				{
+					PaymentMethod = "iDEAL";
+					Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+					Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+					PaymentSuccess = true;
+					Functions.ATC();
+				}
+				else if (input.Key == ConsoleKey.D2)
+				{
+					PaymentMethod = "Paypal";
+					Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+					Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+					PaymentSuccess = true;
+					Functions.ATC();
+				}
+				else if (input.Key == ConsoleKey.D3)
+				{
+					PaymentMethod = "Creditcard";
+					Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+					Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+					PaymentSuccess = true;
+					Functions.ATC();
+				}
+				else if (input.Key == ConsoleKey.D4)
+				{
+					PaymentMethod = "Tikkie";
+					Console.WriteLine("\nYour chosen payment method is: " + PaymentMethod);
+					Functions.WriteLine("\nYour payment was succesful!", ConsoleColor.Green);
+					PaymentSuccess = true;
+					Functions.ATC();
+				}
+				else if (input.Key == ConsoleKey.D5)
+				{
+					Console.Clear();
+					Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
+					Functions.ATC();
+					return;
+				}
+			}
+			else if (Return == false)
+			{
+				Console.Clear();
+				Functions.Write("\nYour payment has been cancelled!\n", ConsoleColor.Red);
+				Functions.ATC();
+				return;
+			}
+		}
 		public static void WriteLine(object obj, ConsoleColor? color = null)
 		{
 			if (color != null)
@@ -293,13 +486,11 @@ namespace ProjectB
 			Console.Write(obj);
 			Console.ResetColor();
 		}
-		
 		public static void ATC()
 		{
 			Console.WriteLine("Press any key to continue...");
 			Console.ReadKey(true);
 		}
-
 		public static void EscapeRoomMenu()
 		{
 			Console.Clear();

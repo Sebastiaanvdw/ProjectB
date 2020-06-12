@@ -34,7 +34,7 @@ namespace ProjectB
 			{
 				Console.Clear();
 				Console.WriteLine("===========================================================\nWelcome to the Edit page.\n===========================================================\n1) Edit escape room\n2) Edit user\n3) Edit food and drinks menu\n4) Edit reservation\n5) Edit Availability\n6) Return to menu\n");
-				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("]or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+				Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 				Functions.Write("Your input - ", ConsoleColor.Yellow);
 				var input = Console.ReadKey();
 				if (input.Key == ConsoleKey.D1) { EditEscapeRoom(); }
@@ -269,16 +269,26 @@ namespace ProjectB
 							}
 							else if (EditUserChoice == 8)
 							{
-								while (!roleSuccess)
+								if (usersList.Users[EditUserIndex].UserRole == "admin")
 								{
-									Console.WriteLine("Enter the new role name:");
-									userInput = Console.ReadLine();
-									if (string.IsNullOrEmpty(userInput)) { roleSuccess = false; }
-									else { roleSuccess = true; }
-									if (userInput == "customer" || userInput == "employee" || userInput == "admin" && roleSuccess) { usersList.Users[EditUserIndex].UserRole = userInput; }
-									else
+									Console.Clear();
+									Console.WriteLine("You cannot update the role of an admin.");
+									Functions.ATC();
+									Console.WriteLine();
+								}
+								else
+								{
+									while (!roleSuccess)
 									{
-										Functions.ErrorMessage("Please enter a valid role");
+										Console.WriteLine("Enter the new role name:");
+										userInput = Console.ReadLine();
+										if (string.IsNullOrEmpty(userInput)) { roleSuccess = false; }
+										else { roleSuccess = true; }
+										if (userInput == "customer" || userInput == "employee" || userInput == "admin" && roleSuccess) { usersList.Users[EditUserIndex].UserRole = userInput; }
+										else
+										{
+											Functions.ErrorMessage("Please enter a valid role");
+										}
 									}
 								}
 							}
@@ -330,6 +340,8 @@ namespace ProjectB
 					for (int i = 0; i < reservationsList.Reservations.Count; i++)
 					{
 						Console.WriteLine("Reservation number:	" + reservationsList.Reservations[i].ReservationNumber);
+						Console.WriteLine("Day:			" + reservationsList.Reservations[i].Day);
+						Console.WriteLine("Time:			" + reservationsList.Reservations[i].Availability);
 						Console.WriteLine("UniqueID:		" + reservationsList.Reservations[i].UniqueID);
 						Console.WriteLine("Room name:		" + reservationsList.Reservations[i].ResRoomName);
 						Console.WriteLine("Arrangements:		" + reservationsList.Reservations[i].Arrangement + ", " + reservationsList.Reservations[i].FoodArrangement);
@@ -629,7 +641,7 @@ namespace ProjectB
 				}
 				else
 				{
-					Function();
+					return;
 				}
 			}
 		}
@@ -638,57 +650,41 @@ namespace ProjectB
 			bool LoopAvailabilityEdit = true;
 			while (LoopAvailabilityEdit)
 			{
+				Console.Clear();
 				timesList = JsonConvert.DeserializeObject<JSONTimeList>(File.ReadAllText(PathTime));
-				Console.WriteLine("\n===========================================================");
-				Console.WriteLine("Choose what you want to do:");
-				Console.WriteLine("1) Reset the Availability of 1 day");
-				Console.WriteLine("2) Reset the Availability of all days");
 				Console.WriteLine("===========================================================");
-				input_message = "Choose what you want to do (use 1-2)";
+				Console.WriteLine("Choose what you want to do:");
+				Console.WriteLine("===========================================================");
+				Console.WriteLine("1) Reset the availability of 1 day");
+				Console.WriteLine("2) Reset the availability of all days");
+				Console.WriteLine("===========================================================");
+				input_message = "Choose an option(use 1-2):";
 				error_message = "Please enter a number between 1 and 2";
 				int EditAvailabilityChoice = Functions.Error_Exception_Int(input_message, error_message, 1, 2);
-
 				if (EditAvailabilityChoice == 1)
 				{
-					Console.WriteLine("Availability info:\n===========================================================");
+					Console.Clear();
+					Console.WriteLine("Availability info:\n=============================================================");
 					for (int i = 0; i < timesList.Time.Count; i++)
 					{
-						Console.WriteLine("Day:		" + timesList.Time[i].Day);
-						if (timesList.Time[i].Availability1)
-						{
-							Availability1 = "Available";
-						}
-						else
-						{
-							Availability1 = "Unavailable";
-						}
-						Console.WriteLine("09:15 - 11:15 " + Availability1);
-						if (timesList.Time[i].Availability2)
-						{
-							Availability2 = "Available";
-						}
-						else
-						{
-							Availability2 = "Unavailable";
-						}
-						Console.WriteLine("12:15 - 14:15 " + Availability2);
-						if (timesList.Time[i].Availability3)
-						{
-							Availability3 = "Available";
-						}
-						else
-						{
-							Availability3 = "Unavailable";
-						}
-						Console.WriteLine("14:45 - 16:45 " + Availability3);
+						Console.Write("Day:	"); Functions.WriteLine(timesList.Time[i].Day, ConsoleColor.Yellow);
+						if (timesList.Time[i].Availability1) { Availability1 = "Available"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Green); }
+						else { Availability1 = "Unavailable"; Console.Write("09:15 - 11:15 - "); Functions.WriteLine(Availability1, ConsoleColor.Red); }
+
+						if (timesList.Time[i].Availability2) { Availability2 = "Available"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Green); }
+						else { Availability2 = "Unavailable"; Console.Write("12:15 - 14:15 - "); Functions.WriteLine(Availability2, ConsoleColor.Red); }
+
+						if (timesList.Time[i].Availability3) { Availability3 = "Available"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Green); }
+						else { Availability3 = "Unavailable"; Console.Write("14:45 - 16:45 - "); Functions.WriteLine(Availability3 + "\n", ConsoleColor.Red); }
 					}
-					input_message = "Please choose the day that you want to reset";
+					Console.WriteLine("=============================================================");
+					input_message = "Please choose the day that you want to reset(use 1-5)";
 					error_message = "Please enter a number between 1-5";
 					int AvailabilityDayChoice = Functions.Error_Exception_Int(input_message, error_message, 1, 5);
 
-					Console.WriteLine("You are about to reset the Availability of ");
+					Console.Write("You are about to reset the availability of ");
 					Functions.Write(timesList.Time[AvailabilityDayChoice].Day, ConsoleColor.Yellow);
-					Console.Write(" Are you sure?");
+					Console.Write(". Are you sure?");
 					bool ResetInput = Util.CheckYN();
 					if (ResetInput)
 					{
@@ -698,24 +694,17 @@ namespace ProjectB
 						Console.WriteLine("The availability for ");
 						Functions.Write(timesList.Time[AvailabilityDayChoice].Day, ConsoleColor.Yellow);
 						Console.Write(" has been reset."!);
-						/*for (int i = 0; i < reservationsList.Reservations.Count; i++)
-						{
-							if (reservationsList.Reservations[i].Day.Contains(timesList.Time[AvailabilityDayChoice].Day))
-							{
-								reservationsList.Reservations.RemoveAt(i);
-							}
-						}*/
 					}
 					if (!ResetInput)
 					{
-						Console.WriteLine("The Availability reset has been canceled.");
+						Console.WriteLine("The availability reset has been canceled.");
 					}
 				}
 				if (EditAvailabilityChoice == 2)
 				{
-					Console.Write("You are about to reset the Availability of ");
+					Console.Write("You are about to reset the availability of ");
 					Functions.Write("all days", ConsoleColor.Yellow);
-					Console.Write("Are you sure?\n");
+					Console.Write(". Are you sure?\n");
 					bool ResetInput = Util.CheckYN();
 					if (ResetInput)
 					{
@@ -729,7 +718,7 @@ namespace ProjectB
 					}
 					if (!ResetInput)
 					{
-						Console.WriteLine("The Availability reset has been canceled.");
+						Console.WriteLine("The availability reset has been canceled.");
 					}
 				}
 				string json = JsonConvert.SerializeObject(timesList, Formatting.Indented);
@@ -748,8 +737,6 @@ namespace ProjectB
 				menusList = JsonConvert.DeserializeObject<JSONMenuList>(File.ReadAllText(PathMenu));
 				Console.OutputEncoding = Encoding.UTF8;
 				Console.Clear();
-				Console.WriteLine("===========================================================");
-				Console.WriteLine("Incase you want to return to the menu type: 'return'");
 				Console.WriteLine("===========================================================\nThese are the current prices for our food arrangements.");
 				Console.WriteLine("1) Drinks " + "€" + menusList.Menus[0].DrinksPrice);
 				Console.WriteLine("2) Food " + "€" + menusList.Menus[0].FoodPrice);

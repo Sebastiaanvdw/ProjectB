@@ -7,14 +7,6 @@ namespace Y_or_N
 {
     public class Util
     {
-        public static void Write(object obj, ConsoleColor? color = null)
-        {
-            if (color != null)
-                Console.ForegroundColor = color.Value;
-            Console.Write(obj);
-            Console.ResetColor();
-        }
-
         public static bool CheckYN()
         {
             ConsoleKey response; // Creates a variable to hold the user's response.
@@ -36,36 +28,10 @@ namespace Y_or_N
              */
             return response == ConsoleKey.Y;
         }
-        public static bool IsNullOrEmpty(string s)
-        {
-            if (String.IsNullOrEmpty(s))
-                return true;
-            else
-                return false;
-        }
-
-        public static bool CheckCM()
-        {
-            ConsoleKey response; // Creates a variable to hold the user's response.
-
-            do
-            {
-                while (Console.KeyAvailable) // Flushes the input queue.
-                    Console.ReadKey();
-
-
-                Functions.Write("\nYour input - ", ConsoleColor.Yellow);// Asks the user to answer with 'Y' or 'N'.
-                response = Console.ReadKey().Key; // Gets the user's response.
-
-            } while (response != ConsoleKey.C && response != ConsoleKey.M); // If the user did not respond with a 'Y' or an 'N', repeat the loop.
-            return response == ConsoleKey.C;
-        }
-
         private static string GetTimestamp()
         {
             return DateTime.Now.ToString("HH:mm:ss.fff");
         }
-
         public static void Log(string s)
         {
             if (true)
@@ -98,7 +64,6 @@ namespace Y_or_N
                 }
             }
         }
-
         public static bool ReturnToMenu()
         {
             ConsoleKey response; // Creates a variable to hold the user's response.

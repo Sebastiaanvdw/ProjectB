@@ -3,7 +3,7 @@
     {
       "day": "Monday",
       "availability1": true,
-      "availability2": true,
+      "availability2": false,
       "availability3": true
     },
     {

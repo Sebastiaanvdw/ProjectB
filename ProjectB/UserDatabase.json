@@ -4,7 +4,7 @@
       "userID": 1,
       "userName": "admin",
       "userPassword": "admin",
-      "userFirstName": "Seb",
+      "userFirstName": "ASR",
       "userLastName": "van der Weel",
       "userPostalCode": "3192PA",
       "userStreetName": "Boomkor",
@@ -13,34 +13,6 @@
       "userEmail": "asr.vanderweel@gmail.com",
       "userPhoneNumber": "0687654321",
       "role": "admin"
-    },
-    {
-      "userID": 2,
-      "userName": "employee",
-      "userPassword": "employee",
-      "userFirstName": "C",
-      "userLastName": "Man",
-      "userPostalCode": "1234AB",
-      "userStreetName": "Hoogstraat",
-      "userHouseNumber": "1",
-      "userResidencyName": "Rotterdam",
-      "userEmail": "c.M@gmail.com",
-      "userPhoneNumber": "0612345678",
-      "role": "admin"
-    },
-    {
-      "userID": 3,
-      "userName": "user",
-      "userPassword": "user",
-      "userFirstName": "Wout",
-      "userLastName": "van der Meij",
-      "userPostalCode": "1234AB",
-      "userStreetName": "Hoogstraat",
-      "userHouseNumber": "1",
-      "userResidencyName": "Rotterdam",
-      "userEmail": "woutsietze2001@gmail.com",
-      "userPhoneNumber": "0622334455",
-      "role": "customer"
     }
   ]
 }

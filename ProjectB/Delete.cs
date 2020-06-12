@@ -129,6 +129,14 @@ namespace ProjectB
 			bool LoopDeleteUser = true;
 			while (LoopDeleteUser)
 			{
+				if (usersList.Users.Count == 1)
+				{
+					Console.Clear();
+					Console.WriteLine("There is only 1 user left, you cannot delete the only user, which is probably you.");
+					Functions.ATC();
+					return;
+				}
+
 				bool DeleteInput = false;
 				bool DeleteUserSucces = false;
 				Console.Clear();
@@ -150,36 +158,46 @@ namespace ProjectB
 				error_message = "Please enter a number between 1 and " + usersList.Users.Count;
 				DeleteIndex = Functions.Error_Exception_Int(input_message, error_message, 1, usersList.Users.Count);
 
-				for (int i = 0; i < usersList.Users.Count; i++)
+				if (usersList.Users[DeleteIndex - 1].UserRole == "admin")
 				{
-					if (i == DeleteIndex - 1)
+					Console.WriteLine("You cannot delete an admin.");
+					Functions.ATC();
+					Console.WriteLine();
+				}
+				else
+				{
+					for (int i = 0; i < usersList.Users.Count; i++)
 					{
-						Console.Write("You are about to delete user: ");
-						Functions.Write(DeleteIndex, ConsoleColor.Yellow);
-						Console.Write(", are you sure?");
-						while (!DeleteUserSucces)
+						if (i == DeleteIndex - 1)
 						{
-							DeleteUserSucces = Util.CheckYN();
-							DeleteInput = DeleteUserSucces;
-							DeleteUserSucces = true;
+							Console.Write("You are about to delete user: ");
+							Functions.Write(DeleteIndex, ConsoleColor.Yellow);
+							Console.Write(", are you sure?");
+							while (!DeleteUserSucces)
+							{
+								DeleteUserSucces = Util.CheckYN();
+								DeleteInput = DeleteUserSucces;
+								DeleteUserSucces = true;
+							}
+							if (DeleteInput == true)
+							{
+								usersList.Users.RemoveAt(DeleteIndex - 1);
+								Console.Write("\nThe user has ");
+								Functions.Write("succesfully ", ConsoleColor.Green);
+								Console.Write("been deleted\n");
+							}
+							if (DeleteInput == false)
+							{
+								Console.Write("\nThe user has ");
+								Functions.Write("not ", ConsoleColor.Red);
+								Console.Write("been deleted\n");
+							}
+							string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
+							File.WriteAllText(PathUser, json);
 						}
-						if (DeleteInput == true)
-						{
-							usersList.Users.RemoveAt(DeleteIndex - 1);
-							Console.Write("\nThe user has ");
-							Functions.Write("succesfully ", ConsoleColor.Green);
-							Console.Write("been deleted\n");
-						}
-						if (DeleteInput == false)
-						{
-							Console.Write("\nThe user has ");
-							Functions.Write("not ", ConsoleColor.Red);
-							Console.Write("been deleted\n");
-						}
-						string json = JsonConvert.SerializeObject(usersList, Formatting.Indented);
-						File.WriteAllText(PathUser, json);
 					}
 				}
+				
 				if (usersList.Users.Count > 0)
 				{
 					for (int i = 0; i < usersList.Users.Count; i++)
@@ -222,17 +240,19 @@ namespace ProjectB
 					for (int i = 0; i < reservationsList.Reservations.Count; i++)
 					{
 						Console.WriteLine("Reservation Number:	" + reservationsList.Reservations[i].ReservationNumber);
-						Console.WriteLine("UniqueID:	" + reservationsList.Reservations[i].UniqueID);
-						Console.WriteLine("Room name:	" + reservationsList.Reservations[i].ResRoomName);
-						Console.WriteLine("Food:		" + reservationsList.Reservations[i].FoodArrangement);
-						Console.WriteLine("Arrangement:	" + reservationsList.Reservations[i].Arrangement);
-						Console.WriteLine("First name:	" + reservationsList.Reservations[i].FirstName);
-						Console.WriteLine("Last name:	" + reservationsList.Reservations[i].LastName);
-						Console.WriteLine("Address:	" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
-						Console.WriteLine("Phone number:	" + reservationsList.Reservations[i].PhoneNumber);
-						Console.WriteLine("E-mail:		" + reservationsList.Reservations[i].Email);
-						Console.WriteLine("Total price:	" + "€" + reservationsList.Reservations[i].TotalPrice);
-						Console.WriteLine("Payment method:	" + reservationsList.Reservations[i].PaymentMethod + "\n===========================================================");
+						Console.WriteLine("Day:			" + reservationsList.Reservations[i].Day);
+						Console.WriteLine("Time:			" + reservationsList.Reservations[i].Availability);
+						Console.WriteLine("UniqueID:		" + reservationsList.Reservations[i].UniqueID);
+						Console.WriteLine("Room name:		" + reservationsList.Reservations[i].ResRoomName);
+						Console.WriteLine("Food:			" + reservationsList.Reservations[i].FoodArrangement);
+						Console.WriteLine("Arrangement:		" + reservationsList.Reservations[i].Arrangement);
+						Console.WriteLine("First name:		" + reservationsList.Reservations[i].FirstName);
+						Console.WriteLine("Last name:		" + reservationsList.Reservations[i].LastName);
+						Console.WriteLine("Address:		" + reservationsList.Reservations[i].StreetName + " " + reservationsList.Reservations[i].HouseNumber + " " + reservationsList.Reservations[i].PostalCode + " " + reservationsList.Reservations[i].ResidencyName);
+						Console.WriteLine("Phone number:		" + reservationsList.Reservations[i].PhoneNumber);
+						Console.WriteLine("E-mail:			" + reservationsList.Reservations[i].Email);
+						Console.WriteLine("Total price:		" + "€" + reservationsList.Reservations[i].TotalPrice);
+						Console.WriteLine("Payment method:		" + reservationsList.Reservations[i].PaymentMethod + "\n===========================================================");
 					}
 				}
 

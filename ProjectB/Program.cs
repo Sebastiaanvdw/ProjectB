@@ -106,8 +106,10 @@ class MainProgram
 			error_message = "Please enter a valid ID";
 			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 			Console.WriteLine("Username:");
+			Functions.Write("Your input: ", ConsoleColor.Yellow);
 			string UserNameLogin = Console.ReadLine();
 			Console.WriteLine("Password:");
+			Functions.Write("Your input: ", ConsoleColor.Yellow);
 			string UserPassWordLogin = Console.ReadLine();
 			if (ID == usersList.Users[ID - 1].UserID && UserNameLogin == usersList.Users[ID - 1].UserName && UserPassWordLogin == usersList.Users[ID - 1].UserPassword)
 			{
@@ -138,8 +140,10 @@ class MainProgram
 			error_message = "Please enter a valid ID";
 			ID = Functions.Error_Exception_Int(input_message, error_message, 1, 99999);
 			Console.WriteLine("Username:");
+			Functions.Write("Your input: ", ConsoleColor.Yellow);
 			string EmployeeNameLogin = Console.ReadLine();
 			Console.WriteLine("Password:");
+			Functions.Write("Your input: ", ConsoleColor.Yellow);
 			string EmployeePassWordLogin = Console.ReadLine();
 
 			if (ID == usersList.Users[ID - 1].UserID && EmployeeNameLogin == usersList.Users[ID - 1].UserName && EmployeePassWordLogin == usersList.Users[ID - 1].UserPassword && usersList.Users[ID - 1].UserRole == "employee")
@@ -180,16 +184,17 @@ class MainProgram
 			Console.Clear();
 			Console.WriteLine("Welcome to the customer menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n===========================================================\n1) Escape room overview\n2) Info \n3) Contact and F.A.Q.\n4) Reserveren\n5) Logout\n===========================================================\n");
-			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Console.WriteLine("\n===========================================================\n1) Escape room overview\n2) Availability overview \n3) Contact and F.A.Q. \n4) Info\n5) Reserve a room\n6) Logout\n===========================================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("6", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (customerFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerShowFunction(); }
-			else if (input.Key == ConsoleKey.D2) { Functions.InfoFunction(); }
+			else if (input.Key == ConsoleKey.D2) { Functions.AvailabilityOverview();  }
 			else if (input.Key == ConsoleKey.D3) { Functions.ContactFunction(); }
-			else if (input.Key == ConsoleKey.D4) { Add.AddReservation(); }
-			else if (input.Key == ConsoleKey.D5) { CustomerSuccess -= 1; }
+			else if (input.Key == ConsoleKey.D4) { Functions.InfoFunction(); }
+			else if (input.Key == ConsoleKey.D5) { Add.AddReservation(); }
+			else if (input.Key == ConsoleKey.D6) { CustomerSuccess -= 1; }
 			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
@@ -201,16 +206,19 @@ class MainProgram
 			Console.Clear();
 			Console.WriteLine("Welcome to the employee menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Contact and F.A.Q.\n5) Logout\n===========================================================\n");
-			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("5", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Availability overview\n5) Contact and F.A.Q.\n6) Info\n7) Add Reservation\n8) Logout\n===========================================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow);  Console.Write("] or ["); Functions.Write("8", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (employeeFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
-			else if (input.Key == ConsoleKey.D2) { Functions.ReservationOverview(); }
+			else if (input.Key == ConsoleKey.D2) { Functions.ReservationOverview();}
 			else if (input.Key == ConsoleKey.D3) { Functions.ShowFunction(); }
-			else if (input.Key == ConsoleKey.D4){ Functions.ContactFunction(); }
-			else if (input.Key == ConsoleKey.D5) { EmployeeSuccess -= 1;}
+			else if (input.Key == ConsoleKey.D4) { Functions.AvailabilityOverview(); }
+			else if (input.Key == ConsoleKey.D5) { Functions.ContactFunction(); }
+			else if (input.Key == ConsoleKey.D6) { Functions.InfoFunction(); }
+			else if (input.Key == ConsoleKey.D7) { Add.AddReservation(); }
+			else if (input.Key == ConsoleKey.D8) { EmployeeSuccess -= 1;}
 			else { Console.Write("\n"); Functions.Error(); Functions.ATC(); }
 		}
 	}
@@ -222,20 +230,21 @@ class MainProgram
 			Console.Clear();
 			Console.WriteLine("Welcome to the admin menu!\n===========================================================");
 			Functions.Write(usersList.Users[ID - 1].UserFirstName + " " + usersList.Users[ID - 1].UserLastName, ConsoleColor.Green);
-			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Info\n5) Contact and F.A.Q.\n6) Add menu\n7) Edit menu\n8) Delete menu \n9) Logout\n===========================================================\n");
-			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("8", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("9", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
+			Console.WriteLine("\n===========================================================\n1) User overview\n2) Reservation overview\n3) Escape room overview\n4) Availability overview\n5) Contact and F.A.Q.\n6) Info\n7) Add menu\n8) Edit menu\n9) Delete menu \n0) Logout\n===========================================================\n");
+			Console.Write("Please press ["); Functions.Write("1", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("2", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("3", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("4", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("5", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("6", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("7", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("8", ConsoleColor.Yellow); Console.Write("], ["); Functions.Write("9", ConsoleColor.Yellow); Console.Write("] or ["); Functions.Write("0", ConsoleColor.Yellow); Console.WriteLine("] on the keyboard");
 			if (adminFalse == true) { Functions.Error(); }
 			Functions.Write("Your input - ", ConsoleColor.Yellow);
 			var input = Console.ReadKey();
 			if (input.Key == ConsoleKey.D1) { Functions.CustomerOverview(); }
 			else if (input.Key == ConsoleKey.D2) { Functions.ReservationOverview(); }
 			else if (input.Key == ConsoleKey.D3) { Functions.ShowFunction(); }
-			else if (input.Key == ConsoleKey.D4) { Functions.InfoFunction(); }
+			else if (input.Key == ConsoleKey.D4) { Functions.AvailabilityOverview(); }
 			else if (input.Key == ConsoleKey.D5) { Functions.ContactFunction(); }
-			else if (input.Key == ConsoleKey.D6) { Add.Function(); }
-			else if (input.Key == ConsoleKey.D7) { Edit.Function(); }
-			else if (input.Key == ConsoleKey.D8) { Delete.Function();}
-			else if (input.Key == ConsoleKey.D9) { LoginTries = 4; AdminSuccess -= 1;}
+			else if (input.Key == ConsoleKey.D6) { Functions.InfoFunction(); }
+			else if (input.Key == ConsoleKey.D7) { Add.Function(); }
+			else if (input.Key == ConsoleKey.D8) { Edit.Function(); }
+			else if (input.Key == ConsoleKey.D9) { Delete.Function();}
+			else if (input.Key == ConsoleKey.D0) { LoginTries = 4; AdminSuccess -= 1;}
 			else { adminFalse = true;}
 		}
 	}
