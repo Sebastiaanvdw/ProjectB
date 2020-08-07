@@ -2,7 +2,7 @@
   "profiles": {
     "ProjectB": {
       "commandName": "Executable",
-      "executablePath": "C:\Users\Adam__w4s0tew\source\repos\ProjectB\ProjectB.exe"
+      "executablePath": "C:\\Users\\Adam__w4s0tew\\source\\repos\\ProjectB\\ProjectB.exe"
     }
   }
 }
